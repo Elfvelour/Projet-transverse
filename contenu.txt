@@ -75,7 +75,7 @@ Répartir les tâches :
 Timothée :
     - Trouver les assets
     - fichier de stockage
-    - Economie générale
+    - Menu principal
 
 Flavie :
     - Bot
@@ -91,3 +91,6 @@ Noémie :
 Rafaël :
     - paramètres
     - Menu des persos
+
+
+-fichier de stockage
