@@ -92,5 +92,5 @@ Rafaël :
     - paramètres
     - Menu des persos
 
-
+- economie du jeu
 -fichier de stockage
