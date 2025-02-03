@@ -70,11 +70,10 @@ Fonctions à faire:
         - Un menu quitter
 
 
-Répartir les tâches :
+Répartition des tâches :
 
 Timothée :
     - Trouver les assets
-    - fichier de stockage
     - Menu principal
 
 Flavie :
@@ -86,11 +85,11 @@ Thomas :
 
 Noémie :
     - Main
-    - Menu
+    - Fichier stockage
 
 Rafaël :
     - paramètres
     - Menu des persos
 
-- economie du jeu
--fichier de stockage
+Personne volante :
+    - economie du jeu
