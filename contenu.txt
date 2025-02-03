@@ -1,2 +1,93 @@
-Liste de choses à faire:
-...
+Overall du jeu :
+ - Menu de sélection
+ - Plusieurs persos
+ - Faire les designs des persos
+ - Faire un bot performant
+ - Pouvoir modifier la carte (optionnel)
+ - Durant la partie, il faut visualiser la trajectoire, afficher la force de lancer
+
+Fichiers à faire:
+ - Menu
+ - Sélection de persos
+ - Fichier de stockage des infos de la partie
+ - Gérer la trajectoire de ton perso (capacité des persos ??)
+ - Le bot
+ - Assets (images)
+ - Main pour le déroulement du jeu (+choix de l'arme ingame)
+ - Paramètres
+
+Fonctions à faire:
+
+    Menu :
+    - Bouton "jouer" + afficher les règles + background
+    - Une musique de fond (à sélectionner)
+    - Afficher le nom du jeu
+    - Choix du niveau de difficulté pour le bot
+
+    Selection des persos (5):
+    - Affichage des stats du perso
+    - Donner le choix entre 5 persos :
+        - Un canard qui balance des canards laqués (qui met l'effet brûlure). L'ulti balance une pluie de canard laqué
+        - La mère noël qui balance des kdos (qui explosent). L'ulti balance un traineau
+        - Einstein qui balance des fioles (fiole avec un effet aléatoire). Son ulti est une bombe atomique
+        - Jean-SOMA qui balance des mots. L'ulti le régénère
+        - Squelette avec un noeud rose qui balance ses os et s'auto inflige des dégâts. L'ulti balance un boomrang
+
+    - Choix de l'arme du perso :
+        - Canard : Oeuf et canard laqué
+        - Mère Noël : kdos ou biscuits
+        - Einstien : Fioles
+        - Jean-SOMA : Mots ou SWS absent
+        - Squelette : os ou pierre tombale comme protection
+
+    - Fichier stockage :
+        - stockage de toutes les infos relatives aux armes, aux persos
+
+    - Economie Générale:
+        - Amélioration des stats de l'arme
+        - Achats de vie
+        - Achats de différentes fioles pour Einstein
+
+
+
+
+    - Trajectoire
+        - Gérer toutes les trajectoires en fonction des armes :
+            - Thomas gère
+
+    - Bot :
+        - Choisir quel perso il va jouer (aléatoirement)
+        - Calcul de la position du joueur exacte
+        - En fonction de la difficulté du jeu, plage d'action plus ou moins large pour le choix de la trajectoire du bot
+        - Tuple (puissance,angle)
+
+    - Main :
+        - L'asemblage de tous les fichiers pour le déroulement de la partie
+
+    - Paramètres :
+        - Régler le niveau sonore
+        - Un menu pause
+        - Un menu quitter
+
+
+Répartir les tâches :
+
+Timothée :
+    - Trouver les assets
+    - fichier de stockage
+    - Economie générale
+
+Flavie :
+    - Bot
+
+Thomas :
+    - Trajectoires
+    - Event dans la partie
+
+Noémie :
+    - Main
+    - Menu
+
+Rafaël :
+    - paramètres
+    - Menu des persos
