@@ -1,0 +1,73 @@
+[
+  {
+    "personnage" : "Canard",
+    "nom" : "Oeuf",
+    "cout" : "100",
+    "masse" : 0.006,
+    "puissance" : "10",
+    "description" : ""
+  },
+  {
+    "personnage" : "Canard",
+    "nom" : "Canard laqué",
+    "cout" : "100",
+    "masse" : 0.7,
+    "puissance" : "10"
+  },
+  {
+    "personnage" : "Mère Noël",
+    "nom" : "Cadeau",
+    "cout" : "100",
+    "masse" : 0.4,
+    "puissance" : "10"
+  },
+  {
+    "personnage" : "Mère Noël",
+    "nom" : "Biscuit",
+    "cout" : "100",
+    "masse" : "0.07",
+    "puissance" : "10"
+  },
+  {
+    "personnage" : "Einstein",
+    "nom" : "Fiole rouge",
+    "cout" : "100",
+    "masse" : "0.1",
+    "puissance" : "10"
+  },
+  {
+    "personnage" : "Einstein",
+    "nom" : "Fiole bleu",
+    "cout" : "100",
+    "masse" : "0.15",
+    "puissance" : "10"
+  },
+  {
+    "personnage" : "Jean-Soma",
+    "nom" : "Discour",
+    "cout" : "100",
+    "masse" : "5",
+    "puissance" : "10"
+  },
+  {
+    "personnage" : "Jean-Soma",
+    "nom" : "SWS",
+    "cout" : "100",
+    "masse" : "2",
+    "puissance" : "10"
+  },
+  {
+    "personnage" : "Squelette",
+    "nom" : "Os",
+    "cout" : "100",
+    "masse" : "1",
+    "puissance" : "10"
+  },
+  {
+    "personnage" : "Squelette",
+    "nom" : "Tombe",
+    "cout" : "100",
+    "masse" : "300",
+    "puissance" : "10"
+  }
+]
