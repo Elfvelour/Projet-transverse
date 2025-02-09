@@ -1,73 +1,93 @@
+
 [
   {
     "personnage" : "Canard",
-    "nom" : "Oeuf",
+    "arme" : "Oeuf",
     "cout" : "100",
     "masse" : 0.006,
     "puissance" : "10",
-    "description" : ""
+    "description_perso" : "Ce légendaire combattant anatidés utilise ces compagnons pour attaquer son adversaire.",
+    "description_arme" : "Quoi de mieux que sa progéniture pour arme ?"
   },
   {
     "personnage" : "Canard",
-    "nom" : "Canard laqué",
+    "arme" : "Canard laqué",
     "cout" : "100",
     "masse" : 0.7,
-    "puissance" : "10"
+    "puissance" : "10",
+    "description_perso" : "Ce légendaire combattant anatidés utilise ces compagnons pour attaquer son adversaire.",
+    "description_arme" : "Toute sa famille est passée à la casserole."
   },
   {
     "personnage" : "Mère Noël",
     "nom" : "Cadeau",
     "cout" : "100",
     "masse" : 0.4,
-    "puissance" : "10"
+    "puissance" : "10",
+    "description_perso" : "Elle n'a pas besoin de son mari pour livrer des cadeaux explosifs.",
+    "description_arme" : "Visiblement, tu as été un vilain petit garnement..."
   },
   {
     "personnage" : "Mère Noël",
     "nom" : "Biscuit",
     "cout" : "100",
-    "masse" : "0.07",
-    "puissance" : "10"
+    "masse" : 0.07,
+    "puissance" : "10",
+    "description_perso" : "Elle n'a pas besoin de son mari pour livrer des cadeaux explosifs.",
+    "description_arme" : "Ses biscuits ont eu le temps de bien durcir depuis le temps."
   },
   {
     "personnage" : "Einstein",
     "nom" : "Fiole rouge",
     "cout" : "100",
-    "masse" : "0.1",
-    "puissance" : "10"
+    "masse" : 0.1,
+    "puissance" : "10",
+    "description_perso" : "Ce scientifique fou revient encore une fois pout tout faire sauter.",
+    "description_arme" : "On dit que cette fiole renferme du polonium."
   },
   {
     "personnage" : "Einstein",
     "nom" : "Fiole bleu",
     "cout" : "100",
-    "masse" : "0.15",
-    "puissance" : "10"
+    "masse" : 0.15,
+    "puissance" : "10",
+    "description_perso" : "Ce scientifique fou revient encore une fois pout tout faire sauter.",
+    "description_arme" : "On dit que cette fiole renferme du radium."
   },
   {
     "personnage" : "Jean-Soma",
     "nom" : "Discour",
     "cout" : "100",
-    "masse" : "5",
-    "puissance" : "10"
+    "masse" : 5,
+    "puissance" : "10",
+    "description_perso" : "Le plus grand professeur des matières littéraires.",
+    "description_arme" : "Qui a dit que des actions valaient mieux que mille mots ?"
   },
   {
     "personnage" : "Jean-Soma",
     "nom" : "SWS",
     "cout" : "100",
-    "masse" : "2",
-    "puissance" : "10"
+    "masse" : 2,
+    "puissance" : "10",
+    "description_perso" : "Le plus grand professeur des matières littéraires.",
+    "description_arme" : "Et hop là, une absence non-excusée."
   },
   {
     "personnage" : "Squelette",
     "nom" : "Os",
     "cout" : "100",
-    "masse" : "1",
-    "puissance" : "10"
+    "masse" : 1,
+    "puissance" : "10",
+    "description_perso" : "Elle est revenu d'entre les morts pour se venger de son ex.",
+    "description_arme" : "Elle a tellement la haine qu'elle utilise son propre corps."
   },
   {
     "personnage" : "Squelette",
     "nom" : "Tombe",
     "cout" : "100",
-    "masse" : "300",
-    "puissance" : "10"
+    "masse" : 300,
+    "puissance" : "10",
+    "description_perso" : "Elle est revenu d'entre les morts pour se venger de son ex.",
+    "description_arme" : "Un gros caillou est utile pour se protéger."
   }
 ]

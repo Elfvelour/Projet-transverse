@@ -93,3 +93,16 @@ Rafaël :
 
 Personne volante :
     - economie du jeu
+
+Comment accéder à un élément dans le fichier json ? Voici le tuto de Mimi :
+-Le fichier est une liste de dictionnaire, il faut donc l'index puis la clé de la donnée qu'on veut récupérer :
+    -Index 0 : Canard avec l'oeuf
+    -Index 1 : Canard avec canard laqué
+    -Index 2 : Mère Noel avec cadeau
+    -Index 3 : Mère NOel avec biscuit
+    -Index 4 : Einstein avec fiole rouge
+    -Index 5 : Einstein avec fiole bleu
+    -Index 6 : Jean-Soma avec discours
+    -Index 7 : Jean-Soma avec SWS
+    -Index 8 : Squelette avec os
+    -Index 9 : Squelette avec tombe
