@@ -8,7 +8,6 @@ ctypes.windll.user32.SetProcessDPIAware()
 
 pygame.init()  # Initialisation de pygame avant toute autre instruction
 
-
 class Sol(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -16,7 +15,6 @@ class Sol(pygame.sprite.Sprite):
 
     def affichage(self, surface):
         pygame.draw.rect(surface, (0, 200, 100), self.rect)  # Sol vert
-
 
 class Joueur(pygame.sprite.Sprite):
     def __init__(self, x, y, taille):
@@ -54,7 +52,6 @@ class Joueur(pygame.sprite.Sprite):
         self.rotation_arme(pos_souris)
         surface.blit(self.image_joueur_rot, self.rect)  # Afficher l'arme
 
-
 class Projectyles(pygame.sprite.Sprite):
     def __init__(self, x, y, taille, image, angle):
         super().__init__()
@@ -78,7 +75,6 @@ class Projectyles(pygame.sprite.Sprite):
         self.rect.x += self.vitesse_x
         self.rect.y += self.vitesse_y
 
-
 class Jeu:
     def __init__(self):
         self.ecran = pygame.display.set_mode((1920, 1024), pygame.RESIZABLE)
@@ -89,6 +85,9 @@ class Jeu:
         self.background = pygame.image.load("background3.png").convert()
         self.background = pygame.transform.scale(self.background,
         (self.ecran.get_width(), self.ecran.get_height()))  # Étire le fond
+
+        # Chargement de l'image du projectile
+        self.image_projectile = pygame.image.load("arme_os.png").convert_alpha()
 
         # Sol
         self.sol = Sol()
@@ -135,14 +134,14 @@ class Jeu:
             if self.joueur.a_tirer:
                 if len(self.projectiles_groupe) < self.joueur.tir_auto:
                     # L'arme est maintenant à gauche du joueur, et le projectile part de cette position
-                    projectile = Projectyles(self.joueur.rect.left - 20, self.joueur.rect.centery, [20, 20],
-                    self.joueur.image_joueur, self.joueur.angle)
+                    projectile = Projectyles(self.joueur.rect.left - 20, self.joueur.rect.centery, [60, 60],
+                    self.image_projectile, self.joueur.angle)
                     self.projectiles_groupe.add(projectile)  # Ajout au groupe
                 self.joueur.a_tirer = False  # Empêcher le tir continu
 
             # Mise à jour des projectiles
             for projectile in self.projectiles_groupe:
-                projectile.mouvement()  # Appel de la méthode sans l'argument "2"
+                projectile.mouvement()
                 if projectile.rect.right >= self.ecran.get_width() or projectile.rect.top <= 0 or projectile.rect.bottom >= self.ecran.get_height():
                     self.projectiles_groupe.remove(projectile)
 
@@ -156,7 +155,6 @@ class Jeu:
             pygame.display.update()
 
         pygame.quit()
-
 
 if __name__ == '__main__':
     Jeu().boucle_principale()
