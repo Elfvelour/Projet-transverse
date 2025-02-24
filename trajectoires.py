@@ -156,5 +156,6 @@ class Jeu:
 
         pygame.quit()
 
+
 if __name__ == '__main__':
     Jeu().boucle_principale()
