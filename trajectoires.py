@@ -1,6 +1,7 @@
 import ctypes
 import math
 import pygame
+from monnaie import Pieces
 from pygame.sprite import Group
 
 # Permet de désactiver la mise à l'échelle de l'ordinateur
@@ -99,6 +100,7 @@ class Jeu:
         self.gravite = (0, 0.01)
         self.resistance = (0, 0)
 
+
     def gravite_jeu(self):
         self.joueur.vitesse_y += self.gravite[1]  # Augmente la vitesse vers le bas
         self.joueur.rect.y += self.joueur.vitesse_y  # Applique la vitesse au joueur
@@ -107,6 +109,9 @@ class Jeu:
         if self.joueur.rect.bottom >= self.sol.rect.top:
             self.joueur.rect.bottom = self.sol.rect.top
             self.joueur.vitesse_y = 0
+
+        self.piece = Pieces((50, 50))  # création de la pièce
+
 
     def boucle_principale(self):
         continuer = True
@@ -151,6 +156,9 @@ class Jeu:
             self.joueur.affichage(self.ecran, pos_souris)
             for projectile in self.projectiles_groupe:
                 projectile.afficher(self.ecran)
+
+            self.piece.afficher_monnaie(self.ecran) #affichage de l'image de la pièce
+            self.piece.afficher_nombre_pieces(self.ecran) #affichage du nombre de pièce
 
             pygame.display.update()
 
