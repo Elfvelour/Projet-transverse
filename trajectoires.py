@@ -78,16 +78,16 @@ class Projectyles(pygame.sprite.Sprite):
 class Jeu:
     def __init__(self):
         self.ecran = pygame.display.set_mode((1920, 1024), pygame.RESIZABLE)
-        self.image = pygame.image.load("logo.png").convert()
+        self.image = pygame.image.load("assests/logo.png").convert()
         pygame.display.set_icon(self.image)
 
         # Chargement et redimensionnement de l'image de fond
-        self.background = pygame.image.load("background3.png").convert()
+        self.background = pygame.image.load("assests/background3.png").convert()
         self.background = pygame.transform.scale(self.background,
         (self.ecran.get_width(), self.ecran.get_height()))  # Étire le fond
 
         # Chargement de l'image du projectile
-        self.image_projectile = pygame.image.load("arme_os.png").convert_alpha()
+        self.image_projectile = pygame.image.load("assests/arme_os.png").convert_alpha()
 
         # Sol
         self.sol = Sol()
