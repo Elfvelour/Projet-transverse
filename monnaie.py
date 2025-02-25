@@ -16,12 +16,13 @@ class Pieces (pygame.sprite.Sprite):
         self.image_monnaie = pygame.image.load('assests/image_piece.png')
         self.image_monnaie = pygame.transform.scale(self.image_monnaie, self.taille)
         self.rect_monnaie = self.image_monnaie.get_rect()
-        self.font_piece = pygame.font.Font(None, 80)
+        self.font_piece = pygame.font.Font(None, 40)
+        self.font_piece = pygame.font.Font("assests/04B_30__.TTF", 40)
 
     def afficher_monnaie(self, surface):
         surface.blit(self.image_monnaie, (self.x, self.y))
 
     def afficher_nombre_pieces(self, surface):
-        texte = self.font_piece.render(f"{self.monnaie_joueur}", True, (255, 255, 0)) #texte du nombre de pièce
-        surface.blit(texte, (self.x + 70, self.y + 10))  # Affichage à côté de la pièce
+        texte = self.font_piece.render(f"{self.monnaie_joueur}", True, (255, 255, 255)) #texte du nombre de pièce
+        surface.blit(texte, (self.x + 80, self.y + 20))  # Affichage à côté de la pièce
 

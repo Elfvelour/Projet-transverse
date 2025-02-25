@@ -62,7 +62,7 @@ Fonctions à faire:
         - Tuple (puissance,angle)
 
     - Main :
-        - L'asemblage de tous les fichiers pour le déroulement de la partie
+        - L'assemblage de tous les fichiers pour le déroulement de la partie
 
     - Paramètres :
         - Régler le niveau sonore

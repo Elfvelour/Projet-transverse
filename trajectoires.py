@@ -99,6 +99,7 @@ class Jeu:
         self.projectiles_groupe = Group()
         self.gravite = (0, 0.01)
         self.resistance = (0, 0)
+        self.piece = Pieces((50, 50))  # création de la pièce
 
 
     def gravite_jeu(self):
@@ -109,8 +110,6 @@ class Jeu:
         if self.joueur.rect.bottom >= self.sol.rect.top:
             self.joueur.rect.bottom = self.sol.rect.top
             self.joueur.vitesse_y = 0
-
-        self.piece = Pieces((50, 50))  # création de la pièce
 
 
     def boucle_principale(self):
@@ -137,6 +136,7 @@ class Jeu:
 
             # Tirer un projectile
             if self.joueur.a_tirer:
+                self.piece.monnaie_joueur += 1  # Augmente le compteur de pièces
                 if len(self.projectiles_groupe) < self.joueur.tir_auto:
                     # L'arme est maintenant à gauche du joueur, et le projectile part de cette position
                     projectile = Projectyles(self.joueur.rect.left - 20, self.joueur.rect.centery, [60, 60],
