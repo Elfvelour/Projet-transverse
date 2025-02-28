@@ -7,7 +7,7 @@ from pygame.sprite import Group
 # Permet de désactiver la mise à l'échelle de l'ordinateur
 ctypes.windll.user32.SetProcessDPIAware()
 
-pygame.init()  # Initialisation de pygame avant toute autre instruction
+pygame.init()
 
 class Sol(pygame.sprite.Sprite):
     def __init__(self):
@@ -15,155 +15,120 @@ class Sol(pygame.sprite.Sprite):
         self.rect = pygame.Rect(0, 800, 1920, 300)
 
     def affichage(self, surface):
-        pygame.draw.rect(surface, (0, 200, 100), self.rect)  # Sol vert
+        pygame.draw.rect(surface, (0, 200, 100), self.rect)
 
 class Joueur(pygame.sprite.Sprite):
     def __init__(self, x, y, taille):
         super().__init__()
-        self.x = x
-        self.y = y
-        self.taille = taille
-        self.rect = pygame.Rect(x, y, self.taille[0], self.taille[1])
-        self.a_tirer = False
-        self.tir_auto = 35838248
-        self.direction = 1
-        self.vitesse_y = 0
-        self.vitesse_x = 0
-        self.image_joueur = pygame.Surface(self.taille)
-        self.image_joueur.fill((169, 169, 169))  # Le joueur est maintenant gris
+        self.rect = pygame.Rect(x, y, taille[0], taille[1])
+        self.image = pygame.Surface(taille)
+        self.image.fill((169, 169, 169))  # Gris
         self.angle = 0
+        self.charge_tir = 0
+        self.max_charge = 60
+        self.temps_debut = None  # Temps au début du clic
+
+    def charger_tir(self):
+        # Si le clic gauche est maintenu, on charge
+        if self.temps_debut:
+            temps_ecoule = pygame.time.get_ticks() - self.temps_debut  # Calcul du temps écoulé en millisecondes
+            self.charge_tir = min(temps_ecoule // 10, self.max_charge)  # On limite la charge à max_charge
+
+    def relacher_tir(self):
+        # Retourner la puissance calculée
+        puissance = self.charge_tir / self.max_charge
+        self.charge_tir = 0
+        self.temps_debut = None  # Réinitialiser le temps
+        return puissance
 
     def rotation_arme(self, pos_souris):
-        # Position du "côté gauche" de l'arc (à gauche du joueur)
-        x_gauche = self.rect.left - 20  # Décalage sur la gauche du joueur
-        y_gauche = self.rect.centery  # Centre vertical du joueur
-
-        dx = pos_souris[0] - x_gauche  # Utiliser la souris à gauche du joueur
-        dy = pos_souris[1] - y_gauche
+        dx = pos_souris[0] - self.rect.centerx
+        dy = pos_souris[1] - self.rect.centery
         self.angle = pygame.math.Vector2(dx, dy).angle_to((1, 0))
 
-        # Image de l'arme
-        self.image_joueur_rot = pygame.Surface((64, 128), pygame.SRCALPHA)
-        pygame.draw.line(self.image_joueur_rot, (255, 255, 255), (0, 64), (64, 64), 5)  # Dessin de l'arc
-        self.image_joueur_rot = pygame.transform.rotate(self.image_joueur_rot, self.angle)
-        self.rect = self.image_joueur_rot.get_rect(center=self.rect.center)  # Utilise `rect` pour ajuster la position
-
     def affichage(self, surface, pos_souris):
-        surface.blit(self.image_joueur, self.rect)  # Afficher le joueur (le rectangle gris)
+        surface.blit(self.image, self.rect)
         self.rotation_arme(pos_souris)
-        surface.blit(self.image_joueur_rot, self.rect)  # Afficher l'arme
 
-class Projectyles(pygame.sprite.Sprite):
-    def __init__(self, x, y, taille, image, angle):
+        # Ligne blanche de visée
+        longueur_ligne = 50
+        x_fin = self.rect.centerx + math.cos(math.radians(self.angle)) * longueur_ligne
+        y_fin = self.rect.centery - math.sin(math.radians(self.angle)) * longueur_ligne
+        pygame.draw.line(surface, (255, 255, 255), self.rect.center, (x_fin, y_fin), 3)
+
+class Projectile(pygame.sprite.Sprite):
+    def __init__(self, x, y, taille, image, angle, puissance):
         super().__init__()
-        self.x = x
-        self.y = y
-        self.taille = taille
-        self.image = image
-        self.image = pygame.transform.scale(self.image, (self.taille[0], self.taille[1]))  # Redimensionner l'image
-        self.rect = pygame.Rect(self.x, self.y, self.taille[0], self.taille[1])
-        self.angle = angle  # Angle du tir
+        self.image = pygame.transform.scale(image, (taille[0], taille[1]))
+        self.rect = pygame.Rect(x, y, taille[0], taille[1])
+        self.angle = angle
+        self.vitesse = 5 + (20 * puissance)
+        self.vitesse_x = math.cos(math.radians(self.angle)) * self.vitesse
+        self.vitesse_y = -math.sin(math.radians(self.angle)) * self.vitesse
+        self.gravite = 0.3
 
-        # Calcul du mouvement du projectile en fonction de l'angle
-        self.vitesse = 5  # Vitesse du projectile (ajustable)
-        self.vitesse_x = math.cos(math.radians(self.angle)) * self.vitesse  # Vitesse horizontale
-        self.vitesse_y = -math.sin(math.radians(self.angle)) * self.vitesse  # Inverser la direction verticale
+    def mouvement(self):
+        self.vitesse_y += self.gravite
+        self.rect.x += int(self.vitesse_x)
+        self.rect.y += int(self.vitesse_y)
 
     def afficher(self, surface):
         surface.blit(self.image, self.rect)
 
-    def mouvement(self):
-        self.rect.x += self.vitesse_x
-        self.rect.y += self.vitesse_y
-
 class Jeu:
     def __init__(self):
         self.ecran = pygame.display.set_mode((1920, 1024), pygame.RESIZABLE)
-        self.image = pygame.image.load("assests/logo.png").convert()
-        pygame.display.set_icon(self.image)
-
-        # Chargement et redimensionnement de l'image de fond
-        self.background = pygame.image.load("assests/background3.png").convert()
-        self.background = pygame.transform.scale(self.background,
-        (self.ecran.get_width(), self.ecran.get_height()))  # Étire le fond
-
-        # Chargement de l'image du projectile
         self.image_projectile = pygame.image.load("assests/arme_os.png").convert_alpha()
-
-        # Sol
+        self.background = pygame.image.load("assests/background3.png").convert()
+        self.background = pygame.transform.scale(self.background, (1920, 1024))  # Fond ajusté
         self.sol = Sol()
-
-        self.joueur_x, self.joueur_y = 200, 400
-        self.taille = [64, 128]  # Taille initiale du joueur (avant redimensionnement)
-        self.joueur = Joueur(self.joueur_x, self.joueur_y, self.taille)
+        self.joueur = Joueur(200, 672, [64, 128])  # Ajustement du joueur
         self.projectiles_groupe = Group()
-        self.gravite = (0, 0.01)
-        self.resistance = (0, 0)
-        self.piece = Pieces((50, 50))  # création de la pièce
-
-
-    def gravite_jeu(self):
-        self.joueur.vitesse_y += self.gravite[1]  # Augmente la vitesse vers le bas
-        self.joueur.rect.y += self.joueur.vitesse_y  # Applique la vitesse au joueur
-
-        # Empêche de tomber sous le sol
-        if self.joueur.rect.bottom >= self.sol.rect.top:
-            self.joueur.rect.bottom = self.sol.rect.top
-            self.joueur.vitesse_y = 0
-
+        self.piece = Pieces((50, 50))  # Création de la pièce
 
     def boucle_principale(self):
         continuer = True
 
         while continuer:
-            self.ecran.blit(self.background, (0, 0))  # Affichage du fond redimensionné
+            self.ecran.blit(self.background, (0, 0))  # Efface l'écran à chaque frame
+            pos_souris = pygame.mouse.get_pos()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     continuer = False
-                elif event.type == pygame.VIDEORESIZE:
-                    self.ecran = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
 
-                    # Mise à jour de l'image de fond lors du redimensionnement
-                    self.background = pygame.image.load("background3.png").convert()
-                    self.background = pygame.transform.scale(self.background, (event.w, event.h))
+                # Clic gauche pour charger et tirer
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    self.joueur.temps_debut = pygame.time.get_ticks()  # Enregistrer le temps au début du clic
 
-                if event.type == pygame.MOUSEBUTTONUP:
-                    if event.button == 1:  # 1 = Bouton gauche de la souris
-                        self.joueur.a_tirer = True  # Active le tir du joueur
+                if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                    # Relâcher pour tirer
+                    puissance = self.joueur.relacher_tir()
+                    projectile = Projectile(self.joueur.rect.centerx, self.joueur.rect.centery,
+                                            [60, 60], self.image_projectile, self.joueur.angle, puissance)
+                    self.projectiles_groupe.add(projectile)
+                    self.piece.monnaie_joueur += 1  # Augmente le compteur de pièces
 
-            # Affichage de la trajectoire avant le tir
-            pos_souris = pygame.mouse.get_pos()
-
-            # Tirer un projectile
-            if self.joueur.a_tirer:
-                self.piece.monnaie_joueur += 1  # Augmente le compteur de pièces
-                if len(self.projectiles_groupe) < self.joueur.tir_auto:
-                    # L'arme est maintenant à gauche du joueur, et le projectile part de cette position
-                    projectile = Projectyles(self.joueur.rect.left - 20, self.joueur.rect.centery, [60, 60],
-                    self.image_projectile, self.joueur.angle)
-                    self.projectiles_groupe.add(projectile)  # Ajout au groupe
-                self.joueur.a_tirer = False  # Empêcher le tir continu
+            # Maintenir la charge pendant le clic
+            if pygame.mouse.get_pressed()[0]:  # Si le clic gauche est enfoncé
+                self.joueur.charger_tir()
 
             # Mise à jour des projectiles
             for projectile in self.projectiles_groupe:
                 projectile.mouvement()
-                if projectile.rect.right >= self.ecran.get_width() or projectile.rect.top <= 0 or projectile.rect.bottom >= self.ecran.get_height():
-                    self.projectiles_groupe.remove(projectile)
 
             # Affichage des éléments
             self.sol.affichage(self.ecran)
-            self.gravite_jeu()
-            self.joueur.affichage(self.ecran, pos_souris)
+            self.joueur.affichage(self.ecran, pos_souris)  # La ligne blanche se dessine ici
             for projectile in self.projectiles_groupe:
                 projectile.afficher(self.ecran)
 
-            self.piece.afficher_monnaie(self.ecran) #affichage de l'image de la pièce
-            self.piece.afficher_nombre_pieces(self.ecran) #affichage du nombre de pièce
+            self.piece.afficher_monnaie(self.ecran)  # Affichage de l'image de la pièce
+            self.piece.afficher_nombre_pieces(self.ecran)  # Affichage du nombre de pièces
 
             pygame.display.update()
 
         pygame.quit()
-
 
 if __name__ == '__main__':
     Jeu().boucle_principale()

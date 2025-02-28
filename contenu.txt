@@ -99,7 +99,7 @@ Comment accéder à un élément dans le fichier json ? Voici le tuto de Mimi :
     -Index 0 : Canard avec l'oeuf
     -Index 1 : Canard avec canard laqué
     -Index 2 : Mère Noel avec cadeau
-    -Index 3 : Mère NOel avec biscuit
+    -Index 3 : Mère Noel avec biscuit
     -Index 4 : Einstein avec fiole rouge
     -Index 5 : Einstein avec fiole bleu
     -Index 6 : Jean-Soma avec discours
