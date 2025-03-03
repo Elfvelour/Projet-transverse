@@ -2,24 +2,18 @@
 #   Fichier gérant la trajectoire et l'interface du jeu #
 #   Auteur : Flavie BREMAND et Thomas AUBERT            #
 #########################################################
+
 import ctypes
 import math
 import pygame
 from monnaie import Pieces
 from pygame.sprite import Group
+from main import Sol
 
 # Permet de désactiver la mise à l'échelle de l'ordinateur
 ctypes.windll.user32.SetProcessDPIAware()
 
 pygame.init()
-
-class Sol(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        self.rect = pygame.Rect(0, 800, 1920, 300)
-
-    def affichage(self, surface):
-        pygame.draw.rect(surface, (0, 200, 100), self.rect)
 
 class Joueur(pygame.sprite.Sprite):
     def __init__(self, x, y, taille):
@@ -92,8 +86,8 @@ class Projectile(pygame.sprite.Sprite):
 class Jeu:
     def __init__(self):
         self.ecran = pygame.display.set_mode((1920, 1024), pygame.RESIZABLE)
-        self.image_projectile = pygame.image.load("arme_os.png").convert_alpha()
-        self.background = pygame.image.load("background3.png").convert()
+        self.image_projectile = pygame.image.load("assests/arme_os.png").convert_alpha()
+        self.background = pygame.image.load("assests/background3.png").convert()
         self.background = pygame.transform.scale(self.background, (1920, 1024))
         self.sol = Sol()
         self.joueur = Joueur(200, 672, [64, 128])
@@ -142,6 +136,3 @@ class Jeu:
             clock.tick(110)  # Limiter les FPS à 30
 
         pygame.quit()
-
-if __name__ == '__main__':
-    Jeu().boucle_principale()
