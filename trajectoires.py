@@ -70,10 +70,10 @@ class Projectile(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(image, (taille[0], taille[1]))
         self.rect = pygame.Rect(x, y, taille[0], taille[1])
         self.angle = angle
-        self.vitesse = 5 + (20 * puissance)
+        self.vitesse = 5 + (16 * puissance)
         self.vitesse_x = math.cos(math.radians(self.angle)) * self.vitesse
         self.vitesse_y = -math.sin(math.radians(self.angle)) * self.vitesse
-        self.gravite = 0.3
+        self.gravite = 0.2
 
     def mouvement(self):
         self.vitesse_y += self.gravite
@@ -94,6 +94,7 @@ class Jeu:
         self.projectiles_groupe = Group()
         self.piece = Pieces((50, 50))  # Initialisation du système de pièces
 
+    clock = pygame.time.Clock()
     def boucle_principale(self):
         continuer = True
 
@@ -130,6 +131,8 @@ class Jeu:
             self.piece.afficher_nombre_pieces(self.ecran)
 
             pygame.display.update()
+
+            self.clock.tick(110)
 
         pygame.quit()
 
