@@ -1,8 +1,7 @@
 #########################################################
-# Fichier gérant la trajectoire et l'interface du jeu   #
-# Auteur : Flavie BREMAND et Thomas AUBERT              #
+#   Fichier gérant la trajectoire et l'interface du jeu #
+#   Auteur : Flavie BREMAND et Thomas AUBERT            #
 #########################################################
-
 import ctypes
 import math
 import pygame
@@ -70,15 +69,22 @@ class Projectile(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(image, (taille[0], taille[1]))
         self.rect = pygame.Rect(x, y, taille[0], taille[1])
         self.angle = angle
-        self.vitesse = 5 + (16 * puissance)
+        self.vitesse = 5 + (16 * puissance)  # Vitesse ajustée
         self.vitesse_x = math.cos(math.radians(self.angle)) * self.vitesse
         self.vitesse_y = -math.sin(math.radians(self.angle)) * self.vitesse
-        self.gravite = 0.2
+        self.gravite = 0.2  # Gravité ajustée
+        self.sol_y = 800  # Position Y du sol (à ajuster si nécessaire)
 
     def mouvement(self):
+        # Appliquer la gravité
         self.vitesse_y += self.gravite
         self.rect.x += int(self.vitesse_x)
         self.rect.y += int(self.vitesse_y)
+
+        # Vérifier la collision avec le sol
+        if self.rect.bottom >= self.sol_y:
+            self.rect.bottom = self.sol_y  # On s'assure qu'il ne passe pas sous le sol
+            self.kill()  # Supprime le projectile du groupe
 
     def afficher(self, surface):
         surface.blit(self.image, self.rect)
@@ -86,16 +92,16 @@ class Projectile(pygame.sprite.Sprite):
 class Jeu:
     def __init__(self):
         self.ecran = pygame.display.set_mode((1920, 1024), pygame.RESIZABLE)
-        self.image_projectile = pygame.image.load("assests/arme_os.png").convert_alpha()
-        self.background = pygame.image.load("assests/background3.png").convert()
+        self.image_projectile = pygame.image.load("arme_os.png").convert_alpha()
+        self.background = pygame.image.load("background3.png").convert()
         self.background = pygame.transform.scale(self.background, (1920, 1024))
         self.sol = Sol()
         self.joueur = Joueur(200, 672, [64, 128])
         self.projectiles_groupe = Group()
-        self.piece = Pieces((50, 50))  # Initialisation du système de pièces
+        self.piece = Pieces((50, 50))
 
-    clock = pygame.time.Clock()
     def boucle_principale(self):
+        clock = pygame.time.Clock()  # Limiter les FPS
         continuer = True
 
         while continuer:
@@ -114,14 +120,16 @@ class Jeu:
                     x_proj, y_proj = self.joueur.position_depart_projectile()
                     projectile = Projectile(x_proj, y_proj, [60, 60], self.image_projectile, self.joueur.angle, puissance)
                     self.projectiles_groupe.add(projectile)
-                    self.piece.monnaie_joueur += 1  # Ajout d'une pièce à chaque tir
+                    self.piece.monnaie_joueur += 1
 
             if pygame.mouse.get_pressed()[0]:
                 self.joueur.charger_tir()
 
+            # Mouvements et affichage des projectiles
             for projectile in self.projectiles_groupe:
                 projectile.mouvement()
 
+            # Mise à jour des éléments à l'écran
             self.sol.affichage(self.ecran)
             self.joueur.affichage(self.ecran, pos_souris)
             for projectile in self.projectiles_groupe:
@@ -131,8 +139,7 @@ class Jeu:
             self.piece.afficher_nombre_pieces(self.ecran)
 
             pygame.display.update()
-
-            self.clock.tick(110)
+            clock.tick(110)  # Limiter les FPS à 30
 
         pygame.quit()
 
