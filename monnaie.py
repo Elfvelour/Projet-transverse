@@ -1,10 +1,11 @@
 ##################################################
 # Fichier gérant la gestion de la monnaie du jeu #
-# Auteur : Marques Noémie                        #
+# Auteure : Marques Noémie                       #
 ##################################################
+
 import pygame
 
-#création de la classe qui va gérer la monnaie
+# Création de la classe qui va gérer la monnaie
 class Pieces (pygame.sprite.Sprite):
     def __init__(self, taille):
         super().__init__()

@@ -3,7 +3,6 @@
 # Auteurs: Flavie BREMAND et Thomas AUBERT          #
 #####################################################
 
-import pygame
 from trajectoires import *
 from monnaie import *
 from bot import *
@@ -20,8 +19,8 @@ class Sol(pygame.sprite.Sprite):
 class Jeu:
     def __init__(self):
         self.ecran = pygame.display.set_mode((1920, 1024), pygame.RESIZABLE)
-        self.image_projectile = pygame.image.load("arme_os.png").convert_alpha()
-        self.background = pygame.image.load("background3.png").convert()
+        self.image_projectile = pygame.image.load("assests/arme_os.png").convert_alpha()
+        self.background = pygame.image.load("assests/background3.png").convert()
         self.background = pygame.transform.scale(self.background, (1920, 1024))
         self.sol = Sol()
         self.joueur = Joueur(200, 672, [64, 128])
