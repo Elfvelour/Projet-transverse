@@ -6,6 +6,7 @@
 from trajectoires import *
 from monnaie import *
 from bot import *
+import json
 
 class Sol(pygame.sprite.Sprite):
     def __init__(self):
@@ -15,11 +16,12 @@ class Sol(pygame.sprite.Sprite):
     def affichage(self, surface):
         pygame.draw.rect(surface, (0, 200, 100), self.rect)
 
-
 class Jeu:
     def __init__(self):
         self.ecran = pygame.display.set_mode((1920, 1024), pygame.RESIZABLE)
-        self.image_projectile = pygame.image.load("assests/arme_os.png").convert_alpha()
+        self.donnees_json = self.charger_donnees_json("gestion_stats.json")
+        self.personnage_actuel = "Squelette"
+        self.image_projectile = self.obtenir_image_projectile(self.personnage_actuel)
         self.background = pygame.image.load("assests/background3.png").convert()
         self.background = pygame.transform.scale(self.background, (1920, 1024))
         self.sol = Sol()
@@ -27,6 +29,18 @@ class Jeu:
         self.projectiles_groupe = Group()
         self.piece = Pieces((50, 50))
         self.bot = Bot(1920 - 100, 672, [64, 128])
+
+    def charger_donnees_json(self, fichier):
+        #Charge les données du fichier JSON
+        with open(fichier, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    def obtenir_image_projectile(self, personnage):
+        #Récupère l'image du projectile en fonction du personnage
+        for item in self.donnees_json:
+            if item["personnage"] == personnage:
+                return pygame.image.load(item["image"]).convert_alpha()
+        return pygame.image.load("assests/default_projectile.png").convert_alpha()  # Image par défaut
 
     def boucle_principale(self):
         clock = pygame.time.Clock()  # Limiter les FPS
