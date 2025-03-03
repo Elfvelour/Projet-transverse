@@ -1,3 +1,8 @@
+#########################################################
+# Fichier gérant la trajectoire et l'interface du jeu   #
+# Auteur : Flavie BREMAND et Thomas AUBERT              #
+#########################################################
+
 import ctypes
 import math
 import pygame
