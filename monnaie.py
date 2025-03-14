@@ -19,6 +19,14 @@ class Pieces (pygame.sprite.Sprite):
         self.rect_monnaie = self.image_monnaie.get_rect()
         self.font_piece = pygame.font.Font(None, 40)
         self.font_piece = pygame.font.Font("assests/04B_30__.TTF", 40)
+        self.bouton_x = 1900
+        self.bouton_y = 20
+
+        #ajout d'un bouton de l'ulti
+        self.image_bouton = pygame.image.load("assests/coffre_ferme.png").convert_alpha()
+        self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))  # Ajuste la taille du bouton
+        self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))
+
 
     def afficher_monnaie(self, surface):
         surface.blit(self.image_monnaie, (self.x, self.y))
@@ -27,3 +35,17 @@ class Pieces (pygame.sprite.Sprite):
         texte = self.font_piece.render(f"{self.monnaie_joueur}", True, (255, 255, 255)) #texte du nombre de pièce
         surface.blit(texte, (self.x + 80, self.y + 20))  # Affichage à côté de la pièce
 
+    def afficher_bouton(self, surface):
+        surface.blit(self.image_bouton, self.rect_bouton)
+        texte = self.font_piece.render("100 pieces pour l'ulti", True, (255, 255, 255))
+        surface.blit(texte, (self.bouton_x - 850, self.bouton_y))
+
+    def changer_arme(self, jeu):
+        if self.monnaie_joueur >= 100:
+            self.monnaie_joueur -= 100
+            #jeu.ulti()
+
+    def verifier_clic(self, event, jeu):
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if self.rect_bouton.collidepoint(event.pos):  # Si le joueur clique sur le bouton
+                self.changer_arme(jeu)
