@@ -35,7 +35,7 @@ class Pieces (pygame.sprite.Sprite):
         texte = self.font_piece.render(f"{self.monnaie_joueur}", True, (255, 255, 255)) #texte du nombre de pièce
         surface.blit(texte, (self.x + 80, self.y + 20))  # Affichage à côté de la pièce
 
-    def afficher_bouton(self, surface):
+    def afficher_bouton(self, surface): #affichage de la phrase
         surface.blit(self.image_bouton, self.rect_bouton)
         texte = self.font_piece.render("100 pieces pour l'ulti", True, (255, 255, 255))
         surface.blit(texte, (self.bouton_x - 850, self.bouton_y))
