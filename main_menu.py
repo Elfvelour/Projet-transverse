@@ -49,56 +49,77 @@ class Menu:
 
 #classe des boutons
 class Bouton:
-    def __init__(self, texte, x, y, couleur, largeur, hauteur, police):
+    def __init__(self, texte, x, y, couleur, police,action):
         self.texte = texte
         self.axe_x = x
         self.axe_y = y
         self.couleur = couleur
-        self.largeur = largeur
-        self.hauteur = hauteur
-        self.action = 0
+        self.action = action
         self.police_caractere = pygame.font.Font(None, police)
 
     def CreationBouton(self, ecran):
+
+        # Ajouter le texte sur le bouton
+        texte_surface = self.police_caractere.render(self.texte, True, 'white')  # Couleur du texte : blanc
+
         # Créer un rectangle pour le bouton
-        bouton_creer = pygame.Rect(self.axe_x, self.axe_y, self.largeur, self.hauteur)
+        bouton_creer = pygame.Rect(self.axe_x, self.axe_y,200,50)
+
         # Dessiner le rectangle sur l'écran avec la couleur spécifiée
         pygame.draw.rect(ecran, self.couleur, bouton_creer)
-        # Ajouter le texte sur le bouton
-        texte_surface = self.police_caractere.render(self.texte, True, (255, 255, 255))  # Couleur du texte : blanc
-        texte_rect = texte_surface.get_rect(center=bouton_creer.center)
-        ecran.blit(texte_surface, texte_rect)
+        texte_rectangle = texte_surface.get_rect(center=bouton_creer.center)
+
+        #animation du bouton
+        if self.BoutonClique():
+            pygame.draw.rect(ecran,'dark red', bouton_creer,0,5)
+        else:
+            pygame.draw.rect(ecran, 'red', bouton_creer, 0, 5)
+        ecran.blit(texte_surface, texte_rectangle)
+
+
+    def BoutonClique(self):
+        pos_souris=pygame.mouse.get_pos()
+        clique_gauche=pygame.mouse.get_pressed()[0]
+        bouton_creer=pygame.Rect(self.axe_x, self.axe_y, 200, 50)
+        if clique_gauche and bouton_creer.collidepoint(pos_souris) and self.action:
+            return True
+        else:
+            return False
+
+
 
 menu=Menu()
 
 # Définir les paramètres du bouton
 texte = "jouer"
 x = 650
-y = 390
-couleur = (255, 0, 0)  # Rouge
-largeur = 200
-hauteur = 50
+y = 310
+couleur = 'red'  # Rouge
 police = 36
 
 #bouton jouer
-mon_bouton_jouer = Bouton(texte, x, y, couleur, largeur, hauteur, police)
+mon_bouton_jouer = Bouton(texte, x, y, couleur, police,True)
 #bouton quitter
-mon_bouton_quitter=Bouton("quitter",0,0,(255,0,0),200,50,36)
+mon_bouton_quitter=Bouton("quitter",650,390,'red',36,True)
 
 # Boucle principale
 running = True
 while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
     # Remplir l'écran avec une couleur de fond
-    ecran.fill((0, 0, 0))  # Noir
+    ecran.fill('white')  # Noir
 
     # Créer et affiche les boutons
     mon_bouton_jouer.CreationBouton(ecran)
     mon_bouton_quitter.CreationBouton(ecran)
+    print(mon_bouton_jouer.BoutonClique())
     # Mettre à jour l'affichage
     pygame.display.flip()
+    if mon_bouton_quitter.BoutonClique()==True:
+        running = False
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+
 
 
