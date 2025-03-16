@@ -106,7 +106,7 @@ mon_bouton_quitter=Bouton("quitter",650,390,'red',36,True)
 running = True
 while running:
     # Remplir l'écran avec une couleur de fond
-    ecran.fill('white')  # Noir
+    ecran.fill('white')  # blanc
 
     # Créer et affiche les boutons
     mon_bouton_jouer.CreationBouton(ecran)
