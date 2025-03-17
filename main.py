@@ -42,7 +42,7 @@ class Jeu:
                 return pygame.image.load(item["image"]).convert_alpha()
         return pygame.image.load("assests/default_projectile.png").convert_alpha()  # Image par défaut
 
-    """def ulti(self):""" # Ulti si utilisation de 100 pièces
+    """def ulti_perso(self):""" # Ulti si utilisation de 100 pièces
 
     def boucle_principale(self):
         clock = pygame.time.Clock()  # Limiter les FPS
@@ -84,6 +84,8 @@ class Jeu:
             self.piece.afficher_monnaie(self.ecran)
             self.piece.afficher_nombre_pieces(self.ecran)
             self.piece.afficher_bouton(self.ecran)
+
+            self.piece.verif_coffre()
 
             pygame.display.update()
             clock.tick(110)  # Limiter les FPS à 30
