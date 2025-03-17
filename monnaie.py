@@ -23,10 +23,14 @@ class Pieces (pygame.sprite.Sprite):
         self.bouton_y = 20
 
         #ajout d'un bouton de l'ulti
-        self.image_bouton = pygame.image.load("assests/coffre_ferme.png").convert_alpha()
+        self.image_coffre_ferme = pygame.image.load("assests/coffre_ferme.png")
+        self.image_coffre_ouvert = pygame.image.load("assests/coffre_ouvert.png")
+
+        self.image_bouton = self.image_coffre_ferme
         self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))  # Ajuste la taille du bouton
         self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))
 
+        self.coffre_ouvert = False
 
     def afficher_monnaie(self, surface):
         surface.blit(self.image_monnaie, (self.x, self.y))
@@ -37,15 +41,27 @@ class Pieces (pygame.sprite.Sprite):
 
     def afficher_bouton(self, surface): #affichage de la phrase
         surface.blit(self.image_bouton, self.rect_bouton)
-        texte = self.font_piece.render("100 pieces pour l'ulti", True, (255, 255, 255))
-        surface.blit(texte, (self.bouton_x - 850, self.bouton_y))
+        texte = self.font_piece.render("Barre espace pour l'ulti", True, (255, 255, 255))
+        surface.blit(texte, (self.bouton_x - 780, self.bouton_y - 10))
+        texte_2 = self.font_piece.render("100 pieces", True, (221, 226, 63))
+        surface.blit(texte_2, (self.bouton_x - 300, self.bouton_y + 150))
 
-    def changer_arme(self, jeu):
-        if self.monnaie_joueur >= 100:
-            self.monnaie_joueur -= 100
-            #jeu.ulti()
+    def ulti(self, jeu):
+        if self.monnaie_joueur >= 100 and not self.coffre_ouvert:
+            self.monnaie_joueur -= 100  # Retirer 100 pièces
+            self.image_bouton = self.image_coffre_ouvert  # Afficher le coffre ouvert
+            self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))  # Ajuste la taille du bouton
+            self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))
+            self.coffre_ouvert = True
+            #jeu.ulti_perso()
 
     def verifier_clic(self, event, jeu):
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            if self.rect_bouton.collidepoint(event.pos):  # Si le joueur clique sur le bouton
-                self.changer_arme(jeu)
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            self.ulti(jeu)
+
+    def verif_coffre(self):
+        if self.monnaie_joueur >= 100 and self.coffre_ouvert:
+            self.image_bouton = self.image_coffre_ferme  # Afficher le coffre fermé
+            self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))  # Ajuste la taille du bouton
+            self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))
+            self.coffre_ouvert = False
