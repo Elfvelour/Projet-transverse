@@ -14,7 +14,7 @@ import pygame
 pygame.init()
 #initialisation musique
 pygame.mixer.init()
-pygame.mixer.music.load("The Red Sun in the Sky 100 - HQ.mp3")
+pygame.mixer.music.load("assests\The Red Sun in the Sky 100 - HQ.mp3")
 pygame.mixer.music.play()
 ##############################################
 #Constantes
