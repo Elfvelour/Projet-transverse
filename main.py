@@ -8,6 +8,7 @@ from monnaie import *
 from bot import *
 import json
 
+
 class Sol(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -15,6 +16,7 @@ class Sol(pygame.sprite.Sprite):
 
     def affichage(self, surface):
         pygame.draw.rect(surface, (0, 200, 100), self.rect)
+
 
 class Jeu:
     def __init__(self):
@@ -30,22 +32,22 @@ class Jeu:
         self.piece = Pieces((50, 50))
         self.bot = Bot(1920 - 100, 672, [64, 128])
 
+        self.tour_joueur = True  # Le joueur commence
+        self.en_attente = False  # Attente entre les tours
+        self.temps_attente = 0  # Temps de début d'attente
+
     def charger_donnees_json(self, fichier):
-        #Charge les données du fichier JSON
         with open(fichier, "r", encoding="utf-8") as f:
             return json.load(f)
 
     def obtenir_image_projectile(self, personnage):
-        #Récupère l'image du projectile en fonction du personnage
         for item in self.donnees_json:
             if item["personnage"] == personnage:
                 return pygame.image.load(item["image"]).convert_alpha()
-        return pygame.image.load("assests/default_projectile.png").convert_alpha()  # Image par défaut
-
-    """def ulti(self):""" # Ulti si utilisation de 100 pièces
+        return pygame.image.load("assests/default_projectile.png").convert_alpha()
 
     def boucle_principale(self):
-        clock = pygame.time.Clock()  # Limiter les FPS
+        clock = pygame.time.Clock()
         continuer = True
 
         while continuer:
@@ -55,26 +57,46 @@ class Jeu:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     continuer = False
-                self.piece.verifier_clic(event, self) #vérifie si le bouton de l'ulti est cliquer
+                self.piece.verifier_clic(event, self)
 
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:
                     self.joueur.temps_debut = pygame.time.get_ticks()
 
-                if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.tour_joueur:
                     puissance = self.joueur.relacher_tir()
                     x_proj, y_proj = self.joueur.position_depart_projectile()
-                    projectile = Projectile(x_proj, y_proj, [60, 60], self.image_projectile, self.joueur.angle, puissance)
+                    projectile = Projectile(x_proj, y_proj, [60, 60], self.image_projectile, self.joueur.angle,
+                                            puissance)
                     self.projectiles_groupe.add(projectile)
                     self.piece.monnaie_joueur += 1
 
-            if pygame.mouse.get_pressed()[0]:
+                    # Début de l'attente avant le tour du bot
+                    self.temps_attente = pygame.time.get_ticks()
+                    self.en_attente = True
+                    self.tour_joueur = False
+
+            if pygame.mouse.get_pressed()[0] and self.tour_joueur:
                 self.joueur.charger_tir()
 
-            # Mouvements et affichage des projectiles
+            # Gestion de l'attente entre les tours
+            if self.en_attente:
+                if pygame.time.get_ticks() - self.temps_attente >= 1000:  # 1 seconde d'attente
+                    self.en_attente = False
+
+                    if not self.tour_joueur:  # C'est au bot de jouer
+                        angle, puissance = self.bot.tir(self.joueur.rect.centerx, self.joueur.rect.centery)
+                        projectile = Projectile(self.bot.rect.centerx, self.bot.rect.centery, [60, 60],
+                                                self.image_projectile, angle, puissance)
+                        self.projectiles_groupe.add(projectile)
+
+                        # Début de l'attente avant de redonner le tour au joueur
+                        self.temps_attente = pygame.time.get_ticks()
+                        self.en_attente = True
+                        self.tour_joueur = True
+
             for projectile in self.projectiles_groupe:
                 projectile.mouvement()
 
-            # Mise à jour des éléments à l'écran
             self.sol.affichage(self.ecran)
             self.joueur.affichage(self.ecran, pos_souris)
             self.bot.affichage(self.ecran)
@@ -86,11 +108,9 @@ class Jeu:
             self.piece.afficher_bouton(self.ecran)
 
             pygame.display.update()
-            clock.tick(110)  # Limiter les FPS à 30
+            clock.tick(110)
 
         pygame.quit()
 
 if __name__ == '__main__':
     Jeu().boucle_principale()
-
-
