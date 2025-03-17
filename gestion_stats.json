@@ -1,26 +1,30 @@
 
 [
   {
+    "code P" : "P1",
+    "code A" : "A1",
     "personnage" : "Canard",
     "nom" : "Oeuf",
     "image" : "assests/oeuf.png",
-    "cout" : "100",
     "masse" : 0.006,
     "puissance" : 10,
     "description_perso" : "Ce légendaire combattant anatidés utilise ces compagnons pour attaquer son adversaire.",
     "description_arme" : "Quoi de mieux que sa progéniture pour arme ?"
   },
   {
+    "code P" : "P1",
+    "code A" : "A2",
     "personnage" : "Canard",
     "nom" : "Canard laqué",
     "image" : "assests/plat_canard.png",
-    "cout" : "100",
     "masse" : 0.7,
     "puissance" : 10,
     "description_perso" : "Ce légendaire combattant anatidés utilise ces compagnons pour attaquer son adversaire.",
     "description_arme" : "Toute sa famille est passée à la casserole."
   },
   {
+    "code P" : "P2",
+    "code A" : "A1",
     "personnage" : "Mère Noël",
     "nom" : "Cadeau",
     "image" : "assests/cadeau.png",
@@ -31,6 +35,8 @@
     "description_arme" : "Visiblement, tu as été un vilain petit garnement..."
   },
   {
+    "code P" : "P2",
+    "code A" : "A2",
     "personnage" : "Mère Noël",
     "nom" : "Biscuit",
     "image" : "assests/cookie.png",
@@ -41,6 +47,8 @@
     "description_arme" : "Ses biscuits ont eu le temps de bien durcir depuis le temps."
   },
   {
+    "code P" : "P3",
+    "code A" : "A1",
     "personnage" : "Einstein",
     "nom" : "Fiole rouge",
     "image" : "assests/fiole_rouge.png",
@@ -51,6 +59,8 @@
     "description_arme" : "On dit que cette fiole renferme du polonium."
   },
   {
+    "code P" : "P3",
+    "code A" : "A2",
     "personnage" : "Einstein",
     "nom" : "Fiole bleu",
     "cout" : "100",
@@ -61,6 +71,8 @@
     "description_arme" : "On dit que cette fiole renferme du radium."
   },
   {
+    "code P" : "P4",
+    "code A" : "A2",
     "personnage" : "Jean-Soma",
     "nom" : "Discour",
     "image" : "assests/discours.png",
@@ -71,6 +83,8 @@
     "description_arme" : "Qui a dit que des actions valaient mieux que mille mots ?"
   },
   {
+    "code P" : "P4",
+    "code A" : "A2",
     "personnage" : "Jean-Soma",
     "nom" : "SWS",
     "image" : "assests/logo_sowesign.png",
@@ -81,6 +95,8 @@
     "description_arme" : "Et hop là, une absence non-excusée."
   },
   {
+    "code P" : "P5",
+    "code A" : "A1",
     "personnage" : "Squelette",
     "nom" : "Os",
     "image" : "assests/arme_os.png",
@@ -91,6 +107,8 @@
     "description_arme" : "Elle a tellement la haine qu'elle utilise son propre corps."
   },
   {
+    "code P" : "P5",
+    "code A" : "A2",
     "personnage" : "Squelette",
     "nom" : "Tombe",
     "image" : "assests/tombe.png",
