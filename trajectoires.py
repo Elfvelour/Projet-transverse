@@ -10,14 +10,6 @@ ctypes.windll.user32.SetProcessDPIAware()
 
 pygame.init()
 
-class Sol(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        self.rect = pygame.Rect(0, 800, 1920, 300)
-
-    def affichage(self, surface):
-        pygame.draw.rect(surface, (0, 200, 100), self.rect)
-
 class Joueur(pygame.sprite.Sprite):
     def __init__(self, x, y, taille):
         super().__init__()
@@ -66,22 +58,54 @@ class Projectile(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(image, (taille[0], taille[1]))
         self.rect = pygame.Rect(x, y, taille[0], taille[1])
         self.angle = angle
-        self.vitesse = 5 + (16 * puissance)  # Vitesse ajustée
+        self.vitesse = 5 + (16 * puissance)
         self.vitesse_x = math.cos(math.radians(self.angle)) * self.vitesse
         self.vitesse_y = -math.sin(math.radians(self.angle)) * self.vitesse
-        self.gravite = 0.2  # Gravité ajustée
-        self.sol_y = 800  # Position Y du sol (à ajuster si nécessaire)
+        self.gravite = 0.2
+        self.sol_y = 800
+        self.explosion = pygame.image.load("assests/explosion.png").convert_alpha()
+        self.explosion_rect = None
+        self.temps_explosion = None  # Temps de début de l'explosion
+        self.a_touche_bot = False  # Pour éviter de donner des pièces par erreur
 
-    def mouvement(self):
+    def mouvement(self, bot, piece, jeu):
+        """ Gère le mouvement du projectile et ses collisions """
+        if self.temps_explosion:
+            # Vérifier si l'explosion doit être retirée après 500ms
+            if pygame.time.get_ticks() - self.temps_explosion > 500:
+                jeu.projectiles_groupe.remove(self)  # Supprime le projectile après explosion
+                jeu.explosion_active = False  # Marquer que l'explosion est terminée
+            return
+
         # Appliquer la gravité
         self.vitesse_y += self.gravite
         self.rect.x += int(self.vitesse_x)
         self.rect.y += int(self.vitesse_y)
 
+        # Vérifier la collision avec le bot
+        if self.rect.colliderect(bot.rect) and not self.a_touche_bot:
+            self.explosion_rect = self.rect.copy()  # L'explosion apparaît à l'impact
+            self.temps_explosion = pygame.time.get_ticks()  # Démarre le timer d'explosion
+            self.a_touche_bot = True  # Marque que le bot a été touché
+            piece.monnaie_joueur += 10  # Ajoute 10 pièces
+            jeu.explosion_active = True  # Marquer qu'une explosion est en cours
+            return
+
         # Vérifier la collision avec le sol
         if self.rect.bottom >= self.sol_y:
-            self.rect.bottom = self.sol_y  # On s'assure qu'il ne passe pas sous le sol
-            self.kill()  # Supprime le projectile du groupe
+            self.explosion_rect = self.rect.copy()  # Explosion à l'impact
+            self.temps_explosion = pygame.time.get_ticks()
+            jeu.explosion_active = True  # Marquer qu'une explosion est en cours
+            return
+
+        # Si le projectile sort de l’écran, on le supprime **sans donner de pièces**
+        if self.rect.top > 1024 or self.rect.right < 0 or self.rect.left > 1920:
+            jeu.projectiles_groupe.remove(self)  # Supprime sans explosion
+            return
 
     def afficher(self, surface):
-        surface.blit(self.image, self.rect)
+        """ Affiche le projectile ou l'explosion """
+        if self.temps_explosion:
+            surface.blit(self.explosion, self.explosion_rect)  # Affiche l'explosion
+        else:
+            surface.blit(self.image, self.rect)
