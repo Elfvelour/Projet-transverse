@@ -27,8 +27,6 @@ police=36
 logo_para=pygame.image.load("assests/logo_paraV2.png")
 fond_ecran=pygame.image.load("assests/backgroundV2.png")
 action_bouton1=True
-musique1=pygame.mixer.Sound("assests\The Red Sun in the Sky 100 - HQ.mp3")
-musique2=pygame.mixer.Sound("assests\Chill.mp3")
 ##############################################
 
 #classe du menu
@@ -130,7 +128,8 @@ while running:
     pygame.display.flip()
     if mon_bouton_jouer.BoutonClique():
         pygame.mixer.music.stop()
-        musique2.play()
+        pygame.mixer.music.load("assests\Chill.mp3")
+        pygame.mixer.music.play()
 
     if mon_bouton_quitter.BoutonClique()==True:
         running = False
