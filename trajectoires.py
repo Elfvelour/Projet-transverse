@@ -55,9 +55,6 @@ class Joueur(pygame.sprite.Sprite):
         y_depart = self.rect.centery - math.sin(math.radians(self.angle)) * self.longueur_ligne
         return x_depart, y_depart
 
-import pygame
-import math
-
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, x, y, taille, image, angle, puissance, tireur):
         super().__init__()
@@ -154,7 +151,7 @@ class Jeu:
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")
         self.personnage_actuel = "Einstein"
         self.image_projectile = self.obtenir_image_projectile(self.personnage_actuel)
-        self.background = pygame.image.load("assests/background3.png").convert()
+        self.background = pygame.image.load("assests/backgroundV2.png").convert()
         self.background = pygame.transform.scale(self.background, (1920, 1024))
         self.sol = Sol()
         self.joueur = Joueur(200, 672, [64, 128])
