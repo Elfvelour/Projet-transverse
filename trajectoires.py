@@ -70,7 +70,7 @@ class Projectile(pygame.sprite.Sprite):
         self.gravite = 0.2
         self.sol_y = 800
         self.explosion = pygame.image.load("assests/explosion.png").convert_alpha()
-        self.explosion_size = (50, 50)
+        self.explosion_size = (100, 100)
         self.explosion = pygame.transform.scale(self.explosion, self.explosion_size)
         self.explosion_rect = None
         self.temps_explosion = None  # Temps de début de l'explosion
