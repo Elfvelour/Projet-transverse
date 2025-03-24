@@ -237,11 +237,9 @@ class Jeu:
 
             for projectile in self.projectiles_joueur:
                 projectile.mouvement(self.bot, self.piece, self)
-                changer_bruitage("assests/boule_de_feu.mp3")
 
             for projectile in self.projectiles_bot:
                 projectile.mouvement(self.bot, self.piece, self)
-                changer_bruitage("assests/boule_de_feu.mp3")
 
             self.sol.affichage(self.ecran)
             self.joueur.affichage(self.ecran, pos_souris)
