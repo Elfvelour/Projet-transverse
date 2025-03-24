@@ -85,10 +85,19 @@ class Bouton:
         pos_souris=pygame.mouse.get_pos()
         clique_gauche=pygame.mouse.get_pressed()[0]
         bouton_creer=pygame.Rect(self.axe_x, self.axe_y, 200, 50)
-        if clique_gauche and bouton_creer.collidepoint(pos_souris) and self.action:
+        if clique_gauche and bouton_creer.collidepoint(pos_souris):
             return True
         else:
             return False
+
+def changer_musique(musique):
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load(musique)
+    pygame.mixer.music.play()
+
+def changer_bruitage(bruitage):
+    son=pygame.mixer.Sound(bruitage)
+    son.play()
 
 
 menu=Menu()
@@ -126,13 +135,13 @@ while running:
     print(mon_bouton_jouer.BoutonClique())
     # Mettre à jour l'affichage
     pygame.display.flip()
-    if mon_bouton_jouer.BoutonClique():
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load("assests\Chill.mp3")
-        pygame.mixer.music.play()
-
+    if mon_bouton_jouer.BoutonClique() and mon_bouton_jouer.action==True:
+        mon_bouton_jouer.action=False
+        changer_musique("assests/Chill.mp3")
     if mon_bouton_quitter.BoutonClique()==True:
         running = False
+    if mon_bouton_parametre.BoutonClique()==True:
+        changer_musique("assests/bruitage_bouton.mp3")
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False

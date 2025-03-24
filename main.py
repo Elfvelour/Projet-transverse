@@ -2,9 +2,11 @@
 # Fichier de lancement du jeu                       #
 # Auteurs: Flavie BREMAND et Thomas AUBERT          #
 #####################################################
+from main_menu import changer_musique, changer_bruitage
 from trajectoires import *
 from monnaie import *
 from bot import *
+from main import *
 import json
 
 class Sol(pygame.sprite.Sprite):
@@ -22,7 +24,7 @@ class Jeu:
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")
         self.personnage_actuel = "Einstein"
         self.image_projectile = self.obtenir_image_projectile(self.personnage_actuel)
-        self.background = pygame.image.load("assests/background3.png").convert()
+        self.background = pygame.image.load("assests/backgroundV2.png").convert()
         self.background = pygame.transform.scale(self.background, (1920, 1024))
         self.sol = Sol()
         self.joueur = Joueur(200, 672, [64, 128])
@@ -106,6 +108,7 @@ class Jeu:
             self.bot.affichage(self.ecran)
             for projectile in self.projectiles_groupe:
                 projectile.afficher(self.ecran)
+                changer_bruitage("assests/boule_de_feu.mp3")
 
             self.piece.afficher_monnaie(self.ecran)
             self.piece.afficher_nombre_pieces(self.ecran)
