@@ -5,6 +5,8 @@ from monnaie import Pieces
 from pygame.sprite import Group
 from bot import Bot
 import json
+from main_menu import changer_musique, changer_bruitage
+from main import *
 
 # Permet de désactiver la mise à l'échelle de l'ordinateur
 ctypes.windll.user32.SetProcessDPIAware()
@@ -148,7 +150,7 @@ class Sol(pygame.sprite.Sprite):
 
 class Jeu:
     def __init__(self):
-        self.ecran = pygame.display.set_mode((1920, 1024), pygame.RESIZABLE)
+        self.ecran = pygame.display.set_mode((1920,1010), pygame.RESIZABLE)
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")
         self.personnage_actuel = "Einstein"
         self.image_projectile = self.obtenir_image_projectile(self.personnage_actuel)
@@ -233,9 +235,11 @@ class Jeu:
 
             for projectile in self.projectiles_joueur:
                 projectile.mouvement(self.bot, self.piece, self)
+                changer_bruitage("assests/boule_de_feu.mp3")
 
             for projectile in self.projectiles_bot:
                 projectile.mouvement(self.bot, self.piece, self)
+                changer_bruitage("assests/boule_de_feu.mp3")
 
             self.sol.affichage(self.ecran)
             self.joueur.affichage(self.ecran, pos_souris)
