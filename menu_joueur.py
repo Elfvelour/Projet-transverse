@@ -220,13 +220,14 @@ def run_character_menu() :
 
                 #Code du perso + arme choisi avec affichage de sécurité
                 if x_button.check_click():
-                    selected_weapon = f"{selected_character}{weapon_code}"
+                    weapon = f"{weapon_code}"
+                    character = f"{selected_character}"
                     print(f"{selected_character} a sélectionné l'arme: {selected_weapon}")
 
                 y_offset += 80
 
         pygame.display.flip()
-    return (selected_character, weapon_code)
-    pygame.quit()
 
+    pygame.quit()
+    return (character, weapon)
 print(run_character_menu())
