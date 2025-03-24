@@ -60,7 +60,7 @@ def load_image(path, x, y):
 
 
 #Image de fond menu joueur
-background_image = load_image("assests/background3.png", WIDTH, HEIGHT)
+background_image = load_image("assests/backgroundV2.png", WIDTH, HEIGHT)
 
 #Image des personnages
 p1_img = load_image("assests/img.png", 130, 170)
