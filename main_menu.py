@@ -2,7 +2,7 @@
 ##############################################
 ###### Programme Python menu principal  ######
 ###### Auteur: Timothée Girault         ######
-###### Version: 1.3                     ######
+###### Version: 1.5                    ######
 ##############################################
 
 ##############################################
@@ -10,14 +10,14 @@
 
 import pygame
 import math
-
+import time
 #initialisation de pygame
 pygame.init()
 clock = pygame.time.Clock()
 #initialisation musique
 pygame.mixer.init()
-pygame.mixer.music.load("assests\The Red Sun in the Sky 100 - HQ.mp3")
-pygame.mixer.music.play(-1)
+#pygame.mixer.music.load("assests\The Red Sun in the Sky 100 - HQ.mp3")
+#pygame.mixer.music.play(-1)
 ##############################################
 #Constantes
 hauteur=790
@@ -26,6 +26,7 @@ ecran=pygame.display.set_mode((largeur,hauteur))
 police=36
 logo_para=pygame.image.load("assests/logo_paraV2.png")
 fond_ecran=pygame.image.load("assests/backgroundV2.png")
+logo_jeux=pygame.image.load("assests/Group 1.png")
 action_bouton1=True
 ##############################################
 
@@ -42,11 +43,18 @@ class Menu:
         #le jeux a commencé ou non
         self.en_train_de_jouer=True
     def lancerjeu(self):
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
+        # Remplir l'écran avec une couleur de fond
+        ecran.fill('white')  # blanc
+        mon_bouton_parametre.CreationBouton(ecran)
+        ecran.blit(fond_ecran, (0, 0))
+        ecran.blit(logo_jeux, ((largeur-700)/2,80 ))
+        # Créer et affiche les boutons
+        mon_bouton_jouer.CreationBouton(ecran)
+        mon_bouton_quitter.CreationBouton(ecran)
+        ecran.blit(logo_para, (1470, 730))
+        print(mon_bouton_jouer.BoutonClique())
+        # Mettre à jour l'affichage
+        pygame.display.flip()
 
 #classe des boutons
 class Bouton:
@@ -84,7 +92,7 @@ class Bouton:
     def BoutonClique(self):
         pos_souris=pygame.mouse.get_pos()
         clique_gauche=pygame.mouse.get_pressed()[0]
-        bouton_creer=pygame.Rect(self.axe_x, self.axe_y, 200, 50)
+        bouton_creer=pygame.Rect(self.axe_x, self.axe_y, 300, 50)
         if clique_gauche and bouton_creer.collidepoint(pos_souris):
             return True
         else:
@@ -93,11 +101,12 @@ class Bouton:
 def changer_musique(musique):
     pygame.mixer.music.stop()
     pygame.mixer.music.load(musique)
-    pygame.mixer.music.play()
+    pygame.mixer.music.play(-1)
 
 def changer_bruitage(bruitage):
     son=pygame.mixer.Sound(bruitage)
     son.play()
+
 
 
 menu=Menu()
@@ -123,25 +132,14 @@ mon_bouton_parametre=Bouton("",x_p,y_p,'white',50,50,36,True)
 # Boucle principale
 running = True
 while running:
-    # Remplir l'écran avec une couleur de fond
-    ecran.fill('white')  # blanc
-    mon_bouton_parametre.CreationBouton(ecran)
-    ecran.blit(fond_ecran,(0,0))
-
-    # Créer et affiche les boutons
-    mon_bouton_jouer.CreationBouton(ecran)
-    mon_bouton_quitter.CreationBouton(ecran)
-    ecran.blit(logo_para, (1470,730))
-    print(mon_bouton_jouer.BoutonClique())
-    # Mettre à jour l'affichage
-    pygame.display.flip()
-    if mon_bouton_jouer.BoutonClique() and mon_bouton_jouer.action==True:
-        mon_bouton_jouer.action=False
+    Menu.lancerjeu(self=menu)
+    if mon_bouton_jouer.BoutonClique() and action_bouton1==True:
+        action_bouton1=False
         changer_musique("assests/Chill.mp3")
     if mon_bouton_quitter.BoutonClique()==True:
         running = False
     if mon_bouton_parametre.BoutonClique()==True:
-        changer_musique("assests/bruitage_bouton.mp3")
+        changer_bruitage("assests/bruitage_bouton.mp3")
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
