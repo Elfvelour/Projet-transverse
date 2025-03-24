@@ -67,6 +67,8 @@ class Projectile(pygame.sprite.Sprite):
         self.gravite = 0.2
         self.sol_y = 800
         self.explosion = pygame.image.load("assests/explosion.png").convert_alpha()
+        self.explosion_size = (50, 50)
+        self.explosion = pygame.transform.scale(self.explosion, self.explosion_size)
         self.explosion_rect = None
         self.temps_explosion = None  # Temps de début de l'explosion
         self.a_touche_bot = False  # Pour éviter d'ajouter des pièces par erreur
@@ -131,7 +133,7 @@ class Projectile(pygame.sprite.Sprite):
     def afficher(self, surface):
         """ Affiche le projectile ou l'explosion """
         if self.temps_explosion:
-            surface.blit(self.explosion, self.explosion_rect)  # Affiche l'explosion
+            surface.blit(self.explosion, self.explosion_rect.topleft)  # Affiche l'explosion
         else:
             surface.blit(self.image, self.rect)
 
