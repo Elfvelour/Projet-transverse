@@ -5,6 +5,8 @@ from monnaie import Pieces
 from pygame.sprite import Group
 from bot import Bot
 import json
+from main_menu import changer_musique, changer_bruitage
+from main import *
 
 # Permet de désactiver la mise à l'échelle de l'ordinateur
 ctypes.windll.user32.SetProcessDPIAware()
@@ -53,9 +55,6 @@ class Joueur(pygame.sprite.Sprite):
         y_depart = self.rect.centery - math.sin(math.radians(self.angle)) * self.longueur_ligne
         return x_depart, y_depart
 
-import pygame
-import math
-
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, x, y, taille, image, angle, puissance, tireur):
         super().__init__()
@@ -68,6 +67,8 @@ class Projectile(pygame.sprite.Sprite):
         self.gravite = 0.2
         self.sol_y = 800
         self.explosion = pygame.image.load("assests/explosion.png").convert_alpha()
+        self.explosion_size = (100, 100)
+        self.explosion = pygame.transform.scale(self.explosion, self.explosion_size)
         self.explosion_rect = None
         self.temps_explosion = None  # Temps de début de l'explosion
         self.a_touche_bot = False  # Pour éviter d'ajouter des pièces par erreur
@@ -132,7 +133,7 @@ class Projectile(pygame.sprite.Sprite):
     def afficher(self, surface):
         """ Affiche le projectile ou l'explosion """
         if self.temps_explosion:
-            surface.blit(self.explosion, self.explosion_rect)  # Affiche l'explosion
+            surface.blit(self.explosion, self.explosion_rect.topleft)  # Affiche l'explosion
         else:
             surface.blit(self.image, self.rect)
 
@@ -148,11 +149,11 @@ class Sol(pygame.sprite.Sprite):
 
 class Jeu:
     def __init__(self):
-        self.ecran = pygame.display.set_mode((1920, 1024), pygame.RESIZABLE)
+        self.ecran = pygame.display.set_mode((1920,1010), pygame.RESIZABLE)
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")
         self.personnage_actuel = "Einstein"
         self.image_projectile = self.obtenir_image_projectile(self.personnage_actuel)
-        self.background = pygame.image.load("assests/background3.png").convert()
+        self.background = pygame.image.load("assests/backgroundV2.png").convert()
         self.background = pygame.transform.scale(self.background, (1920, 1024))
         self.sol = Sol()
         self.joueur = Joueur(200, 672, [64, 128])
