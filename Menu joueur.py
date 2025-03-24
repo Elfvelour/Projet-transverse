@@ -60,14 +60,14 @@ def load_image(path, x, y):
 
 
 #Image de fond menu joueur
-background_image = load_image(r"C:\Users\rafae\PycharmProjects\PythonProject1\Image\OIP.jpg", WIDTH, HEIGHT)
+background_image = load_image("assests/background3.png", WIDTH, HEIGHT)
 
 #Image des personnages
-p1_img = load_image(r"C:\Users\rafae\PycharmProjects\PythonProject1\Image\img.png", 130, 170)
-p2_img = load_image(r"C:\Users\rafae\PycharmProjects\PythonProject1\Image\img.png", 130, 170)
-p3_img = load_image(r"C:\Users\rafae\PycharmProjects\PythonProject1\Image\img.png", 130, 170)
-p4_img = load_image(r"C:\Users\rafae\PycharmProjects\PythonProject1\Image\img.png", 130, 170)
-p5_img = load_image(r"C:\Users\rafae\PycharmProjects\PythonProject1\Image\img.png", 130, 170)
+p1_img = load_image("assests/img.png", 130, 170)
+p2_img = load_image("assests/img.png", 130, 170)
+p3_img = load_image("assests/img.png", 130, 170)
+p4_img = load_image("assests/img.png", 130, 170)
+p5_img = load_image("assests/img.png", 130, 170)
 
 
 #Liste d'armes pour chaque personnage
@@ -87,7 +87,7 @@ characters = [
     (p1_img, (padding, char_y_top), "Canard"),
     (p2_img, (top_spacing + 130 + padding, char_y_top), "Mère Noël"),
     (p3_img, (2 * (top_spacing + 130) + padding, char_y_top), "Einstein"),
-    (p4_img, (3 * (top_spacing + 130) + padding, char_y_top), "Jean-Soma"),
+    (p4_img, (3 * (top_spacing + 130) + padding, char_y_top), "J-S"),
     (p5_img, (4 * (top_spacing + 130) + padding, char_y_top), "Squelette")
 ]
 
@@ -180,7 +180,7 @@ while running:
             screen.blit(text_surface, (text_x + 40 + 80, rect_y + y_offset + 40))
 
             #Image de l'arme
-            weapon_img = load_image(weapon_img_path, 100, 40)
+            weapon_img = load_image(weapon_img_path, 60, 60)
             screen.blit(weapon_img, (rect_x + 850 + 80, rect_y + y_offset))
 
             #Bouton d'arme
