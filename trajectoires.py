@@ -4,6 +4,7 @@ import pygame
 from monnaie import Pieces
 from pygame.sprite import Group
 from bot import Bot
+import json
 
 # Permet de désactiver la mise à l'échelle de l'ordinateur
 ctypes.windll.user32.SetProcessDPIAware()
@@ -52,8 +53,11 @@ class Joueur(pygame.sprite.Sprite):
         y_depart = self.rect.centery - math.sin(math.radians(self.angle)) * self.longueur_ligne
         return x_depart, y_depart
 
+import pygame
+import math
+
 class Projectile(pygame.sprite.Sprite):
-    def __init__(self, x, y, taille, image, angle, puissance):
+    def __init__(self, x, y, taille, image, angle, puissance, tireur):
         super().__init__()
         self.image = pygame.transform.scale(image, (taille[0], taille[1]))
         self.rect = pygame.Rect(x, y, taille[0], taille[1])
@@ -66,42 +70,64 @@ class Projectile(pygame.sprite.Sprite):
         self.explosion = pygame.image.load("assests/explosion.png").convert_alpha()
         self.explosion_rect = None
         self.temps_explosion = None  # Temps de début de l'explosion
-        self.a_touche_bot = False  # Pour éviter de donner des pièces par erreur
+        self.a_touche_bot = False  # Pour éviter d'ajouter des pièces par erreur
+        self.hors_ecran = False  # True si le projectile est sorti de l'écran
+        self.tireur = tireur  # "joueur" ou "bot" pour éviter les mélanges
+
+        print(f"🎯 Projectile ({self.tireur}) créé à ({x}, {y}) avec angle {self.angle}° et vitesse ({self.vitesse_x}, {self.vitesse_y})")
 
     def mouvement(self, bot, piece, jeu):
-        """ Gère le mouvement du projectile et ses collisions """
+        """Gère le mouvement du projectile et ses collisions"""
         if self.temps_explosion:
-            # Vérifier si l'explosion doit être retirée après 500ms
             if pygame.time.get_ticks() - self.temps_explosion > 500:
-                jeu.projectiles_groupe.remove(self)  # Supprime le projectile après explosion
-                jeu.explosion_active = False  # Marquer que l'explosion est terminée
+                print(f"⏳ Explosion terminée, suppression du projectile ({self.tireur})")
+                if self.tireur == "joueur":
+                    jeu.projectiles_joueur.remove(self)
+                else:
+                    jeu.projectiles_bot.remove(self)
+                jeu.explosion_active = False
             return
 
         # Appliquer la gravité
         self.vitesse_y += self.gravite
+        prev_x, prev_y = self.rect.x, self.rect.y  # Sauvegarde de la position précédente
         self.rect.x += int(self.vitesse_x)
         self.rect.y += int(self.vitesse_y)
 
-        # Vérifier la collision avec le bot
-        if self.rect.colliderect(bot.rect) and not self.a_touche_bot:
-            self.explosion_rect = self.rect.copy()  # L'explosion apparaît à l'impact
-            self.temps_explosion = pygame.time.get_ticks()  # Démarre le timer d'explosion
-            self.a_touche_bot = True  # Marque que le bot a été touché
-            piece.monnaie_joueur += 10  # Ajoute 10 pièces
-            jeu.explosion_active = True  # Marquer qu'une explosion est en cours
+        print(f"🚀 Projectile ({self.tireur}) position: ({self.rect.x}, {self.rect.y}) - Vitesse: ({self.vitesse_x}, {self.vitesse_y})")
+
+        if self.rect.right < 0 or self.rect.left > 1920 or self.rect.bottom < 0 or self.rect.top > 1024:
+            # Le projectile continue sa chute jusqu'à toucher le sol, même hors écran
+            self.hors_ecran = True
+
+        # Vérifier la collision avec le bot (uniquement si c'est le joueur qui tire)
+        if self.tireur == "joueur" and self.rect.colliderect(bot.rect) and not self.a_touche_bot:
+            print(f"💥 Collision avec le bot ! Impact en ({self.rect.centerx}, {self.rect.centery})")
+            self.creer_explosion(bot.rect.centerx, bot.rect.centery)
+            self.temps_explosion = pygame.time.get_ticks()
+            self.a_touche_bot = True
+            piece.monnaie_joueur += 10
+            jeu.explosion_active = True
             return
 
         # Vérifier la collision avec le sol
         if self.rect.bottom >= self.sol_y:
-            self.explosion_rect = self.rect.copy()  # Explosion à l'impact
+            print(f"💥 Collision avec le sol en ({self.rect.centerx}, {self.sol_y})")
+            self.creer_explosion(self.rect.centerx, self.sol_y)
             self.temps_explosion = pygame.time.get_ticks()
-            jeu.explosion_active = True  # Marquer qu'une explosion est en cours
+            jeu.explosion_active = True
             return
 
-        # Si le projectile sort de l’écran, on le supprime **sans donner de pièces**
-        if self.rect.top > 1024 or self.rect.right < 0 or self.rect.left > 1920:
-            jeu.projectiles_groupe.remove(self)  # Supprime sans explosion
-            return
+    def creer_explosion(self, x, y):
+        """Crée une explosion à une position précise"""
+        print(f"💥 Explosion créée à ({x}, {y}), rect: {self.explosion_rect}")
+        explosion_size = (50, 50)
+        self.explosion_rect = pygame.Rect(
+            x - explosion_size[0] // 2,
+            y - explosion_size[1] // 2,
+            explosion_size[0],
+            explosion_size[1]
+        )
 
     def afficher(self, surface):
         """ Affiche le projectile ou l'explosion """
@@ -109,3 +135,122 @@ class Projectile(pygame.sprite.Sprite):
             surface.blit(self.explosion, self.explosion_rect)  # Affiche l'explosion
         else:
             surface.blit(self.image, self.rect)
+
+
+class Sol(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.rect = pygame.Rect(0, 800, 1920, 300)
+
+    def affichage(self, surface):
+        pygame.draw.rect(surface, (0, 200, 100), self.rect)
+
+
+class Jeu:
+    def __init__(self):
+        self.ecran = pygame.display.set_mode((1920, 1024), pygame.RESIZABLE)
+        self.donnees_json = self.charger_donnees_json("gestion_stats.json")
+        self.personnage_actuel = "Einstein"
+        self.image_projectile = self.obtenir_image_projectile(self.personnage_actuel)
+        self.background = pygame.image.load("assests/background3.png").convert()
+        self.background = pygame.transform.scale(self.background, (1920, 1024))
+        self.sol = Sol()
+        self.joueur = Joueur(200, 672, [64, 128])
+
+        self.projectiles_joueur = pygame.sprite.Group()
+        self.projectiles_bot = pygame.sprite.Group()
+
+        self.piece = Pieces((50, 50))
+        self.bot = Bot(1920 - 100, 672, [64, 128])
+
+        self.tour_joueur = True  # Le joueur commence
+        self.en_attente = False  # Attente entre les tours
+        self.temps_attente = 0  # Temps de début d'attente
+        self.explosion_active = False  # True si une explosion est affichée
+
+    def charger_donnees_json(self, fichier):
+        with open(fichier, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    def obtenir_image_projectile(self, personnage):
+        for item in self.donnees_json:
+            if item["personnage"] == personnage:
+                return pygame.image.load(item["image"]).convert_alpha()
+        return pygame.image.load("assests/default_projectile.png").convert_alpha()
+
+    def boucle_principale(self):
+        clock = pygame.time.Clock()
+        continuer = True
+
+        while continuer:
+            self.ecran.blit(self.background, (0, 0))
+            pos_souris = pygame.mouse.get_pos()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    continuer = False
+                self.piece.verifier_clic(event, self)
+
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:
+                    self.joueur.temps_debut = pygame.time.get_ticks()
+
+                if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.tour_joueur:
+                    puissance = self.joueur.relacher_tir()
+                    x_proj, y_proj = self.joueur.position_depart_projectile()
+                    projectile = Projectile(x_proj, y_proj, [60, 60], self.image_projectile, self.joueur.angle,
+                                            puissance, "joueur")
+                    self.projectiles_joueur.add(projectile)
+                    self.piece.monnaie_joueur += 1
+
+                    # Début de l'attente avant le tour du bot
+                    self.temps_attente = pygame.time.get_ticks()
+                    self.en_attente = True
+                    self.tour_joueur = False
+
+            if pygame.mouse.get_pressed()[0] and self.tour_joueur:
+                self.joueur.charger_tir()
+
+            # Gestion de l'attente entre les tours
+            if self.en_attente:
+                if pygame.time.get_ticks() - self.temps_attente >= 5000 and not self.explosion_active:
+                    # Fin de l'attente, on vérifie si tous les projectiles sont terminés
+                    if not self.projectiles_joueur and not self.projectiles_bot:
+                        self.en_attente = False
+
+                        if not self.tour_joueur:
+                            # 🔹 Le bot joue maintenant
+                            angle, puissance = self.bot.tir(self.joueur.rect.centerx, self.joueur.rect.centery)
+                            projectile = Projectile(self.bot.rect.centerx, self.bot.rect.centery, [60, 60],
+                                                    self.image_projectile, angle, puissance, "bot")
+                            self.projectiles_bot.add(projectile)
+
+                            print("🤖 Le bot a tiré !")
+
+                            # 🔸 Préparer le tour du joueur après le tir du bot
+                            self.temps_attente = pygame.time.get_ticks()
+                            self.en_attente = True
+                            self.tour_joueur = True
+
+            for projectile in self.projectiles_joueur:
+                projectile.mouvement(self.bot, self.piece, self)
+
+            for projectile in self.projectiles_bot:
+                projectile.mouvement(self.bot, self.piece, self)
+
+            self.sol.affichage(self.ecran)
+            self.joueur.affichage(self.ecran, pos_souris)
+            self.bot.affichage(self.ecran)
+            for projectile in self.projectiles_joueur:
+                projectile.afficher(self.ecran)
+
+            for projectile in self.projectiles_bot:
+                projectile.afficher(self.ecran)
+
+            self.piece.afficher_monnaie(self.ecran)
+            self.piece.afficher_nombre_pieces(self.ecran)
+            self.piece.afficher_bouton(self.ecran)
+
+            pygame.display.update()
+            clock.tick(110)
+
+        pygame.quit()
