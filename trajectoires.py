@@ -255,6 +255,9 @@ class Jeu:
             self.piece.afficher_nombre_pieces(self.ecran)
             self.piece.afficher_bouton(self.ecran)
 
+            if self.piece.monnaie_joueur >= 150 :
+                self.piece.afficher_gg(self.ecran)
+
             pygame.display.update()
             clock.tick(110)
 
