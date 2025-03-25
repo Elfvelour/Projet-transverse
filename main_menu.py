@@ -16,8 +16,8 @@ pygame.init()
 clock = pygame.time.Clock()
 #initialisation musique
 pygame.mixer.init()
-#pygame.mixer.music.load("assests/sons/The Red Sun in the Sky 100 - HQ.mp3")
-#pygame.mixer.music.play(-1)
+pygame.mixer.music.load("assests/sons/The Red Sun in the Sky 100 - HQ.mp3")
+pygame.mixer.music.play(-1)
 ##############################################
 #Constantes
 hauteur=790

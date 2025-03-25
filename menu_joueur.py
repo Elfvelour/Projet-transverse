@@ -78,7 +78,7 @@ def wrap_text(text, font, max_width):
     return lines
 def run_character_menu() :
     #Image de fond menu joueur
-    background_image = load_image("assests/backgroundV2.png", WIDTH, HEIGHT)
+    background_image = load_image("assests/images/menup/backgroundV2.png", WIDTH, HEIGHT)
 
     #Image des personnages
     p1_img = load_image("assests/img.png", 130, 170)
@@ -90,11 +90,11 @@ def run_character_menu() :
 
     #Liste d'armes pour chaque personnage
     weapons = {
-        "P1": [("Oeuf", "assests/oeuf.png","A1"), ("Canard laqué", "assests/plat_canard.png","A2")],
-        "P2": [("Cadeau", "assests/cadeau.png","A1"), ("Biscuit", "assests/cookie.png","A2")],
-        "P3": [("Fiole rouge", "assests/fiole_rouge.png","A1"), ("Fiole bleu", "assests/fiole_bleu.png","A2")],
-        "P4": [("Discours", "assests/discours.png","A1"), ("SWS", "assests/logo_sowesign.png","A2")],
-        "P5": [("Os", "assests/arme_os.png","A1"), ("Tombe", "assests/tombe.png","A2")],
+        "P1": [("Oeuf", "assests/images/armes/oeuf.png","A1"), ("Canard laqué", "assests/images/armes/plat_canard.png","A2")],
+        "P2": [("Cadeau", "assests/images/armes/cadeau.png","A1"), ("Biscuit", "assests/images/armes/cookie.png","A2")],
+        "P3": [("Fiole rouge", "assests/images/armes/fiole_rouge.png","A1"), ("Fiole bleu", "assests/images/armes/fiole_bleu.png","A2")],
+        "P4": [("Discours", "assests/images/armes/discours.png","A1"), ("SWS", "assests/images/armes/logo_sowesign.png","A2")],
+        "P5": [("Os", "assests/images/armes/arme_os.png","A1"), ("Tombe", "assests/images/armes/tombe.png","A2")],
     }
     #Position des perso
     padding = 60
@@ -110,7 +110,7 @@ def run_character_menu() :
     ]
 
     character_description = {
-        "P1" : ["Ce légendaire combattant anatidés utilise ces compagnons pour attaquer son adversaire.","Quoi de mieux que sa progéniture pour arme ?","Toute sa famille est passée à la casserole."],
+        "P1" : ["Ce légendaire combattant utilise ces compagnons pour attaquer son adversaire.","Quoi de mieux que sa progéniture pour arme ?","Toute sa famille est passée à la casserole."],
         "P2" : ["Elle n'a pas besoin de son mari pour livrer des cadeaux explosifs.","Visiblement, tu as été un vilain petit garnement...","Ses biscuits ont eu le temps de bien durcir depuis le temps."],
         "P3" : ["Ce scientifique fou revient encore une fois pout tout faire sauter.","On dit que cette fiole renferme du polonium.","On dit que cette fiole renferme du radium."],
         "P4" : ["Le plus grand professeur des matières littéraires.","Qui a dit que des actions valaient mieux que mille mots ?","Et hop là, une absence non-excusée."],

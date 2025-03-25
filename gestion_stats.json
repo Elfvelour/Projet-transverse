@@ -9,7 +9,7 @@
     "vie" : 100,
     "masse" : 0.006,
     "puissance" : 10,
-    "description_perso" : "Ce légendaire combattant anatidés utilise ces compagnons pour attaquer son adversaire.",
+    "description_perso" : "Ce légendaire combattant utilise ces compagnons pour attaquer son adversaire.",
     "description_arme" : "Quoi de mieux que sa progéniture pour arme ?"
   },
   {
@@ -21,7 +21,7 @@
     "vie" : 100,
     "masse" : 0.7,
     "puissance" : 10,
-    "description_perso" : "Ce légendaire combattant anatidés utilise ces compagnons pour attaquer son adversaire.",
+    "description_perso" : "Ce légendaire combattant utilise ces compagnons pour attaquer son adversaire.",
     "description_arme" : "Toute sa famille est passée à la casserole."
   },
   {
