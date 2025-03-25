@@ -16,17 +16,17 @@ pygame.init()
 clock = pygame.time.Clock()
 #initialisation musique
 pygame.mixer.init()
-#pygame.mixer.music.load("assests\The Red Sun in the Sky 100 - HQ.mp3")
-#pygame.mixer.music.play(-1)
+pygame.mixer.music.load("assests/sons/The Red Sun in the Sky 100 - HQ.mp3")
+pygame.mixer.music.play(-1)
 ##############################################
 #Constantes
 hauteur=790
 largeur=1530
 ecran=pygame.display.set_mode((largeur,hauteur))
 police=36
-logo_para=pygame.image.load("assests/logo_paraV2.png")
-fond_ecran=pygame.image.load("assests/backgroundV2.png")
-logo_jeux=pygame.image.load("assests/Group 1.png")
+logo_para=pygame.image.load("assests/images/menup/logo_paraV2.png")
+fond_ecran=pygame.image.load("assests/images/menup/backgroundV2.png")
+logo_jeux=pygame.image.load("assests/images/menup/logo_jeux.png")
 action_bouton1=True
 ##############################################
 
@@ -66,7 +66,7 @@ class Bouton:
         self.hauteur = hauteur
         self.longueur = longueur
         self.action = action
-        self.police_caractere =pygame.font.Font("assests/04B_30__.TTF", 40)
+        self.police_caractere =pygame.font.Font("assests/images/affichage/04B_30__.TTF", 40)
 
     def CreationBouton(self, ecran):
 
@@ -106,6 +106,8 @@ def changer_musique(musique):
 def changer_bruitage(bruitage):
     son=pygame.mixer.Sound(bruitage)
     son.play()
+    time.sleep(1)
+    son.stop()
 
 
 
@@ -135,11 +137,11 @@ while running:
     Menu.lancerjeu(self=menu)
     if mon_bouton_jouer.BoutonClique() and action_bouton1==True:
         action_bouton1=False
-        changer_musique("assests/Chill.mp3")
+        changer_musique("assests/sons/chill.wav")
     if mon_bouton_quitter.BoutonClique()==True:
         running = False
     if mon_bouton_parametre.BoutonClique()==True:
-        changer_bruitage("assests/bruitage_bouton.mp3")
+        changer_bruitage("assests/sons/bruitage_bouton.mp3")
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
