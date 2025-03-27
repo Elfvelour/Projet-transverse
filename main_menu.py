@@ -2,46 +2,52 @@
 ##############################################
 ###### Programme Python menu principal  ######
 ###### Auteur: Timothée Girault         ######
-###### Version: 1.5                    ######
+###### Version: 1.6                     ######
 ##############################################
 
 ##############################################
 # Importation des fonctions externes
 
 import pygame
-import math
 import time
 #initialisation de pygame
 pygame.init()
-clock = pygame.time.Clock()
-#initialisation musique
 pygame.mixer.init()
-pygame.mixer.music.load("assests/sons/The Red Sun in the Sky 100 - HQ.mp3")
-pygame.mixer.music.play(-1)
+clock = pygame.time.Clock()
 ##############################################
 #Constantes
-hauteur=790
-largeur=1530
+hauteur,largeur=790,1530
+action_bouton1=True
+#defini la taille de l'écran
 ecran=pygame.display.set_mode((largeur,hauteur))
-police=36
+#donne le nom a la page
+pygame.display.set_caption("BOW MASTER")
+##############################################
+#initialisation musique
+pygame.mixer.music.load("assests/sons/The Red Sun in the Sky 100 - HQ.mp3")
+pygame.mixer.music.play(-1)
+
+#chargements des textures
 logo_para=pygame.image.load("assests/images/menup/logo_paraV2.png")
 fond_ecran=pygame.image.load("assests/images/menup/backgroundV2.png")
-logo_jeux=pygame.image.load("assests/images/menup/logo_jeux.png")
-action_bouton1=True
-##############################################
+logo_jeux=pygame.image.load("assests/logojeux.png")
 
 #classe du menu
 class Menu:
 
     def __init__(self):
-        #defini la taille de l'écran
-        self.ecran=pygame.display.set_mode((largeur,hauteur))
-        #donne le nom a la page
-        pygame.display.set_caption("BOW MASTER")
+        self.running=True
+        self.musique=Musique()
         #liste de boutons
-        self.boutons=[]
+        self.boutons=[#bouton jouer
+             Bouton(texte, x, y, couleur,hauteur_b,longueur_b, police_b,action_bouton1),
+             #bouton quitter
+             Bouton("quitter",x,y+120,'red',300,70,police_b,True),
+            #bouton parametre
+            Bouton("",x_p,y_p,'white',50,50,police_b,True)]
         #le jeux a commencé ou non
-        self.en_train_de_jouer=True
+        self.en_train_de_jouer=False
+
     def lancerjeu(self):
         # Remplir l'écran avec une couleur de fond
         ecran.fill('white')  # blanc
@@ -66,7 +72,7 @@ class Bouton:
         self.hauteur = hauteur
         self.longueur = longueur
         self.action = action
-        self.police_caractere =pygame.font.Font("assests/images/affichage/04B_30__.TTF", 40)
+        self.police_caractere =pygame.font.Font("assests/images/affichage/04B_30__.TTF", police)
 
     def CreationBouton(self, ecran):
 
@@ -98,38 +104,48 @@ class Bouton:
         else:
             return False
 
-def changer_musique(musique):
-    pygame.mixer.music.stop()
-    pygame.mixer.music.load(musique)
-    pygame.mixer.music.play(-1)
+class Musique:
+    #bibliothèque des sons
+    def __init__(self):
+        self.bruitage={
+            'clique':pygame.mixer.Sound("assests/sons/bruitage_bouton2.mp3"),
+            'potion':pygame.mixer.Sound("assests/sons/potion_bruit.mp3"),
 
-def changer_bruitage(bruitage):
-    son=pygame.mixer.Sound(bruitage)
-    son.play()
-    time.sleep(1)
-    son.stop()
+        }
+        self.chansons={
+            'chill':"assests/sons/chill.wav",
+            'musique_c':"assests/sons/The Red Sun in the Sky 100 - HQ.mp3",
+        }
+    def jouer_bruitage(self,nom) :
+        self.bruitage[nom].play()
+        time.sleep(0.5)
+
+    def jouer_musique(self,nom):
+        pygame.mixer.music.load(self.chansons[nom])
+        pygame.mixer.music.play(-1)
 
 
 
 menu=Menu()
+musique=Musique()
 
 # Définir les paramètres du bouton
 texte = "jouer"
 x = (largeur-300)/2
 y = (hauteur-70)/2
 couleur = 'red'  # Rouge
-police = 36
+police_b = 40
 hauteur_b = 300
 longueur_b = 70
 x_p=largeur-60
 y_p=hauteur-60
 
 #bouton jouer
-mon_bouton_jouer = Bouton(texte, x, y, couleur,hauteur_b,longueur_b, police,action_bouton1)
+mon_bouton_jouer = Bouton(texte, x, y, couleur,hauteur_b,longueur_b, police_b,action_bouton1)
 #bouton quitter
-mon_bouton_quitter=Bouton("quitter",x,y+120,'red',300,70,36,True)
+mon_bouton_quitter=Bouton("quitter",x,y+120,'red',300,70,police_b,True)
 #bouton parametre
-mon_bouton_parametre=Bouton("",x_p,y_p,'white',50,50,36,True)
+mon_bouton_parametre=Bouton("",x_p,y_p,'white',50,50,police_b,True)
 
 # Boucle principale
 running = True
@@ -137,15 +153,11 @@ while running:
     Menu.lancerjeu(self=menu)
     if mon_bouton_jouer.BoutonClique() and action_bouton1==True:
         action_bouton1=False
-        changer_musique("assests/sons/chill.wav")
-    if mon_bouton_quitter.BoutonClique()==True:
+        musique.jouer_musique('chill')
+    if mon_bouton_quitter.BoutonClique():
         running = False
-    if mon_bouton_parametre.BoutonClique()==True:
-        changer_bruitage("assests/sons/bruitage_bouton.mp3")
+    if mon_bouton_parametre.BoutonClique():
+        musique.jouer_bruitage('clique')
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-
-
-
