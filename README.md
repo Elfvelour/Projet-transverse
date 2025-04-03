@@ -28,3 +28,4 @@ création du jeu bowmaster
 -15/03/2025 Tim: revue en profondeur des assets pour le menu principal (nouvelles images et redimensions)+animation bouton et sons
 
 -25/03/2025 Tim: mise au propre des assets et correction bug sons potion
+-3/04/2025 Tim: mise au propre des commentaires ainsi que la création bu bouton "revenir en arrière".
