@@ -81,11 +81,11 @@ def run_character_menu() :
     background_image = load_image("assests/images/menup/backgroundV2.png", WIDTH, HEIGHT)
 
     #Image des personnages
-    p1_img = load_image("assests/img.png", 130, 170)
-    p2_img = load_image("assests/img.png", 130, 170)
-    p3_img = load_image("assests/img.png", 130, 170)
-    p4_img = load_image("assests/img.png", 130, 170)
-    p5_img = load_image("assests/img.png", 130, 170)
+    p1_img = load_image("assests/images/perso/canard.png", 175, 187.5)
+    p2_img = load_image("assests/images/perso/mere_noel.png", 162.5   , 187.5)
+    p3_img = load_image("assests/images/perso/einstein.png", 134.6, 206)
+    p4_img = load_image("assests/images/perso/jean_soma.png", 150, 220)
+    p5_img = load_image("assests/images/perso/squelette.png", 118, 200)
 
 
     #Liste d'armes pour chaque personnage
