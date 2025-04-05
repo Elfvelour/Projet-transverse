@@ -5,9 +5,7 @@ from monnaie import Pieces
 from pygame.sprite import Group
 from bot import Bot
 import json
-from main_menu import changer_musique, changer_bruitage
-from main import *
-from gg import *
+from main_menu import jouer_musique, changer_bruitage
 
 # Permet de désactiver la mise à l'échelle de l'ordinateur
 ctypes.windll.user32.SetProcessDPIAware()
@@ -155,8 +153,9 @@ class Jeu:
     def __init__(self):
         self.ecran = pygame.display.set_mode((1920,1010), pygame.RESIZABLE)
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")
-        self.personnage_actuel = "Einstein"
-        self.image_projectile = self.obtenir_image_projectile(self.personnage_actuel)
+        self.personnage_actuel = "P1"
+        self.arme_actuel = "A1"
+        self.image_projectile = self.obtenir_image_projectile(self.personnage_actuel, self.arme_actuel)
         self.background = pygame.image.load("assests/images/menup/backgroundV2.png").convert()
         self.background = pygame.transform.scale(self.background, (1920, 1024))
         self.sol = Sol()
@@ -177,10 +176,10 @@ class Jeu:
         with open(fichier, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    def obtenir_image_projectile(self, personnage):
+    def obtenir_image_projectile(self, personnage, arme):
         for item in self.donnees_json:
-            if item["personnage"] == personnage:
-                return pygame.image.load(item["image"]).convert_alpha()
+            if item["code P"] == personnage and item["code A"] == arme :
+                return pygame.image.load(item["image_arme"]).convert_alpha()
         return pygame.image.load("assests/default_projectile.png").convert_alpha()
 
     def boucle_principale(self):
