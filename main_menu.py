@@ -2,51 +2,86 @@
 ##############################################
 ###### Programme Python menu principal  ######
 ###### Auteur: Timothée Girault         ######
-###### Version: 1.3                     ######
+###### Version: 1.8                     ######
 ##############################################
 
 ##############################################
 # Importation des fonctions externes
 
 import pygame
-import math
-
 #initialisation de pygame
 pygame.init()
-clock = pygame.time.Clock()
-#initialisation musique
 pygame.mixer.init()
-pygame.mixer.music.load("assests\The Red Sun in the Sky 100 - HQ.mp3")
-pygame.mixer.music.play(-1)
+clock = pygame.time.Clock()
 ##############################################
 #Constantes
-hauteur=790
-largeur=1530
-ecran=pygame.display.set_mode((largeur,hauteur))
-police=36
-logo_para=pygame.image.load("assests/logo_paraV2.png")
-fond_ecran=pygame.image.load("assests/backgroundV2.png")
+hauteur,largeur=790,1530
 action_bouton1=True
+action=False
+#defini la taille de l'écran
+ecran=pygame.display.set_mode((largeur,hauteur))
+#donne le nom a la page
+pygame.display.set_caption("BOW MASTER")
 ##############################################
+#initialisation musique
+pygame.mixer.music.load("assests/sons/The Red Sun in the Sky 100 - HQ.mp3")
+pygame.mixer.music.play(-1)
 
+#chargements des textures
+logo_para=pygame.image.load("assests/images/menup/logo_paraV2.png")
+fond_ecran=pygame.image.load("assests/images/menup/backgroundV2.png")
+logo_jeux=pygame.image.load("assests/logojeux.png")
+logo_ar=pygame.image.load("assests/images/menup/back_bouton.png")
 #classe du menu
 class Menu:
 
     def __init__(self):
-        #defini la taille de l'écran
-        self.ecran=pygame.display.set_mode((largeur,hauteur))
-        #donne le nom a la page
-        pygame.display.set_caption("BOW MASTER")
+        self.running=True
+        self.musique=Musique()
         #liste de boutons
-        self.boutons=[]
+        self.boutons=[#bouton jouer
+             #Bouton(texte, x, y, couleur,hauteur_b,longueur_b, police_b,action_bouton1),
+             #bouton quitter
+             #Bouton("quitter",x,y+120,'red',300,70,police_b,True),
+            #bouton parametre
+            #Bouton("",x_p,y_p,'white',50,50,police_b,True)
+            ]
         #le jeux a commencé ou non
-        self.en_train_de_jouer=True
-    def lancerjeu(self):
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
+        self.en_train_de_jouer=False
+
+    @staticmethod
+    def lancerjeu():
+        # Remplir l'écran avec une couleur de fond
+        ecran.fill('white')  # blanc
+        mon_bouton_parametre.CreationBouton(ecran)
+        ecran.blit(fond_ecran, (0, 0))
+        ecran.blit(logo_jeux, ((largeur-700)/2,80 ))
+        # Créer et affiche les boutons
+        mon_bouton_jouer.CreationBouton(ecran)
+        mon_bouton_quitter.CreationBouton(ecran)
+        ecran.blit(logo_para, (1470, 730))
+        print(mon_bouton_jouer.BoutonClique())
+        # Mettre à jour l'affichage
+        pygame.display.flip()
+    @staticmethod
+    def lancer_V2():
+        ecran.blit(logo_jeux, ((largeur - 700) / 2, 80))
+        # Créer et affiche les boutons
+        mon_bouton_jouer.CreationBouton(ecran)
+        mon_bouton_quitter.CreationBouton(ecran)
+        print(mon_bouton_jouer.BoutonClique())
+        # Mettre à jour l'affichage
+        pygame.display.flip()
+    @staticmethod
+    # lance le menu principal sans les boutons de la fonction affichage_menu_bouton
+    def lancerjeuV3():
+        # Remplir l'écran avec une couleur de fond
+        ecran.fill('white')  # blanc
+        #creation des boutons paramètre et retour en arrière
+        mon_bouton_parametre.CreationBouton(ecran)
+        mon_bouton_ar.CreationBouton(ecran)
+        ecran.blit(fond_ecran, (0, 0))
+        ecran.blit(logo_para, (1470, 730))
 
 #classe des boutons
 class Bouton:
@@ -58,7 +93,7 @@ class Bouton:
         self.hauteur = hauteur
         self.longueur = longueur
         self.action = action
-        self.police_caractere =pygame.font.Font("assests/04B_30__.TTF", 40)
+        self.police_caractere =pygame.font.Font("assests/images/affichage/04B_30__.TTF", police)
 
     def CreationBouton(self, ecran):
 
@@ -78,74 +113,118 @@ class Bouton:
                 pygame.draw.rect(ecran,'dark red', bouton_creer,0,5)
             else:
                 pygame.draw.rect(ecran, 'red', bouton_creer, 0, 5)
+        #affiche le bouton
         ecran.blit(texte_surface, texte_rectangle)
 
-
+    #verifie si le clique gauche de la souris clique sur le bouto,
     def BoutonClique(self):
         pos_souris=pygame.mouse.get_pos()
         clique_gauche=pygame.mouse.get_pressed()[0]
-        bouton_creer=pygame.Rect(self.axe_x, self.axe_y, 200, 50)
+        bouton_creer=pygame.Rect(self.axe_x, self.axe_y, 300, 50)
         if clique_gauche and bouton_creer.collidepoint(pos_souris):
             return True
         else:
             return False
 
-def changer_musique(musique):
-    pygame.mixer.music.stop()
-    pygame.mixer.music.load(musique)
-    pygame.mixer.music.play()
+    #gère les évènements du menu principal
+    def Evenement(self):
+        #si on clique le bouton jouer on lance la musique chill et le menu des personnages
+        if mon_bouton_jouer.BoutonClique() and self.action == True:
+            self.action = False
+            musique.jouer_musique('chill')
+        #si on clique sur le bouton quitter cela fait quitter le jeux
+        if mon_bouton_quitter.BoutonClique():
+            return False
+        # si on clique le bouton paramètre on lance le bruitage de bouton
+        if mon_bouton_parametre.BoutonClique():
+            musique.jouer_bruitage('clique')
+        #si on clique sur le bouton revenir en arrière on peut revenir au menu principal
+        if mon_bouton_ar.BoutonClique() and self.action == False:
+            self.action=True
 
-def changer_bruitage(bruitage):
-    son=pygame.mixer.Sound(bruitage)
-    son.play()
+class Musique:
+    #bibliothèque des sons
+    def __init__(self):
+        self.bruitage={
+            'clique':pygame.mixer.Sound("assests/sons/bruitage_bouton2.mp3"),
+            'potion':pygame.mixer.Sound("assests/sons/potion_bruit.mp3"),
+
+        }
+        #bibliothèque des chansons
+        self.chansons={
+            'chill':"assests/sons/chill.wav",
+            'musique_c':"assests/sons/The Red Sun in the Sky 100 - HQ.mp3",
+        }
+    #elle lance des bruitages pour le jeux comme un lancer de potion
+    def jouer_bruitage(self,nom) :
+        if nom in self.bruitage:
+            self.bruitage[nom].stop()  # Arrêter le son s'il est déjà en cours de lecture
+            self.bruitage[nom].play()
+    #elle lance une musique
+    def jouer_musique(self,nom):
+        pygame.mixer.music.load(self.chansons[nom])
+        pygame.mixer.music.play(-1)
+
+#verifie les diffiérents évènements pour chaque boutons
+def verif_boutons():
+    Bouton.Evenement(mon_bouton_jouer)
+    Bouton.Evenement(mon_bouton_quitter)
+    Bouton.Evenement(mon_bouton_parametre)
+
+#affiche les boutons et le logo du menu principal
+def affichage_menu_bouton():
+    #logo du jeux
+    ecran.blit(logo_jeux, ((largeur - 700) / 2, 80))
+    # Créer et affiche les boutons jouer et quitter
+    mon_bouton_jouer.CreationBouton(ecran)
+    mon_bouton_quitter.CreationBouton(ecran)
+
+def affichage_menu():
+    Menu.lancerjeuV3()
+    #on affiche les boutons tant qu'on appuie pas sur le bouton jouer pour lancer le jeux(on a action=True pour chaque bouton par défaut)
+    if mon_bouton_jouer.action == True:
+        affichage_menu_bouton()
+    else:
+        #si on appuyer sur jouer on peut revenir en arrière grace au bouton en arrière
+        ecran.blit(logo_ar, (0, 0))
+    verif_boutons()
+    #si on appuie sur quitter cela fait quiter le jeux
+    if Bouton.Evenement(mon_bouton_quitter) == False:
+        return False
 
 
-menu=Menu()
-
-# Définir les paramètres du bouton
+# Définir les paramètres du bouton jouer
 texte = "jouer"
 x = (largeur-300)/2
 y = (hauteur-70)/2
 couleur = 'red'  # Rouge
-police = 36
+police_b = 40
 hauteur_b = 300
 longueur_b = 70
+#paramètre bouton paramètre
 x_p=largeur-60
 y_p=hauteur-60
 
 #bouton jouer
-mon_bouton_jouer = Bouton(texte, x, y, couleur,hauteur_b,longueur_b, police,action_bouton1)
+mon_bouton_jouer = Bouton(texte, x, y, couleur,hauteur_b,longueur_b, police_b,action_bouton1)
 #bouton quitter
-mon_bouton_quitter=Bouton("quitter",x,y+120,'red',300,70,36,True)
+mon_bouton_quitter=Bouton("quitter",x,y+120,'red',300,70,police_b,True)
 #bouton parametre
-mon_bouton_parametre=Bouton("",x_p,y_p,'white',50,50,36,True)
+mon_bouton_parametre=Bouton("",x_p,y_p,'white',50,50,police_b,True)
+#bouton retour en arrière
+mon_bouton_ar=Bouton("",0,0,'white',50,50,police_b,True)
+
+#initialisation de la classe musique dans la boucle
+musique=Musique()
 
 # Boucle principale
 running = True
 while running:
-    # Remplir l'écran avec une couleur de fond
-    ecran.fill('white')  # blanc
-    mon_bouton_parametre.CreationBouton(ecran)
-    ecran.blit(fond_ecran,(0,0))
-
-    # Créer et affiche les boutons
-    mon_bouton_jouer.CreationBouton(ecran)
-    mon_bouton_quitter.CreationBouton(ecran)
-    ecran.blit(logo_para, (1470,730))
-    print(mon_bouton_jouer.BoutonClique())
-    # Mettre à jour l'affichage
+    affichage_menu()
     pygame.display.flip()
-    if mon_bouton_jouer.BoutonClique() and mon_bouton_jouer.action==True:
-        mon_bouton_jouer.action=False
-        changer_musique("assests/Chill.mp3")
-    if mon_bouton_quitter.BoutonClique()==True:
+    #boucle tant qu'on n'a pas appuyer sur le bouton quitter (running=False)
+    if affichage_menu() == False:
         running = False
-    if mon_bouton_parametre.BoutonClique()==True:
-        changer_musique("assests/bruitage_bouton.mp3")
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-
-
-

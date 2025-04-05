@@ -7,6 +7,7 @@ from bot import Bot
 import json
 from main_menu import changer_musique, changer_bruitage
 from main import *
+from gg import *
 
 # Permet de désactiver la mise à l'échelle de l'ordinateur
 ctypes.windll.user32.SetProcessDPIAware()
@@ -69,7 +70,7 @@ class Projectile(pygame.sprite.Sprite):
         self.vitesse_y = -math.sin(math.radians(self.angle)) * self.vitesse
         self.gravite = 0.2
         self.sol_y = 800
-        self.explosion = pygame.image.load("assests/explosion.png").convert_alpha()
+        self.explosion = pygame.image.load("assests/images/affichage/explosion.png").convert_alpha()
         self.explosion_size = (100, 100)
         self.explosion = pygame.transform.scale(self.explosion, self.explosion_size)
         self.explosion_rect = None
@@ -136,7 +137,7 @@ class Projectile(pygame.sprite.Sprite):
     def afficher(self, surface):
         """ Affiche le projectile ou l'explosion """
         if self.temps_explosion:
-            surface.blit(self.explosion, self.explosion_rect.topleft)  # Affiche l'explosion
+            surface.blit(self.explosion, self.explosion_rect)  # Affiche l'explosion
         else:
             surface.blit(self.image, self.rect)
 
@@ -156,7 +157,7 @@ class Jeu:
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")
         self.personnage_actuel = "Einstein"
         self.image_projectile = self.obtenir_image_projectile(self.personnage_actuel)
-        self.background = pygame.image.load("assests/backgroundV2.png").convert()
+        self.background = pygame.image.load("assests/images/menup/backgroundV2.png").convert()
         self.background = pygame.transform.scale(self.background, (1920, 1024))
         self.sol = Sol()
         self.joueur = Joueur(200, 672, [64, 128])
@@ -253,6 +254,9 @@ class Jeu:
             self.piece.afficher_monnaie(self.ecran)
             self.piece.afficher_nombre_pieces(self.ecran)
             self.piece.afficher_bouton(self.ecran)
+
+            if self.piece.monnaie_joueur >= 250 :
+                self.piece.afficher_gg(self.ecran)
 
             pygame.display.update()
             clock.tick(110)
