@@ -31,6 +31,13 @@ création du jeu bowmaster
 
 -15/03/2025 Tim: revue en profondeur des assets pour le menu principal (nouvelles images et redimensions)+animation bouton et sons
 
+-24/03/2025 Flavie: Améliorations des trajectoires et du bot (gravité et projectiles)
+                    Ajustement du positionnement des images d'explosion (centrées par rapport au projectile)
+
 -25/03/2025 Tim: mise au propre des assets et correction bug sons potion
 
--3/04/2025 Tim: mise au propre des commentaires ainsi que la création bu bouton "revenir en arrière".
+-03/04/2025 Tim: mise au propre des commentaires ainsi que la création bu bouton "revenir en arrière".
+
+-06/04/2025 Flavie: Refonte de la boucle principale
+                    Positionnement correct des images d'explosion (SUR le sol)
+                    Améliorations des tirs du bot (corrections des plages de distance en fonction du joueur)
