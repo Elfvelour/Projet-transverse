@@ -5,7 +5,6 @@ from monnaie import Pieces
 from pygame.sprite import Group
 from bot import Bot
 import json
-from main_menu import jouer_musique, changer_bruitage
 
 # Permet de désactiver la mise à l'échelle de l'ordinateur
 ctypes.windll.user32.SetProcessDPIAware()
