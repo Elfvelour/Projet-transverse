@@ -7,21 +7,25 @@
 
 ##############################################
 # Importation des fonctions externes
-
+import ctypes
 import pygame
 #initialisation de pygame
 pygame.init()
 pygame.mixer.init()
 clock = pygame.time.Clock()
+# Permet de désactiver la mise à l'échelle de l'ordinateur
+ctypes.windll.user32.SetProcessDPIAware()
 ##############################################
 #Constantes
-hauteur,largeur=790,1530
+hauteur,largeur=1024,1920
 action_bouton1=True
 action=False
 #defini la taille de l'écran
-ecran=pygame.display.set_mode((largeur,hauteur))
+ecran=pygame.display.set_mode((largeur,hauteur),pygame.RESIZABLE)
 #donne le nom a la page
 pygame.display.set_caption("BOW MASTER")
+x_p=1860
+y_p=930
 ##############################################
 #initialisation musique
 pygame.mixer.music.load("assests/sons/The Red Sun in the Sky 100 - HQ.mp3")
@@ -29,7 +33,7 @@ pygame.mixer.music.play(-1)
 
 #chargements des textures
 logo_para=pygame.image.load("assests/images/menup/logo_paraV2.png")
-fond_ecran=pygame.image.load("assests/images/menup/backgroundV2.png")
+fond_ecran=pygame.image.load("assests/images/menup/backgroundV4.png")
 logo_jeux=pygame.image.load("assests/images/menup/logojeux.png")
 logo_ar=pygame.image.load("assests/images/menup/back_bouton.png")
 #classe du menu
@@ -81,11 +85,11 @@ class Menu:
         mon_bouton_parametre.CreationBouton(ecran)
         mon_bouton_ar.CreationBouton(ecran)
         ecran.blit(fond_ecran, (0, 0))
-        ecran.blit(logo_para, (1470, 730))
+        ecran.blit(logo_para, (x_p,y_p))
 
 #classe des boutons
 class Bouton:
-    def __init__(self, texte, x, y, couleur,hauteur,longueur,police,action):
+    def __init__(self, texte, x, y, couleur,longueur,hauteur,police,action):
         self.texte = texte
         self.axe_x = x
         self.axe_y = y
@@ -101,7 +105,7 @@ class Bouton:
         texte_surface = self.police_caractere.render(self.texte, True, 'white')  # Couleur du texte : blanc
 
         # Créer un rectangle pour le bouton
-        bouton_creer = pygame.Rect(self.axe_x, self.axe_y,self.hauteur,self.longueur)
+        bouton_creer = pygame.Rect(self.axe_x, self.axe_y,self.longueur,self.hauteur)
 
         # Dessiner le rectangle sur l'écran avec la couleur spécifiée
         pygame.draw.rect(ecran, self.couleur, bouton_creer)
@@ -115,6 +119,11 @@ class Bouton:
                 pygame.draw.rect(ecran, 'red', bouton_creer, 0, 5)
         #affiche le bouton
         ecran.blit(texte_surface, texte_rectangle)
+
+    def Menu_parametre(self):
+        pygame.draw.rect(ecran, 'gray',(660,100,800,600))
+        mon_bouton_jouer.CreationBouton(ecran)
+        mon_bouton_musique.CreationBouton(ecran)
 
     #verifie si le clique gauche de la souris clique sur le bouto,
     def BoutonClique(self):
@@ -136,12 +145,15 @@ class Bouton:
         if mon_bouton_quitter.BoutonClique():
             return False
         # si on clique le bouton paramètre, on lance le bruitage de bouton
-        if mon_bouton_parametre.BoutonClique():
+        if mon_bouton_parametre.BoutonClique() and mon_bouton_parametre.action == True:
+            mon_bouton_parametre.action = False
             musique.jouer_bruitage('clique')
+            Bouton.Menu_parametre(self)
         #si on clique sur le bouton revenir en arrière, on peut revenir au menu principal
         if mon_bouton_ar.BoutonClique() and self.action == False:
             self.action=True
-
+        #if mon_bouton_musique.BoutonClique():
+            #Musique.ChangementdeMusique(self.texte)
 class Musique:
     #bibliothèque des sons
     def __init__(self):
@@ -164,17 +176,27 @@ class Musique:
     def jouer_musique(self,nom):
         pygame.mixer.music.load(self.chansons[nom])
         pygame.mixer.music.play(-1)
+    #change les musiques lorsque qu'on appuie sur le bouton musique
+    def ChangementdeMusique(self):
+        i=0
+        if i>=len(self.chansons):
+            i=0
+        else:
+            i=i+1
+            pygame.mixer.music.load(self.chansons[i])
+            pygame.mixer.music.play(-1)
+
 
 #verifie les diffiérents évènements pour chaque bouton
 def verif_boutons():
     Bouton.Evenement(mon_bouton_jouer)
     Bouton.Evenement(mon_bouton_quitter)
     Bouton.Evenement(mon_bouton_parametre)
-
+    Bouton.Evenement(mon_bouton_musique)
 #affiche les boutons et le logo du menu principal
 def affichage_menu_bouton():
     #logo du jeu
-    ecran.blit(logo_jeux, ((largeur - 700) / 2, 80))
+    ecran.blit(logo_jeux, ((largeur - 700) / 2, 50))
     # Créer et affiche les boutons jouer et quitter
     mon_bouton_jouer.CreationBouton(ecran)
     mon_bouton_quitter.CreationBouton(ecran)
@@ -199,23 +221,23 @@ def affichage_menu():
 # Définir les paramètres du bouton jouer
 texte = "jouer"
 x = (largeur-300)/2
-y = (hauteur-70)/2
+y = (hauteur-82)/2
 couleur = 'red'  # Rouge
 police_b = 40
-hauteur_b = 300
-longueur_b = 70
+hauteur_b = 70
+longueur_b = 300
 #paramètre bouton paramètre
-x_p=largeur-60
-y_p=hauteur-60
 
 #bouton jouer
-mon_bouton_jouer = Bouton(texte, x, y, couleur,hauteur_b,longueur_b, police_b,action_bouton1)
+mon_bouton_jouer = Bouton(texte, x, y, couleur,longueur_b,hauteur_b, police_b,action_bouton1)
 #bouton quitter
-mon_bouton_quitter=Bouton("quitter",x,y+120,'red',300,70,police_b,True)
+mon_bouton_quitter=Bouton("quitter",x,y+120,'red',longueur_b,hauteur_b,police_b,True)
 #bouton parametre
-mon_bouton_parametre=Bouton("",x_p,y_p,'white',50,50,police_b,True)
+mon_bouton_parametre=Bouton("",x_p,y_p,'white',60,60,police_b,True)
 #bouton retour en arrière
 mon_bouton_ar=Bouton("",0,0,'white',50,50,police_b,True)
+#bouton pour changer de musique
+mon_bouton_musique=Bouton("Musique",700,500,'white',longueur_b,hauteur_b,police_b,True)
 
 #initialisation de la classe musique dans la boucle
 musique=Musique()
