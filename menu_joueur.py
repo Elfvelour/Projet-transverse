@@ -223,6 +223,7 @@ def run_character_menu() :
                     weapon = f"{weapon_code}"
                     character = f"{selected_character}"
                     print(f"{selected_character} a sélectionné l'arme: {selected_weapon}")
+                    running = False
 
                 y_offset += 80
 
@@ -230,4 +231,3 @@ def run_character_menu() :
 
     pygame.quit()
     return (character, weapon)
-print(run_character_menu())

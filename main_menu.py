@@ -7,7 +7,7 @@
 
 ##############################################
 # Importation des fonctions externes
-
+from menu_joueur import *
 import pygame
 #initialisation de pygame
 pygame.init()
@@ -187,6 +187,8 @@ def affichage_menu():
     else:
         #si on appuyer sur jouer on peut revenir en arrière grace au bouton en arrière
         ecran.blit(logo_ar, (0, 0))
+        perso_arme = run_character_menu()
+        return perso_arme
     verif_boutons()
     #si on appuie sur quitter cela fait quiter le jeux
     if Bouton.Evenement(mon_bouton_quitter) == False:
@@ -220,7 +222,7 @@ musique=Musique()
 # Boucle principale
 running = True
 while running:
-    affichage_menu()
+    print(affichage_menu())
     pygame.display.flip()
     #boucle tant qu'on n'a pas appuyer sur le bouton quitter (running=False)
     if affichage_menu() == False:
