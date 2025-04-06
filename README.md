@@ -40,4 +40,4 @@ création du jeu bowmaster
 
 -06/04/2025 Flavie: Refonte de la boucle principale
                     Positionnement correct des images d'explosion (SUR le sol)
-                    Améliorations des tirs du bot (corrections des plages de distance en fonction du joueur)
+                    [Améliorations des tirs du bot (corrections des plages de distance en fonction du joueur)]->pas réussi...T^T

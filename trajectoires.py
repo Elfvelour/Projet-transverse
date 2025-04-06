@@ -1,3 +1,8 @@
+#####################################################
+# Fichier de gestion des trajectoires               #
+# Auteurs : Flavie BREMAND et Thomas AUBERT         #
+#####################################################
+
 import ctypes
 import math
 import pygame
@@ -163,7 +168,7 @@ class Jeu:
         self.projectiles_bot = pygame.sprite.Group()
 
         self.piece = Pieces((50, 50))
-        self.bot = Bot(1920 - 100, 672, [64, 128])
+        self.bot = Bot(1920 - 100, 672, [64, 128], 100)
 
         self.tour_joueur = True  # Le joueur commence
         self.en_attente = False  # Attente entre les tours
