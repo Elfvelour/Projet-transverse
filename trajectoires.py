@@ -112,18 +112,21 @@ class Projectile(pygame.sprite.Sprite):
         # Vérifier la collision avec le sol
         if self.rect.bottom >= self.sol_y:
             print(f"💥 Collision avec le sol en ({self.rect.centerx}, {self.sol_y})")
-            self.creer_explosion(self.rect.centerx, self.sol_y)
+            self.creer_explosion(self.rect.centerx, self.sol_y)  # Utilise la position du sol pour l'impact
             self.temps_explosion = pygame.time.get_ticks()
             jeu.explosion_active = True
             return
 
     def creer_explosion(self, x, y):
-        """Crée une explosion à une position précise"""
         print(f"💥 Explosion créée à ({x}, {y}), rect: {self.explosion_rect}")
+
+        # Taille de l'explosion
         explosion_size = (50, 50)
+
+        # Placer l'explosion juste au-dessus de la surface du sol
         self.explosion_rect = pygame.Rect(
-            x - explosion_size[0] // 2,
-            y - explosion_size[1] // 2,
+            x - explosion_size[0] // 2,  # Centrer horizontalement l'explosion sur l'impact
+            y - explosion_size[1],  # Placer le bas de l'explosion sur la surface du sol
             explosion_size[0],
             explosion_size[1]
         )
