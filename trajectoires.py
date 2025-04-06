@@ -54,9 +54,6 @@ class Joueur(pygame.sprite.Sprite):
         y_depart = self.rect.centery - math.sin(math.radians(self.angle)) * self.longueur_ligne
         return x_depart, y_depart
 
-import pygame
-import math
-
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, x, y, taille, image, angle, puissance, tireur):
         super().__init__()
