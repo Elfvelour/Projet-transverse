@@ -1,18 +1,20 @@
+#####################################################
+# Fichier de gestion des trajectoires               #
+# Auteurs : Flavie BREMAND et Thomas AUBERT         #
+#####################################################
+
 import ctypes
 import math
 import pygame
-
-from main_menu import musique
 from monnaie import Pieces
 from pygame.sprite import Group
 from bot import Bot
 import json
-from main_menu import affichage_menu
+
 # Permet de désactiver la mise à l'échelle de l'ordinateur
 ctypes.windll.user32.SetProcessDPIAware()
 
 pygame.init()
-clock = pygame.time.Clock()
 
 class Joueur(pygame.sprite.Sprite):
     def __init__(self, x, y, taille):
@@ -115,19 +117,21 @@ class Projectile(pygame.sprite.Sprite):
         # Vérifier la collision avec le sol
         if self.rect.bottom >= self.sol_y:
             print(f"💥 Collision avec le sol en ({self.rect.centerx}, {self.sol_y})")
-            self.creer_explosion(self.rect.centerx, self.sol_y)
+            self.creer_explosion(self.rect.centerx, self.sol_y)  # Utilise la position du sol pour l'impact
             self.temps_explosion = pygame.time.get_ticks()
             jeu.explosion_active = True
             return
 
     def creer_explosion(self, x, y):
-        """Crée une explosion à une position précise"""
         print(f"💥 Explosion créée à ({x}, {y}), rect: {self.explosion_rect}")
-        musique.jouer_bruitage('potion')
+
+        # Taille de l'explosion
         explosion_size = (50, 50)
+
+        # Placer l'explosion juste au-dessus de la surface du sol
         self.explosion_rect = pygame.Rect(
-            x - explosion_size[0] // 2,
-            y - explosion_size[1] // 2,
+            x - explosion_size[0] // 2,  # Centrer horizontalement l'explosion sur l'impact
+            y - explosion_size[1],  # Placer le bas de l'explosion sur la surface du sol
             explosion_size[0],
             explosion_size[1]
         )
@@ -148,10 +152,9 @@ class Sol(pygame.sprite.Sprite):
     def affichage(self, surface):
         pygame.draw.rect(surface, (0, 200, 100), self.rect)
 
-
 class Jeu:
     def __init__(self):
-        self.ecran = pygame.display.set_mode((1920,1010), pygame.RESIZABLE)
+        self.ecran = pygame.display.set_mode((1920, 1010), pygame.RESIZABLE)
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")
         self.personnage_actuel = "P1"
         self.arme_actuel = "A1"
@@ -165,7 +168,7 @@ class Jeu:
         self.projectiles_bot = pygame.sprite.Group()
 
         self.piece = Pieces((50, 50))
-        self.bot = Bot(1920 - 100, 672, [64, 128],"FACILE")
+        self.bot = Bot(1920 - 100, 672, [64, 128], 100)
 
         self.tour_joueur = True  # Le joueur commence
         self.en_attente = False  # Attente entre les tours
@@ -178,11 +181,15 @@ class Jeu:
 
     def obtenir_image_projectile(self, personnage, arme):
         for item in self.donnees_json:
-            if item["code P"] == personnage and item["code A"] == arme :
+            if item["code P"] == personnage and item["code A"] == arme:
                 return pygame.image.load(item["image_arme"]).convert_alpha()
         return pygame.image.load("assests/default_projectile.png").convert_alpha()
 
-    def gerer_evenements_jeu(self,event):
+    def gerer_evenements(self, event):
+        if event.type == pygame.QUIT:
+            return False
+        self.piece.verifier_clic(event, self)
+
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:
             self.joueur.temps_debut = pygame.time.get_ticks()
 
@@ -197,7 +204,9 @@ class Jeu:
             self.en_attente = True
             self.tour_joueur = False
 
-    def mettre_a_jour_jeu(self, event):
+        return True
+
+    def gerer_attente(self):
         if self.en_attente:
             if pygame.time.get_ticks() - self.temps_attente >= 5000 and not self.explosion_active:
                 if not self.projectiles_joueur and not self.projectiles_bot:
@@ -207,29 +216,27 @@ class Jeu:
                         projectile = Projectile(self.bot.rect.centerx, self.bot.rect.centery, [60, 60],
                                                 self.image_projectile, angle, puissance, "bot")
                         self.projectiles_bot.add(projectile)
+                        print("🤖 Le bot a tiré !")
                         self.temps_attente = pygame.time.get_ticks()
                         self.en_attente = True
                         self.tour_joueur = True
 
+    def gerer_projectiles(self):
         for projectile in self.projectiles_joueur:
             projectile.mouvement(self.bot, self.piece, self)
 
         for projectile in self.projectiles_bot:
             projectile.mouvement(self.bot, self.piece, self)
 
-    def afficher_jeu(self,pos_souris):
-        self.ecran.blit(self.background,(0,0))
+    def afficher_jeu(self, pos_souris):
+        self.ecran.blit(self.background, (0, 0))
         self.sol.affichage(self.ecran)
-
         self.joueur.affichage(self.ecran, pos_souris)
         self.bot.affichage(self.ecran)
-
         for projectile in self.projectiles_joueur:
             projectile.afficher(self.ecran)
-
         for projectile in self.projectiles_bot:
             projectile.afficher(self.ecran)
-
         self.piece.afficher_monnaie(self.ecran)
         self.piece.afficher_nombre_pieces(self.ecran)
         self.piece.afficher_bouton(self.ecran)
@@ -237,40 +244,25 @@ class Jeu:
         if self.piece.monnaie_joueur >= 250:
             self.piece.afficher_gg(self.ecran)
 
-    def boucle_principale(self=None):
+    def boucle_principale(self):
+        clock = pygame.time.Clock()
         continuer = True
-        etat_jeu = "menu"  # ou "jeu"
+
         while continuer:
             pos_souris = pygame.mouse.get_pos()
 
-            # ----- 1. GESTION DES ÉVÉNEMENTS -----
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if not self.gerer_evenements(event):
                     continuer = False
 
-                if etat_jeu == "jeu":
-                    # 🎯 Appelle ta fonction pour gérer les clics du joueur
-                    Jeu.gerer_evenements_jeu(self,event)
+            if pygame.mouse.get_pressed()[0] and self.tour_joueur:
+                self.joueur.charger_tir()
 
-                elif etat_jeu == "menu":
-                    pass  # Les événements menu sont dans affichage_menu()
-
-            # ----- 2. MISE À JOUR LOGIQUE -----
-            if etat_jeu == "jeu":
-                Jeu.mettre_a_jour_jeu(self,event)
-
-            # ----- 3. AFFICHAGE -----
-            if etat_jeu == "menu":
-                action = affichage_menu()
-                if action == True:
-                    etat_jeu = "jeu"
-                elif action == False:
-                    continuer = False
-
-            elif etat_jeu == "jeu":
-                Jeu.afficher_jeu(self,pos_souris)
+            self.gerer_attente()
+            self.gerer_projectiles()
+            self.afficher_jeu(pos_souris)
 
             pygame.display.update()
-            clock.tick(60)
+            clock.tick(110)
 
         pygame.quit()
