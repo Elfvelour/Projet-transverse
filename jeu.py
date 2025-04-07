@@ -1,0 +1,143 @@
+#####################################################
+# Fichier de gestion du jeu                         #
+# Auteurs : tous                                    #
+#####################################################
+
+import pygame
+import json
+from joueur import Joueur
+from trajectoires import Projectile
+from trajectoires import Sol
+from monnaie import Pieces
+from bot import Bot
+from main_menu import affichage_menu
+
+clock = pygame.time.Clock()
+
+
+class Jeu:
+    def __init__(self):
+        self.ecran = pygame.display.set_mode((1920, 1010), pygame.RESIZABLE)
+        self.donnees_json = self.charger_donnees_json("gestion_stats.json")
+        self.personnage_actuel = "P1"
+        self.arme_actuel = "A1"
+        self.image_projectile = self.obtenir_image_projectile(self.personnage_actuel, self.arme_actuel)
+        self.background = pygame.image.load("assests/images/menup/backgroundV2.png").convert()
+        self.background = pygame.transform.scale(self.background, (1920, 1024))
+        self.sol = Sol()
+        self.joueur = Joueur(200, 672, [64, 128])
+
+        self.projectiles_joueur = pygame.sprite.Group()
+        self.projectiles_bot = pygame.sprite.Group()
+
+        self.piece = Pieces((50, 50))
+        self.bot = Bot(1920 - 100, 672, [64, 128])
+
+        self.tour_joueur = True  # Le joueur commence
+        self.en_attente = False  # Attente entre les tours
+        self.temps_attente = 0  # Temps de début d'attente
+        self.explosion_active = False  # True si une explosion est affichée
+
+    def charger_donnees_json(self, fichier):
+        with open(fichier, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    def obtenir_image_projectile(self, personnage, arme):
+        for item in self.donnees_json:
+            if item["code P"] == personnage and item["code A"] == arme:
+                return pygame.image.load(item["image_arme"]).convert_alpha()
+        return pygame.image.load("assests/default_projectile.png").convert_alpha()
+
+    def gerer_evenements_jeu(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:
+            self.joueur.temps_debut = pygame.time.get_ticks()
+
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.tour_joueur:
+            puissance = self.joueur.relacher_tir()
+            x_proj, y_proj = self.joueur.position_depart_projectile()
+            projectile = Projectile(x_proj, y_proj, [60, 60], self.image_projectile, self.joueur.angle,
+                                    puissance, "joueur")
+            self.projectiles_joueur.add(projectile)
+            self.piece.monnaie_joueur += 1
+            print(f"Le projectile a été tiré : puissance={puissance:.2f}")  # Debug
+            self.temps_attente = pygame.time.get_ticks()
+            self.en_attente = True
+            self.tour_joueur = False
+
+    def mettre_a_jour_jeu(self, event):
+        if self.en_attente:
+            if pygame.time.get_ticks() - self.temps_attente >= 5000 and not self.explosion_active:
+                if not self.projectiles_joueur and not self.projectiles_bot:
+                    self.en_attente = False
+                    if not self.tour_joueur:
+                        angle, puissance = self.bot.tir(self.joueur.rect.centerx, self.joueur.rect.centery)
+                        projectile = Projectile(self.bot.rect.centerx, self.bot.rect.centery, [60, 60],
+                                                self.image_projectile, angle, puissance, "bot")
+                        self.projectiles_bot.add(projectile)
+                        self.temps_attente = pygame.time.get_ticks()
+                        self.en_attente = True
+                        self.tour_joueur = True
+                        print(f"Le bot a tiré.")  # Debug
+
+        for projectile in self.projectiles_joueur:
+            projectile.mouvement(self.bot, self.piece, self)
+
+        for projectile in self.projectiles_bot:
+            projectile.mouvement(self.bot, self.piece, self)
+
+    def afficher_jeu(self, pos_souris):
+        self.ecran.blit(self.background, (0, 0))
+        self.sol.affichage(self.ecran)
+
+        self.joueur.affichage(self.ecran, pos_souris)
+        self.bot.affichage(self.ecran)
+
+        for projectile in self.projectiles_joueur:
+            projectile.afficher(self.ecran)
+
+        for projectile in self.projectiles_bot:
+            projectile.afficher(self.ecran)
+
+        self.piece.afficher_monnaie(self.ecran)
+        self.piece.afficher_nombre_pieces(self.ecran)
+        self.piece.afficher_bouton(self.ecran)
+
+        if self.piece.monnaie_joueur >= 250:
+            self.piece.afficher_gg(self.ecran)
+
+    def boucle_principale(self):
+        continuer = True
+        etat_jeu = "menu"  # ou "jeu"
+        while continuer:
+            pos_souris = pygame.mouse.get_pos()
+
+            # ----- 1. GESTION DES ÉVÉNEMENTS -----
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    continuer = False
+
+                if etat_jeu == "jeu":
+                    Jeu.gerer_evenements_jeu(self, event)
+
+                elif etat_jeu == "menu":
+                    pass  # Les événements menu sont dans affichage_menu()
+
+            # ----- 2. MISE À JOUR LOGIQUE -----
+            if etat_jeu == "jeu":
+                Jeu.mettre_a_jour_jeu(self, event)
+
+            # ----- 3. AFFICHAGE -----
+            if etat_jeu == "menu":
+                action = affichage_menu()
+                if action == True:
+                    etat_jeu = "jeu"
+                elif action == False:
+                    continuer = False
+
+            elif etat_jeu == "jeu":
+                Jeu.afficher_jeu(self, pos_souris)
+
+            pygame.display.update()
+            clock.tick(60)
+
+        pygame.quit()
