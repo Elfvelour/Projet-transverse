@@ -3,7 +3,6 @@
 # Auteurs : Flavie BREMAND et Thomas AUBERT                 #
 #############################################################
 
-
 import pygame
 import math
 
