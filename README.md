@@ -43,3 +43,86 @@ création du jeu bowmaster
                     [Améliorations des tirs du bot (corrections des plages de distance en fonction du joueur)]->pas réussi...T^T
 
 -06/04/2025 Tim: 1ère fusion du main et main_menu réussi attente avec raphalél pour le faire avec le menu des joueurs puis début de la création du bouton paramètre pour changer et arrêter la musique à tout moment
+
+    def gerer_evenements(self, event):
+        if event.type == pygame.QUIT:
+            return False
+        self.piece.verifier_clic(event, self)
+
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:
+            self.joueur.temps_debut = pygame.time.get_ticks()
+
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.tour_joueur:
+            puissance = self.joueur.relacher_tir()
+            x_proj, y_proj = self.joueur.position_depart_projectile()
+            projectile = Projectile(x_proj, y_proj, [60, 60], self.image_projectile, self.joueur.angle,
+                                    puissance, "joueur")
+            self.projectiles_joueur.add(projectile)
+            self.piece.monnaie_joueur += 1
+            self.temps_attente = pygame.time.get_ticks()
+            self.en_attente = True
+            self.tour_joueur = False
+
+        return True
+
+    def gerer_attente(self):
+        if self.en_attente:
+            if pygame.time.get_ticks() - self.temps_attente >= 5000 and not self.explosion_active:
+                if not self.projectiles_joueur and not self.projectiles_bot:
+                    self.en_attente = False
+                    if not self.tour_joueur:
+                        angle, puissance = self.bot.tir(self.joueur.rect.centerx, self.joueur.rect.centery)
+                        projectile = Projectile(self.bot.rect.centerx, self.bot.rect.centery, [60, 60],
+                                                self.image_projectile, angle, puissance, "bot")
+                        self.projectiles_bot.add(projectile)
+                        print("🤖 Le bot a tiré !")
+                        self.temps_attente = pygame.time.get_ticks()
+                        self.en_attente = True
+                        self.tour_joueur = True
+
+    def gerer_projectiles(self):
+        for projectile in self.projectiles_joueur:
+            projectile.mouvement(self.bot, self.piece, self)
+
+        for projectile in self.projectiles_bot:
+            projectile.mouvement(self.bot, self.piece, self)
+
+    def afficher_jeu(self, pos_souris):
+        self.ecran.blit(self.background, (0, 0))
+        self.sol.affichage(self.ecran)
+        self.joueur.affichage(self.ecran, pos_souris)
+        self.bot.affichage(self.ecran)
+        for projectile in self.projectiles_joueur:
+            projectile.afficher(self.ecran)
+        for projectile in self.projectiles_bot:
+            projectile.afficher(self.ecran)
+        self.piece.afficher_monnaie(self.ecran)
+        self.piece.afficher_nombre_pieces(self.ecran)
+        self.piece.afficher_bouton(self.ecran)
+
+        if self.piece.monnaie_joueur >= 250:
+            self.piece.afficher_gg(self.ecran)
+
+    def boucle_principale(self):
+        clock = pygame.time.Clock()
+        continuer = True
+
+        while continuer:
+            pos_souris = pygame.mouse.get_pos()
+
+            for event in pygame.event.get():
+                if not self.gerer_evenements(event):
+                    continuer = False
+
+            if pygame.mouse.get_pressed()[0] and self.tour_joueur:
+                self.joueur.charger_tir()
+
+            self.gerer_attente()
+            self.gerer_projectiles()
+            self.afficher_jeu(pos_souris)
+
+            pygame.display.update()
+            clock.tick(110)
+
+        pygame.quit()
+
