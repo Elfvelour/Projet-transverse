@@ -36,8 +36,12 @@ class Joueur(pygame.sprite.Sprite):
     def rotation_arme(self, pos_souris):
         dx = pos_souris[0] - self.rect.centerx
         dy = pos_souris[1] - self.rect.centery
-        self.angle = pygame.math.Vector2(dx, dy).angle_to((1, 0))
-        print(f"Angle de l'arme : {self.angle}")  # Debug
+        nouvel_angle = pygame.math.Vector2(dx, dy).angle_to((1, 0))
+
+        # Vérifie si l'angle a changé (ajouter une tolérance pour éviter des changements minimes)
+        if abs(nouvel_angle - self.angle) > 1:  # Si l'angle a changé d'au moins 1 degré
+            self.angle = nouvel_angle
+            print(f"Angle de l'arme : {self.angle}")  # Debug
 
     def affichage(self, surface, pos_souris):
         surface.blit(self.image, self.rect)

@@ -25,10 +25,10 @@ class Projectile(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(image, (taille[0], taille[1]))
         self.rect = pygame.Rect(x, y, taille[0], taille[1])
         self.angle = angle
-        self.vitesse = 100 + (7 * puissance)
+        self.vitesse = 110 + (7 * puissance)
         self.vitesse_x = math.cos(math.radians(self.angle)) * self.vitesse
         self.vitesse_y = -math.sin(math.radians(self.angle)) * self.vitesse
-        self.gravite = 9.8
+        self.gravite = 7
         self.sol_y = 800
         self.explosion = pygame.image.load("assests/images/affichage/explosion.png").convert_alpha()
         self.explosion_size = (100, 100)

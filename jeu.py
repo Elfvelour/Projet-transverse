@@ -66,7 +66,7 @@ class Jeu:
 
     def mettre_a_jour_jeu(self, event):
         if self.en_attente:
-            if pygame.time.get_ticks() - self.temps_attente >= 5000 and not self.explosion_active:
+            if pygame.time.get_ticks() - self.temps_attente >= 3000 and not self.explosion_active:
                 if not self.projectiles_joueur and not self.projectiles_bot:
                     self.en_attente = False
                     if not self.tour_joueur:
