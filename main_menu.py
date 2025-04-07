@@ -108,21 +108,22 @@ class Bouton:
         bouton_creer = pygame.Rect(self.axe_x, self.axe_y,self.longueur,self.hauteur)
 
         # Dessiner le rectangle sur l'écran avec la couleur spécifiée
-        pygame.draw.rect(ecran, self.couleur, bouton_creer)
+        pygame.draw.rect(ecran, self.couleur, bouton_creer,border_radius=10)
+        pygame.draw.rect(ecran, "black", (self.axe_x, self.axe_y,self.longueur,self.hauteur), 2,border_radius=10)
         texte_rectangle = texte_surface.get_rect(center=bouton_creer.center)
 
         #animation du bouton
         if self.couleur == 'red':
             if self.BoutonClique():
-                pygame.draw.rect(ecran,'dark red', bouton_creer,0,5)
+                pygame.draw.rect(ecran,'dark red', bouton_creer,2,10)
             else:
-                pygame.draw.rect(ecran, 'red', bouton_creer, 0, 5)
+                pygame.draw.rect(ecran, 'red', bouton_creer, 2, 10)
         #affiche le bouton
         ecran.blit(texte_surface, texte_rectangle)
 
     def Menu_parametre(self):
-        pygame.draw.rect(ecran, 'gray',(660,100,800,600))
-        mon_bouton_jouer.CreationBouton(ecran)
+        color=(128, 128, 128, 128)
+        pygame.draw.rect(ecran, color,pygame.Rect(560,50,800,900))
         mon_bouton_musique.CreationBouton(ecran)
 
     #verifie si le clique gauche de la souris clique sur le bouto,
@@ -145,8 +146,7 @@ class Bouton:
         if mon_bouton_quitter.BoutonClique():
             return False
         # si on clique le bouton paramètre, on lance le bruitage de bouton
-        if mon_bouton_parametre.BoutonClique() and mon_bouton_parametre.action == True:
-            mon_bouton_parametre.action = False
+        if mon_bouton_parametre.BoutonClique():
             musique.jouer_bruitage('clique')
             Bouton.Menu_parametre(self)
         #si on clique sur le bouton revenir en arrière, on peut revenir au menu principal
@@ -231,19 +231,21 @@ longueur_b = 300
 #bouton jouer
 mon_bouton_jouer = Bouton(texte, x, y, couleur,longueur_b,hauteur_b, police_b,action_bouton1)
 #bouton quitter
-mon_bouton_quitter=Bouton("quitter",x,y+120,'red',longueur_b,hauteur_b,police_b,True)
+mon_bouton_quitter=Bouton("quitter",x,y+120,couleur,longueur_b,hauteur_b,police_b,True)
 #bouton parametre
 mon_bouton_parametre=Bouton("",x_p,y_p,'white',60,60,police_b,True)
 #bouton retour en arrière
 mon_bouton_ar=Bouton("",0,0,'white',50,50,police_b,True)
 #bouton pour changer de musique
 mon_bouton_musique=Bouton("Musique",700,500,'white',longueur_b,hauteur_b,police_b,True)
+#bouton pour quitter le menu paramètre
+mon_bouton_ar2=Bouton("",560,50,'white',50,50,police_b,True)
 
 #initialisation de la classe musique dans la boucle
 musique=Musique()
 
 # Boucle principale
-running = False
+running = True
 while running:
     affichage_menu()
     pygame.display.flip()
