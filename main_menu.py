@@ -262,7 +262,7 @@ mon_bouton_ar2=Bouton("",560,50,'white',50,50,police_b,True)
 musique=Musique()
 
 # Boucle principale
-running = True
+running = False
 while running:
     affichage_menu()
     verif_para()

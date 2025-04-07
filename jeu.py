@@ -1,50 +1,54 @@
-# Projet-transverse
-création du jeu bowmaster
+#####################################################
+# Fichier de gestion du jeu                         #
+# Auteurs : tous                                    #
+#####################################################
 
--03/02/2024, Noémie : Organisation des fichiers du jeu 
+import pygame
+import json
+from joueur import Joueur
+from trajectoires import Projectile
+from trajectoires import Sol
+from monnaie import Pieces
+from bot import Bot
+from main_menu import affichage_menu
 
--04/02/2025, Noémie : Création des statistiques des armes 
+clock = pygame.time.Clock()
 
--09/02/2025, Noémie : Initialisation de la fonction run_game dans le fichier main + invention des descriptions
 
--10/02/2025, Noémie : Initialisation de la fonction monnaie.py
+class Jeu:
+    def __init__(self):
+        self.ecran = pygame.display.set_mode((1920, 1010), pygame.RESIZABLE)
+        self.donnees_json = self.charger_donnees_json("gestion_stats.json")
+        self.personnage_actuel = "P1"
+        self.arme_actuel = "A1"
+        self.image_projectile = self.obtenir_image_projectile(self.personnage_actuel, self.arme_actuel)
+        self.background = pygame.image.load("assests/images/menup/backgroundV2.png").convert()
+        self.background = pygame.transform.scale(self.background, (1920, 1024))
+        self.sol = Sol()
+        self.joueur = Joueur(200, 672, [64, 128])
 
--10/02/2025, Tim: Initialistaion de la fonction main_menu.py
+        self.projectiles_joueur = pygame.sprite.Group()
+        self.projectiles_bot = pygame.sprite.Group()
 
--23/02/2025, Flavie : Mise en place du lancement du projectile par clic gauche
+        self.piece = Pieces((50, 50))
+        self.bot = Bot(1920 - 100, 672, [64, 128])
 
--24/02/2025, Noémie : Le joueur gagne une pièce à chaque fois qu'il tire
+        self.tour_joueur = True  # Le joueur commence
+        self.en_attente = False  # Attente entre les tours
+        self.temps_attente = 0  # Temps de début d'attente
+        self.explosion_active = False  # True si une explosion est affichée
 
--24/02/2025, Tim: création de la page et des bouton
+    def charger_donnees_json(self, fichier):
+        with open(fichier, "r", encoding="utf-8") as f:
+            return json.load(f)
 
--28/02/2025, Flavie : Mise en place de la trajectoire parabole (vitesse en fonction du temps du clic gauche)
+    def obtenir_image_projectile(self, personnage, arme):
+        for item in self.donnees_json:
+            if item["code P"] == personnage and item["code A"] == arme:
+                return pygame.image.load(item["image_arme"]).convert_alpha()
+        return pygame.image.load("assests/default_projectile.png").convert_alpha()
 
--28/02/2025, Tim: bouton quitter fonctionelle + musique
-
--03/03/2025, Flavie : Ajustements dans la trajectoire (notamment sur la vitesse et l'angle)
-                      Création du fichier bot et début de son code
-
--03/03/2025, Noémie : Recherche des assets pour les armes du jeu
-                      Modification du .json pour correspondre au choix du joueur
-
--14/03/2025 Noémie : Ajout du bouton pour utiliser l'ultime coup du personnage 
-
--15/03/2025 Tim: revue en profondeur des assets pour le menu principal (nouvelles images et redimensions)+animation bouton et sons
-
--24/03/2025 Flavie: Améliorations des trajectoires et du bot (gravité et projectiles)
-                    Ajustement du positionnement des images d'explosion (centrées par rapport au projectile)
-
--25/03/2025 Tim: mise au propre des assets et correction bug sons potion
-
--03/04/2025 Tim: mise au propre des commentaires ainsi que la création bu bouton "revenir en arrière".
-
--06/04/2025 Flavie: Refonte de la boucle principale
-                    Positionnement correct des images d'explosion (SUR le sol)
-                    [Améliorations des tirs du bot (corrections des plages de distance en fonction du joueur)]->pas réussi...T^T
-
--06/04/2025 Tim: 1ère fusion du main et main_menu réussi attente avec raphalél pour le faire avec le menu des joueurs puis début de la création du bouton paramètre pour changer et arrêter la musique à tout moment
-
-     def gerer_evenements_jeu(self,event):
+    def gerer_evenements_jeu(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:
             self.joueur.temps_debut = pygame.time.get_ticks()
 
@@ -55,13 +59,14 @@ création du jeu bowmaster
                                     puissance, "joueur")
             self.projectiles_joueur.add(projectile)
             self.piece.monnaie_joueur += 1
+            print(f"Le projectile a été tiré : puissance={puissance:.2f}")  # Debug
             self.temps_attente = pygame.time.get_ticks()
             self.en_attente = True
             self.tour_joueur = False
 
     def mettre_a_jour_jeu(self, event):
         if self.en_attente:
-            if pygame.time.get_ticks() - self.temps_attente >= 5000 and not self.explosion_active:
+            if pygame.time.get_ticks() - self.temps_attente >= 3000 and not self.explosion_active:
                 if not self.projectiles_joueur and not self.projectiles_bot:
                     self.en_attente = False
                     if not self.tour_joueur:
@@ -72,6 +77,7 @@ création du jeu bowmaster
                         self.temps_attente = pygame.time.get_ticks()
                         self.en_attente = True
                         self.tour_joueur = True
+                        print(f"Le bot a tiré.")  # Debug
 
         for projectile in self.projectiles_joueur:
             projectile.mouvement(self.bot, self.piece, self)
@@ -79,8 +85,8 @@ création du jeu bowmaster
         for projectile in self.projectiles_bot:
             projectile.mouvement(self.bot, self.piece, self)
 
-    def afficher_jeu(self,pos_souris):
-        self.ecran.blit(self.background,(0,0))
+    def afficher_jeu(self, pos_souris):
+        self.ecran.blit(self.background, (0, 0))
         self.sol.affichage(self.ecran)
 
         self.joueur.affichage(self.ecran, pos_souris)
@@ -99,7 +105,7 @@ création du jeu bowmaster
         if self.piece.monnaie_joueur >= 250:
             self.piece.afficher_gg(self.ecran)
 
-    def boucle_principale(self=None):
+    def boucle_principale(self):
         continuer = True
         etat_jeu = "menu"  # ou "jeu"
         while continuer:
@@ -111,15 +117,14 @@ création du jeu bowmaster
                     continuer = False
 
                 if etat_jeu == "jeu":
-                    # 🎯 Appelle ta fonction pour gérer les clics du joueur
-                    Jeu.gerer_evenements_jeu(self,event)
+                    Jeu.gerer_evenements_jeu(self, event)
 
                 elif etat_jeu == "menu":
                     pass  # Les événements menu sont dans affichage_menu()
 
             # ----- 2. MISE À JOUR LOGIQUE -----
             if etat_jeu == "jeu":
-                Jeu.mettre_a_jour_jeu(self,event)
+                Jeu.mettre_a_jour_jeu(self, event)
 
             # ----- 3. AFFICHAGE -----
             if etat_jeu == "menu":
@@ -130,10 +135,9 @@ création du jeu bowmaster
                     continuer = False
 
             elif etat_jeu == "jeu":
-                Jeu.afficher_jeu(self,pos_souris)
+                Jeu.afficher_jeu(self, pos_souris)
 
             pygame.display.update()
             clock.tick(60)
 
         pygame.quit()
-

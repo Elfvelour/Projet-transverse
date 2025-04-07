@@ -1,10 +1,12 @@
 #####################################################
 # Fichier de lancement du jeu                       #
-# Auteurs: Flavie BREMAND et Thomas AUBERT          #
+# Auteurs: Flavie BREMAND et Timothée GIRAULT       #
 #####################################################
 
-from trajectoires import *
+from jeu import Jeu
 from menu_joueur import *
 
-if __name__ == '__main__':
-    Jeu().boucle_principale()
+
+if __name__ == "__main__":
+    jeu = Jeu()
+    jeu.boucle_principale()
