@@ -5,7 +5,7 @@
 
 import pygame
 import json
-from joueur import Joueur
+from joueur import *
 from trajectoires import Projectile
 from trajectoires import Sol
 from monnaie import Pieces
@@ -16,16 +16,16 @@ clock = pygame.time.Clock()
 
 
 class Jeu:
-    def __init__(self):
-        self.ecran = pygame.display.set_mode((1920, 1010), pygame.RESIZABLE)
-        self.donnees_json = self.charger_donnees_json("gestion_stats.json")
-        self.personnage_actuel = "P1"
-        self.arme_actuel = "A1"
-        self.image_projectile = self.obtenir_image_projectile(self.personnage_actuel, self.arme_actuel)
+    def __init__(self, screen, perso, arme):
+        self.donnees_json = self.charger_donnees_json("gestion_stats.json")  # chargement des données
+        self.ecran = screen
+        self.menu_joueur = (perso, arme)
+        self.image_projectile = self.obtenir_image_arme(self.menu_joueur[0], self.menu_joueur[1])
         self.background = pygame.image.load("assests/images/menup/backgroundV2.png").convert()
         self.background = pygame.transform.scale(self.background, (1920, 1024))
         self.sol = Sol()
-        self.joueur = Joueur(200, 672, [64, 128])
+        self.joueur = Joueur(100, 672, [32, 64])
+        self.donnees_json = self.charger_donnees_json("gestion_stats.json")  # chargement des données
 
         self.projectiles_joueur = pygame.sprite.Group()
         self.projectiles_bot = pygame.sprite.Group()
@@ -42,11 +42,11 @@ class Jeu:
         with open(fichier, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    def obtenir_image_projectile(self, personnage, arme):
+    def obtenir_image_arme(self, personnage, arme):
         for item in self.donnees_json:
             if item["code P"] == personnage and item["code A"] == arme:
                 return pygame.image.load(item["image_arme"]).convert_alpha()
-        return pygame.image.load("assests/default_projectile.png").convert_alpha()
+        return pygame.image.load("assests/images/armes/default_projectile.png").convert_alpha()
 
     def gerer_evenements_jeu(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:

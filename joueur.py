@@ -5,6 +5,8 @@
 
 import pygame
 import math
+import json
+from menu_joueur import *
 
 clock = pygame.time.Clock()
 
@@ -12,9 +14,10 @@ clock = pygame.time.Clock()
 class Joueur(pygame.sprite.Sprite):
     def __init__(self, x, y, taille):
         super().__init__()
+        self.donnees_json = self.charger_donnees_json("gestion_stats.json")  # chargement des données
+        self.menu_joueur = run_character_menu()
         self.rect = pygame.Rect(x, y, taille[0], taille[1])
-        self.image = pygame.Surface(taille)
-        self.image.fill((169, 169, 169))  # Gris
+        self.image_perso = self.obtenir_image_perso(self.menu_joueur[0], self.menu_joueur[1])
         self.angle = 0
         self.charge_tir = 0
         self.max_charge = 60
@@ -44,7 +47,7 @@ class Joueur(pygame.sprite.Sprite):
             print(f"Angle de l'arme : {self.angle}")  # Debug
 
     def affichage(self, surface, pos_souris):
-        surface.blit(self.image, self.rect)
+        surface.blit(self.image_perso, self.rect)
         self.rotation_arme(pos_souris)
 
         # Ligne blanche de visée
@@ -57,3 +60,25 @@ class Joueur(pygame.sprite.Sprite):
         y_depart = self.rect.centery - math.sin(math.radians(self.angle)) * self.longueur_ligne
         print(f"Position de départ du projectile : ({x_depart}, {y_depart})")  # Debug
         return x_depart, y_depart
+
+    def charger_donnees_json(self, fichier):
+        with open(fichier, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    def obtenir_image_perso(self, personnage, arme):
+        for item in self.donnees_json:
+            if item["code P"] == personnage and item["code A"] == arme:
+                return pygame.image.load(item["image_perso"]).convert_alpha()
+        return pygame.image.load("assests/images/perso/jean_soma.png").convert_alpha()
+
+    def obtenir_image_arme(self, personnage, arme):
+        for item in self.donnees_json:
+            if item["code P"] == personnage and item["code A"] == arme:
+                return pygame.image.load(item["image_arme"]).convert_alpha()
+        return pygame.image.load("assests/images/armes/default_projectile.png").convert_alpha()
+
+
+
+
+
+

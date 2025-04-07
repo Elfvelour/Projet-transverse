@@ -9,6 +9,9 @@
 # Importation des fonctions externes
 import ctypes
 import pygame
+
+from menu_joueur import run_character_menu
+
 #initialisation de pygame
 pygame.init()
 pygame.mixer.init()
