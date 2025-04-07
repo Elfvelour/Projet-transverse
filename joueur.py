@@ -57,4 +57,3 @@ class Joueur(pygame.sprite.Sprite):
         y_depart = self.rect.centery - math.sin(math.radians(self.angle)) * self.longueur_ligne
         print(f"Position de départ du projectile : ({x_depart}, {y_depart})")  # Debug
         return x_depart, y_depart
-

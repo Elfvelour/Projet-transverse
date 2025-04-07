@@ -92,4 +92,3 @@ class Projectile(pygame.sprite.Sprite):
             surface.blit(self.explosion, self.explosion_rect)
         else:
             surface.blit(self.image, self.rect)
-
