@@ -237,6 +237,7 @@ mon_bouton_ar2=Bouton("",560,50,'white',50,50,police_b,True)
 #initialisation de la classe musique dans la boucle
 musique=Musique()
 
+
 # Boucle principale
 running = False
 while running:
