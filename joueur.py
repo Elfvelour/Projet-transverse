@@ -48,10 +48,15 @@ class Joueur(pygame.sprite.Sprite):
             print(f"Angle de l'arme : {self.angle}")  # Debug
 
     def affichage(self, surface, pos_souris):
-        surface.blit(self.image_perso, self.rect)
-        self.rotation_arme(pos_souris)
+        # Ajustement de l'image
+        offset_x = -100
+        offset_y = -50
 
-        # Ligne blanche de visée
+        # Dessiner l'image du personnage avec les offsets
+        surface.blit(self.image_perso, (self.rect.x + offset_x, self.rect.y + offset_y))
+
+        # Rotation de l'arme et affichage de la ligne de visée
+        self.rotation_arme(pos_souris)
         x_fin = self.rect.centerx + math.cos(math.radians(self.angle)) * self.longueur_ligne
         y_fin = self.rect.centery - math.sin(math.radians(self.angle)) * self.longueur_ligne
         pygame.draw.line(surface, (255, 255, 255), self.rect.center, (x_fin, y_fin), 3)
@@ -69,7 +74,9 @@ class Joueur(pygame.sprite.Sprite):
     def obtenir_image_perso(self, personnage, arme):
         for item in self.donnees_json:
             if item["code P"] == personnage and item["code A"] == arme:
-                return pygame.image.load(item["image_perso"]).convert_alpha()
+                image = pygame.image.load(item["image_perso"]).convert_alpha()
+                # Redimensionner l'image à la taille souhaitée
+                return pygame.transform.scale(image, (150, 190))
         return pygame.image.load("assests/images/perso/jean_soma.png").convert_alpha()
 
     def obtenir_image_arme(self, personnage, arme):
