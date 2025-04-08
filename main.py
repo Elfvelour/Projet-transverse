@@ -6,6 +6,7 @@
 import pygame
 from jeu import Jeu
 from menu_joueur import *
+from main_menu import *
 
 if __name__ == "__main__":
     # Initialisation Pygame
@@ -16,6 +17,7 @@ if __name__ == "__main__":
     pygame.display.set_caption("BowMaster")
 
     # Lancement du jeu
+    affichage_menu()
     joueur, arme = run_character_menu()
     jeu = Jeu(screen, joueur, arme)
     jeu.boucle_principale()

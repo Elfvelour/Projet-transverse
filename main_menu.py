@@ -265,7 +265,7 @@ mon_bouton_ar2=Bouton("",560,50,'white',50,50,police_b,True)
 musique=Musique()
 
 # Boucle principale
-running = False
+running = True
 while running:
     affichage_menu()
     verif_para()
@@ -276,3 +276,5 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+            pygame.quit()
+
