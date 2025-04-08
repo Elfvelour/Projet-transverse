@@ -12,12 +12,13 @@ clock = pygame.time.Clock()
 
 
 class Joueur(pygame.sprite.Sprite):
-    def __init__(self, x, y, taille):
+    def __init__(self, x, y, taille, perso, arme):
         super().__init__()
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")  # chargement des données
-        self.menu_joueur = run_character_menu()
+        self.joueur = perso
+        self.arme = arme
+        self.image_perso = self.obtenir_image_perso(perso, arme)
         self.rect = pygame.Rect(x, y, taille[0], taille[1])
-        self.image_perso = self.obtenir_image_perso(self.menu_joueur[0], self.menu_joueur[1])
         self.angle = 0
         self.charge_tir = 0
         self.max_charge = 60
