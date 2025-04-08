@@ -28,7 +28,7 @@ pygame.display.set_caption("BOW MASTER")
 # Définir les paramètres du bouton jouer
 texte = "jouer"
 x = (largeur-300)/2
-y = (hauteur-82)/2
+y = (hauteur-300)
 couleur = 'red'  # Rouge
 police_b = 40
 hauteur_b = 70
@@ -45,8 +45,7 @@ pygame.mixer.music.play(-1)
 #chargements des textures
 logo_ecran=pygame.image.load("assests/images/menup/logo.png")
 logo_para=pygame.image.load("assests/images/menup/logo_paraV2.png")
-fond_ecran=pygame.image.load("assests/images/menup/backgroundV4.png")
-logo_jeux=pygame.image.load("assests/images/menup/logojeux.png")
+fond_ecran=pygame.image.load("assests/images/menup/ia_raw.jpg")
 logo_ar=pygame.image.load("assests/images/menup/back_bouton.png")
 #met le logo du jeu en haut à gauche à la place du logo pygame
 pygame.display.set_icon(logo_ecran)
@@ -68,29 +67,6 @@ class Menu:
         #le jeu a commencé ou non
         self.en_train_de_jouer=False
 
-    @staticmethod
-    def lancerjeu():
-        # Remplir l'écran avec une couleur de fond
-        ecran.fill('white')  # blanc
-        mon_bouton_parametre.CreationBouton(ecran)
-        ecran.blit(fond_ecran, (0, 0))
-        ecran.blit(logo_jeux, ((largeur-700)/2,80 ))
-        # Créer et affiche les boutons
-        mon_bouton_jouer.CreationBouton(ecran)
-        mon_bouton_quitter.CreationBouton(ecran)
-        ecran.blit(logo_para, (1470, 730))
-        print(mon_bouton_jouer.BoutonClique())
-        # Mettre à jour l'affichage
-        pygame.display.flip()
-    @staticmethod
-    def lancer_V2():
-        ecran.blit(logo_jeux, ((largeur - 700) / 2, 80))
-        # Créer et affiche les boutons
-        mon_bouton_jouer.CreationBouton(ecran)
-        mon_bouton_quitter.CreationBouton(ecran)
-        print(mon_bouton_jouer.BoutonClique())
-        # Mettre à jour l'affichage
-        pygame.display.flip()
     @staticmethod
     # lance le menu principal sans les boutons de la fonction affichage_menu_bouton
     def lancerjeuV3():
@@ -203,7 +179,7 @@ class Musique:
             pygame.mixer.music.play(-1)
 
 
-#verifie les diffiérents évènements pour chaque bouton
+#verifie les différents évènements pour chaque bouton
 def verif_boutons():
     Bouton.Evenement(mon_bouton_jouer)
     Bouton.Evenement(mon_bouton_quitter)
@@ -211,8 +187,6 @@ def verif_boutons():
     Bouton.Evenement(mon_bouton_musique)
 #affiche les boutons et le logo du menu principal
 def affichage_menu_bouton():
-    #logo du jeu
-    ecran.blit(logo_jeux, ((largeur - 700) / 2, 50))
     # Créer et affiche les boutons jouer et quitter
     mon_bouton_jouer.CreationBouton(ecran)
     mon_bouton_quitter.CreationBouton(ecran)
@@ -235,6 +209,7 @@ def affichage_menu():
     #si on appuie sur quitter cela fait quitter le jeu
     if Bouton.Evenement(mon_bouton_quitter) == False and action_para == True:
         return False
+# vérifie quand on clique sur le logo paramètre la page se lancer
 def verif_para():
     action_para=mon_bouton_parametre.action
     #si on appuie sur le logo paramètre, on peut lancer, changer la musique et mettre en pause le jeu
@@ -262,7 +237,7 @@ mon_bouton_ar2=Bouton("",560,50,'white',50,50,police_b,True)
 musique=Musique()
 
 # Boucle principale
-running = False
+running = True
 while running:
     affichage_menu()
     verif_para()
