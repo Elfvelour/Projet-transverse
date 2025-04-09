@@ -9,9 +9,6 @@
 # Importation des fonctions externes
 import ctypes
 import pygame
-
-from menu_joueur import run_character_menu
-
 #initialisation de pygame
 pygame.init()
 pygame.mixer.init()
@@ -32,7 +29,7 @@ pygame.display.set_caption("BOW MASTER")
 texte = "jouer"
 x = (largeur-300)/2
 y = (hauteur-300)
-couleur = 'red'  # Rouge
+couleur =  (230, 170, 80)# jaune moutarde
 police_b = 40
 hauteur_b = 70
 longueur_b = 300
@@ -104,15 +101,17 @@ class Bouton:
 
         # Dessiner le rectangle sur l'écran avec la couleur spécifiée
         pygame.draw.rect(ecran, self.couleur, bouton_creer,border_radius=10)
-        pygame.draw.rect(ecran, "black", (self.axe_x, self.axe_y,self.longueur,self.hauteur), 2,border_radius=10)
+        pygame.draw.rect(ecran, "black", (self.axe_x, self.axe_y, self.longueur, self.hauteur), 2, border_radius=10)
         texte_rectangle = texte_surface.get_rect(center=bouton_creer.center)
 
         #animation du bouton
-        if self.couleur == 'red':
+        if self.couleur == couleur:
             if self.BoutonClique():
-                pygame.draw.rect(ecran,'dark red', bouton_creer,2,10)
+                pygame.draw.rect(ecran,(255, 215, 0), bouton_creer,border_radius=10) #jaune doré
+                pygame.draw.rect(ecran, "black", (self.axe_x, self.axe_y, self.longueur, self.hauteur), 2, border_radius=10)
             else:
-                pygame.draw.rect(ecran, 'red', bouton_creer, 2, 10)
+                pygame.draw.rect(ecran, self.couleur, bouton_creer,border_radius=10)
+                pygame.draw.rect(ecran, "black", (self.axe_x, self.axe_y, self.longueur, self.hauteur), 2, border_radius=10)
         #affiche le bouton
         ecran.blit(texte_surface, texte_rectangle)
     @staticmethod
@@ -242,7 +241,7 @@ musique=Musique()
 
 
 # Boucle principale
-running = False
+running = True
 while running:
     affichage_menu()
     verif_para()
