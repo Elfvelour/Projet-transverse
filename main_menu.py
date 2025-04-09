@@ -9,6 +9,7 @@
 # Importation des fonctions externes
 import ctypes
 import pygame
+import time
 #initialisation de pygame
 pygame.init()
 pygame.mixer.init()
@@ -17,7 +18,7 @@ clock = pygame.time.Clock()
 ctypes.windll.user32.SetProcessDPIAware()
 ##############################################
 #Constantes
-hauteur,largeur=1024,1920
+hauteur,largeur=1010,1920
 action_bouton1=True
 action=False
 #defini la taille de l'écran
@@ -45,7 +46,7 @@ pygame.mixer.music.play(-1)
 #chargements des textures
 logo_ecran=pygame.image.load("assests/images/menup/logo.png")
 logo_para=pygame.image.load("assests/images/menup/logo_paraV2.png")
-fond_ecran=pygame.image.load("assests/images/menup/ia_raw.jpg")
+fond_ecran=pygame.image.load("assests/images/menup/logoia3.jpg")
 logo_ar=pygame.image.load("assests/images/menup/back_bouton.png")
 fond_jeu=pygame.image.load("assests/images/menup/fond_jeu_partie.png")
 #met le logo du jeu en haut à gauche à la place du logo pygame
@@ -114,13 +115,18 @@ class Bouton:
                 pygame.draw.rect(ecran, "black", (self.axe_x, self.axe_y, self.longueur, self.hauteur), 2, border_radius=10)
         #affiche le bouton
         ecran.blit(texte_surface, texte_rectangle)
+
     @staticmethod
+    # créer le menu paramètre
     def Menu_parametre():
-        color=(128, 128, 128)
-        pygame.draw.rect(ecran, color,pygame.Rect(560,50,800,900),border_radius=10)
+        couleur_param=(0,0,0,192)#gris
+        taille_param=(560,50,800,900)# paramètre du rectangle paramètre
+        surface_param=pygame.Surface(pygame.Rect(taille_param).size,pygame.SRCALPHA)# création de la surface translucide
+        pygame.draw.rect(surface_param, couleur_param,surface_param.get_rect())# création du rectangle
+        ecran.blit(surface_param, taille_param)# mise à jour de l'écran
         mon_bouton_musique.CreationBouton(ecran)
 
-    #verifie si le clique gauche de la souris clique sur le bouto,
+    #verifie si le clic gauche de la souris clique sur le bouto,
     def BoutonClique(self):
         pos_souris=pygame.mouse.get_pos()
         clique_gauche=pygame.mouse.get_pressed()[0]
@@ -135,7 +141,6 @@ class Bouton:
         #si on clique le bouton "jouer", on lance la musique chill et le menu des personnages
         if mon_bouton_jouer.BoutonClique() and mon_bouton_jouer.action == True:
             mon_bouton_jouer.action = False
-            musique.jouer_musique('chill')
         #si on clique sur le bouton quitter cela fait quitter le jeu
         if mon_bouton_quitter.BoutonClique():
             return False
@@ -147,8 +152,6 @@ class Bouton:
         if mon_bouton_ar.BoutonClique() and self.action == False:
             self.action=True
 
-        #if mon_bouton_musique.BoutonClique():
-            #Musique.ChangementdeMusique(self.texte)
 class Musique:
     #bibliothèque des sons
     def __init__(self):
@@ -159,27 +162,48 @@ class Musique:
         }
         #bibliothèque des chansons
         self.chansons={
+            'musique_c': "assests/sons/The Red Sun in the Sky 100 - HQ.mp3",
             'chill':"assests/sons/chill.wav",
-            'musique_c':"assests/sons/The Red Sun in the Sky 100 - HQ.mp3",
-        }
+            '':''
+            }
+        self.indice_musique=0
+        self.liste_chansons=list(self.chansons.keys())#liste des noms de chansons dans l'ordre
+        self.dernier_clique=0 #temps du dernier clic
+        self.delai= 0.5 #delai de débouncement en secondes
+
     #elle lance des bruitages pour le jeu comme un lancer de potion
     def jouer_bruitage(self,nom) :
         if nom in self.bruitage:
             self.bruitage[nom].stop()  # Arrêter le son s'il est déjà en cours de lecture
             self.bruitage[nom].play()
+
     #elle lance une musique
     def jouer_musique(self,nom):
-        pygame.mixer.music.load(self.chansons[nom])
-        pygame.mixer.music.play(-1)
+        if nom in self.chansons:
+            pygame.mixer.music.load(self.chansons[nom])
+            pygame.mixer.music.play(-1)
+
     #change les musiques lorsque qu'on appuie sur le bouton musique
     def ChangementdeMusique(self):
-        i=0
-        if i>=len(self.chansons):
-            i=0
+        if not self.chansons:
+            print("la chanson n'existe pas")
+            return
+        self.indice_musique=(self.indice_musique + 1) % len(self.liste_chansons)#modulu de la bibliothèque pour avoir une boucle infini de chanson
+        if self.indice_musique == 2:
+            pygame.mixer.music.stop()
         else:
-            i=i+1
-            pygame.mixer.music.load(self.chansons[i])
-            pygame.mixer.music.play(-1)
+            nom_chansons=self.liste_chansons[self.indice_musique]#recupère le nom de la chanson dans la liste
+            self.jouer_musique(nom_chansons)
+
+
+#initialisation de la classe musique dans la boucle
+musique=Musique()
+# Gère les différents évènements du menu paramètre
+def Evenement_para(mon_bouton_musique):
+    temps_actuel=time.time()
+    if mon_bouton_musique.BoutonClique() and(temps_actuel-musique.dernier_clique > musique.delai):
+        musique.dernier_clique=temps_actuel
+        musique.ChangementdeMusique()
 
 
 #verifie les différents évènements pour chaque bouton
@@ -187,7 +211,8 @@ def verif_boutons():
     Bouton.Evenement(mon_bouton_jouer)
     Bouton.Evenement(mon_bouton_quitter)
     Bouton.Evenement(mon_bouton_parametre)
-    Bouton.Evenement(mon_bouton_musique)
+    Evenement_para(mon_bouton_musique)
+
 #affiche les boutons et le logo du menu principal
 def affichage_menu_bouton():
     # Créer et affiche les boutons jouer et quitter
@@ -208,7 +233,6 @@ def affichage_menu():
     # si on appuie sur jouer cela fait lancer le jeu
     if mon_bouton_jouer.action == False and action_para == True:
         return True
-
     #si on appuie sur quitter cela fait quitter le jeu
     if Bouton.Evenement(mon_bouton_quitter) == False and action_para == True:
         return False
@@ -236,8 +260,6 @@ mon_bouton_musique=Bouton("Musique",700,500,'white',longueur_b,hauteur_b,police_
 #bouton pour quitter le menu paramètre
 mon_bouton_ar2=Bouton("",560,50,'white',50,50,police_b,True)
 
-#initialisation de la classe musique dans la boucle
-musique=Musique()
 
 
 # Boucle principale
