@@ -108,7 +108,7 @@ class Jeu:
 
     def boucle_principale(self):
         continuer = True
-        etat_jeu = "menu"  # ou "jeu"
+        etat_jeu = "jeu"
         while continuer:
             pos_souris = pygame.mouse.get_pos()
 
@@ -124,19 +124,12 @@ class Jeu:
                     pass  # Les événements menu sont dans affichage_menu()
 
             # ----- 2. MISE À JOUR LOGIQUE -----
-            if etat_jeu == "jeu":
-                Jeu.mettre_a_jour_jeu(self, event)
+                if etat_jeu == "jeu":
+                    Jeu.mettre_a_jour_jeu(self, event)
 
             # ----- 3. AFFICHAGE -----
-            if etat_jeu == "menu":
-                action = affichage_menu()
-                if action == True:
-                    etat_jeu = "jeu"
-                elif action == False:
-                    continuer = False
-
-            elif etat_jeu == "jeu":
-                Jeu.afficher_jeu(self, pos_souris)
+                if etat_jeu == "jeu":
+                    Jeu.afficher_jeu(self, pos_souris)
 
             pygame.display.update()
             clock.tick(60)
