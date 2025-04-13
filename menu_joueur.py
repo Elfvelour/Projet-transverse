@@ -7,7 +7,7 @@
 ##############################################
 import pygame
 import os
-
+from main_menu import ecran
 pygame.init()
 
 WIDTH, HEIGHT = 1920, 1010
@@ -35,20 +35,20 @@ class Button:
         self.enabled = enabled
         self.weapon = weapon
 
-    def draw(self, screen):
+    def draw(self, ecran):
         mouse_pos = pygame.mouse.get_pos()
         is_hovered = pygame.Rect((self.x, self.y), (self.width, self.height)).collidepoint(mouse_pos)
         color = BUTTON_COLOR
         color = BUTTON_HOVER_COLOR if is_hovered else color
 
-        pygame.draw.rect(screen, color, (self.x, self.y, self.width, self.height), border_radius=5)
-        pygame.draw.rect(screen, BUTTON_BORDER_COLOR, (self.x, self.y, self.width, self.height), 2, 5)
+        pygame.draw.rect(ecran, color, (self.x, self.y, self.width, self.height), border_radius=5)
+        pygame.draw.rect(ecran, BUTTON_BORDER_COLOR, (self.x, self.y, self.width, self.height), 2, 5)
 
         text_surface = font.render(self.text, True, BUTTON_TEXT_COLOR)
 
         text_x = self.x + (self.width - text_surface.get_width()) // 2
         text_y = self.y + (self.height - text_surface.get_height()) // 2
-        screen.blit(text_surface, (text_x, text_y))
+        ecran.blit(text_surface, (text_x, text_y))
 
     def check_click(self):
         mouse_pos = pygame.mouse.get_pos()
@@ -141,7 +141,7 @@ def run_character_menu() :
 
     running = True
     while running:
-        screen.blit(background_image, (0, 0))
+        ecran.blit(background_image, (0, 0))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -151,7 +151,7 @@ def run_character_menu() :
         for i, (char_img, (x, y), name) in enumerate(characters):
             #Permet de centrer image/bouton
             image_x = padding + i * (spacing + button_width) + (button_width - char_img.get_width()) // 2
-            screen.blit(char_img, (image_x, char_y_top))
+            ecran.blit(char_img, (image_x, char_y_top))
 
         #Affichage des boutons
         for i, button in enumerate(character_buttons):
@@ -167,8 +167,8 @@ def run_character_menu() :
             rect_y = 400
             rect_width = WIDTH - 100
             rect_height = 300
-            pygame.draw.rect(screen, (135, 206, 250), (rect_x, rect_y, rect_width, rect_height), border_radius= 10)
-            pygame.draw.rect(screen, (128, 0, 32), (rect_x, rect_y, rect_width, rect_height), 10, border_radius=10)
+            pygame.draw.rect(ecran, (135, 206, 250), (rect_x, rect_y, rect_width, rect_height), border_radius= 10)
+            pygame.draw.rect(ecran, (128, 0, 32), (rect_x, rect_y, rect_width, rect_height), 10, border_radius=10)
 
 
 
@@ -188,22 +188,22 @@ def run_character_menu() :
             elif selected_character == "P5":
                 character_img = p5_img
                 name_text = "Squelette"
-            screen.blit(character_img, (rect_x + 20, rect_y + 50))
+            ecran.blit(character_img, (rect_x + 20, rect_y + 50))
             text_surface = font.render(name_text, True, BLACK)
-            screen.blit(text_surface, (rect_x + 20, rect_y + 10))
+            ecran.blit(text_surface, (rect_x + 20, rect_y + 10))
 
             # Affichage des armes du perso sélectionné
             y_offset = 120
 
             # Texte en rapport avec le perso + arme
             text_character = font.render(character_description[selected_character][0], True, WHITE)
-            screen.blit(text_character, (rect_x + 200, rect_y + 20))
+            ecran.blit(text_character, (rect_x + 200, rect_y + 20))
 
             text_weapon1 = font.render(character_description[selected_character][1], True, WHITE)
-            screen.blit(text_weapon1, (rect_x + 170, rect_y + y_offset + 20))
+            ecran.blit(text_weapon1, (rect_x + 170, rect_y + y_offset + 20))
 
             text_weapon2 = font.render(character_description[selected_character][2], True, WHITE)
-            screen.blit(text_weapon2, (rect_x + 170, rect_y + 2 * y_offset - 20))
+            ecran.blit(text_weapon2, (rect_x + 170, rect_y + 2 * y_offset - 20))
 
             for i, (weapon_name, weapon_img_path, weapon_code) in enumerate(weapons[selected_character]):
 
@@ -214,15 +214,15 @@ def run_character_menu() :
                 text_surface = font.render(weapon_text, True, BLACK)
                 text_width = text_surface.get_width()
                 text_x = 1000 + (190 // 2) - (text_width // 2)
-                screen.blit(text_surface, (text_x + 40 + 80, rect_y + y_offset + 40))
+                ecran.blit(text_surface, (text_x + 40 + 80, rect_y + y_offset + 40))
 
                 #Image de l'arme
                 weapon_img = load_image(weapon_img_path, 60, 60)
-                screen.blit(weapon_img, (rect_x + 850 + 100, rect_y + y_offset))
+                ecran.blit(weapon_img, (rect_x + 850 + 100, rect_y + y_offset))
 
                 #Bouton d'arme
                 x_button = Button(rect_x + 1000 + 80, rect_y + y_offset, "Sélectionner", width=180, height=40)
-                x_button.draw(screen)
+                x_button.draw(ecran)
 
 
                 #Code du perso + arme choisi avec affichage de sécurité

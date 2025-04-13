@@ -1,8 +1,8 @@
 
 ##############################################
 ###### Programme Python menu principal  ######
-###### Auteur : Timothée Girault         ######
-###### Version: 1.9                     ######
+###### Auteur : Timothée Girault        ######
+###### Version: 2.0                     ######
 ##############################################
 
 ##############################################
@@ -49,6 +49,7 @@ logo_para=pygame.image.load("assests/images/menup/logo_paraV2.png")
 fond_ecran=pygame.image.load("assests/images/menup/logoia3.jpg")
 logo_ar=pygame.image.load("assests/images/menup/back_bouton.png")
 fond_jeu=pygame.image.load("assests/images/menup/fond_jeu_partie.png")
+logo_next=pygame.image.load("assests/Forward_button.png")
 #met le logo du jeu en haut à gauche à la place du logo pygame
 pygame.display.set_icon(logo_ecran)
 
@@ -119,14 +120,16 @@ class Bouton:
     @staticmethod
     # créer le menu paramètre
     def Menu_parametre():
-        couleur_param=(0,0,0,192)#gris
+        couleur_param=(0,0,0,192)#noir transparent
         taille_param=(560,50,800,900)# paramètre du rectangle paramètre
         surface_param=pygame.Surface(pygame.Rect(taille_param).size,pygame.SRCALPHA)# création de la surface translucide
         pygame.draw.rect(surface_param, couleur_param,surface_param.get_rect())# création du rectangle
         ecran.blit(surface_param, taille_param)# mise à jour de l'écran
         mon_bouton_musique.CreationBouton(ecran)
+        #ecran.blit(logo_next, (700,500))
 
-    #verifie si le clic gauche de la souris clique sur le bouto,
+
+    #verifie si le clic gauche de la souris clique sur le bouton
     def BoutonClique(self):
         pos_souris=pygame.mouse.get_pos()
         clique_gauche=pygame.mouse.get_pressed()[0]
@@ -136,7 +139,7 @@ class Bouton:
         else:
             return False
 
-    #gère les évènements du menu principal
+    # gère les évènements du menu principal
     def Evenement(self):
         #si on clique le bouton "jouer", on lance la musique chill et le menu des personnages
         if mon_bouton_jouer.BoutonClique() and mon_bouton_jouer.action == True:
@@ -169,7 +172,7 @@ class Musique:
         self.indice_musique=0
         self.liste_chansons=list(self.chansons.keys())#liste des noms de chansons dans l'ordre
         self.dernier_clique=0 #temps du dernier clic
-        self.delai= 0.5 #delai de débouncement en secondes
+        self.delai= 0.5 #delai entre chaque clique voulut en secondes
 
     #elle lance des bruitages pour le jeu comme un lancer de potion
     def jouer_bruitage(self,nom) :
@@ -195,15 +198,39 @@ class Musique:
             nom_chansons=self.liste_chansons[self.indice_musique]#recupère le nom de la chanson dans la liste
             self.jouer_musique(nom_chansons)
 
+# détecte si on clique sur le logo d'une image
+def Logoclique(image):
+   pos_souris = pygame.mouse.get_pos()
+   clique_gauche = pygame.mouse.get_pressed()[0]
+   logo=image.get_rect()
+   if clique_gauche and logo.collidepoint(pos_souris):
+       return True
+   else:
+       return False
+
+def verif_musique():
+    if Logoclique(logo_next):
+        print("musique")
 
 #initialisation de la classe musique dans la boucle
 musique=Musique()
+
 # Gère les différents évènements du menu paramètre
-def Evenement_para(mon_bouton_musique):
+def Evenement_para():
     temps_actuel=time.time()
+    #si on clique dessus et que l'intervalle de temps est supérieur à 0.5 entre les cliques
     if mon_bouton_musique.BoutonClique() and(temps_actuel-musique.dernier_clique > musique.delai):
         musique.dernier_clique=temps_actuel
         musique.ChangementdeMusique()
+
+
+# vérifie quand on clique sur le logo paramètre la page se lancer
+def verif_para():
+    action_para = mon_bouton_parametre.action
+    # si on appuie sur le logo paramètre, on peut lancer, changer la musique et mettre en pause le jeu
+    if action_para == False:
+        Bouton.Menu_parametre()
+        ecran.blit(logo_ar, (0, 0))
 
 
 #verifie les différents évènements pour chaque bouton
@@ -211,13 +238,15 @@ def verif_boutons():
     Bouton.Evenement(mon_bouton_jouer)
     Bouton.Evenement(mon_bouton_quitter)
     Bouton.Evenement(mon_bouton_parametre)
-    Evenement_para(mon_bouton_musique)
+    Evenement_para()
+    #verif_musique()
 
 #affiche les boutons et le logo du menu principal
 def affichage_menu_bouton():
     # Créer et affiche les boutons jouer et quitter
     mon_bouton_jouer.CreationBouton(ecran)
     mon_bouton_quitter.CreationBouton(ecran)
+
 
 def affichage_menu():
     Menu.lancerjeuV3()
@@ -236,14 +265,6 @@ def affichage_menu():
     #si on appuie sur quitter cela fait quitter le jeu
     if Bouton.Evenement(mon_bouton_quitter) == False and action_para == True:
         return False
-# vérifie quand on clique sur le logo paramètre la page se lancer
-def verif_para():
-    action_para=mon_bouton_parametre.action
-    #si on appuie sur le logo paramètre, on peut lancer, changer la musique et mettre en pause le jeu
-    if action_para == False:
-        Bouton.Menu_parametre()
-        ecran.blit(logo_ar, (0, 0))
-
 
 
 
@@ -260,19 +281,20 @@ mon_bouton_musique=Bouton("Musique",700,500,'white',longueur_b,hauteur_b,police_
 #bouton pour quitter le menu paramètre
 mon_bouton_ar2=Bouton("",560,50,'white',50,50,police_b,True)
 
-
-
-# Boucle principale
-running = True
-while running:
-    affichage_menu()
-    verif_para()
-    pygame.display.flip()
-    #boucle tant qu'on n'a pas appuyé sur le bouton quitter (running=False)
-    if affichage_menu() == False:
-        running = False
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+def boucle_menu():
+    # Boucle principale
+    running = True
+    while running:
+        affichage_menu()
+        verif_para()
+        pygame.display.flip()
+        # boucle tant qu'on n'a pas appuyé sur le bouton quitter (running=False)
+        if affichage_menu()==True:
+            return True
+        if affichage_menu() == False:
             running = False
-            pygame.quit()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
 

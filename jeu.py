@@ -10,7 +10,7 @@ from trajectoires import Projectile
 from trajectoires import Sol
 from monnaie import Pieces
 from bot import Bot
-from main_menu import affichage_menu
+from main_menu import  affichage_menu
 
 clock = pygame.time.Clock()
 
@@ -113,7 +113,6 @@ class Jeu:
         etat_jeu = "jeu"
         while continuer:
             pos_souris = pygame.mouse.get_pos()
-
             # ----- 1. GESTION DES ÉVÉNEMENTS -----
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -122,11 +121,9 @@ class Jeu:
                 if etat_jeu == "jeu":
                     Jeu.gerer_evenements_jeu(self, event)
 
-                elif etat_jeu == "menu":
-                    pass  # Les événements menu sont dans affichage_menu()
-
             # ----- 2. MISE À JOUR LOGIQUE -----
                 if etat_jeu == "jeu":
+
                     Jeu.mettre_a_jour_jeu(self, event)
 
             # ----- 3. AFFICHAGE -----

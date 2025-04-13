@@ -1,23 +1,18 @@
 #####################################################
 # Fichier de lancement du jeu                       #
-# Auteurs: Flavie BREMAND et Timothée GIRAULT       #
+# Auteurs: F.BREMAND et T.GIRAULT et N.MARQUES      #
 #####################################################
 
 import pygame
 from jeu import Jeu
 from menu_joueur import *
-from main_menu import *
+from main_menu import  boucle_menu
 
 if __name__ == "__main__":
-    # Initialisation Pygame
-    pygame.init()
 
-    # Création de la fenêtre avant tout chargement d'image
-    screen = pygame.display.set_mode((1920, 1010))
-    pygame.display.set_caption("BowMaster")
 
     # Lancement du jeu
-    affichage_menu()
-    joueur, arme = run_character_menu()
-    jeu = Jeu(screen, joueur, arme)
-    jeu.boucle_principale()
+    if boucle_menu()==True:
+        joueur, arme = run_character_menu()
+        jeu = Jeu(screen, joueur, arme)
+        jeu.boucle_principale()
