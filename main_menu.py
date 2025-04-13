@@ -298,3 +298,4 @@ def boucle_menu():
                 running = False
                 pygame.quit()
 
+

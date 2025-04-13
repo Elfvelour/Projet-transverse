@@ -237,3 +237,4 @@ def run_character_menu() :
         pygame.display.flip()
 
     return (character, weapon)
+
