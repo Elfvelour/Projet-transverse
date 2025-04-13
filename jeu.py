@@ -65,6 +65,8 @@ class Jeu:
             self.en_attente = True
             self.tour_joueur = False
 
+        self.piece.verifier_clic(event, self)
+
     def mettre_a_jour_jeu(self, event):
         if self.en_attente:
             if pygame.time.get_ticks() - self.temps_attente >= 3000 and not self.explosion_active:
