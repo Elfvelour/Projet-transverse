@@ -208,11 +208,11 @@ def affichage_menu():
 
     # si on appuie sur jouer cela fait lancer le jeu
     if mon_bouton_jouer.action == False and action_para == True:
-        return True
+        return False
 
     #si on appuie sur quitter cela fait quitter le jeu
     if Bouton.Evenement(mon_bouton_quitter) == False and action_para == True:
-        return False
+        return 3        #Valeur différente pour différencier la situation de jeu ou de quit
 # vérifie quand on clique sur le logo paramètre la page se lancer
 def verif_para():
     action_para=mon_bouton_parametre.action
@@ -242,16 +242,18 @@ musique=Musique()
 
 
 # Boucle principale
-running = True
-while running:
-    affichage_menu()
-    verif_para()
-    pygame.display.flip()
-    #boucle tant qu'on n'a pas appuyé sur le bouton quitter (running=False)
-    if affichage_menu() == False:
-        running = False
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+def run_main_menu() :
+    running = True
+    while running:
+        affichage_menu()
+        verif_para()
+        pygame.display.flip()
+        #boucle tant qu'on n'a pas appuyé sur le bouton quitter (running=False)
+        if affichage_menu() == False:
             running = False
-            pygame.quit()
+            return 0
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
 

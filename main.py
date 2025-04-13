@@ -17,7 +17,19 @@ if __name__ == "__main__":
     pygame.display.set_caption("BowMaster")
 
     # Lancement du jeu
-    affichage_menu()
-    joueur, arme = run_character_menu()
-    jeu = Jeu(screen, joueur, arme)
-    jeu.boucle_principale()
+    while True :
+        lancement = affichage_menu()
+        verif_para()
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                lancement = False
+                pygame.quit()
+        if lancement == False :
+            joueur, arme = run_character_menu()
+            jeu = Jeu(screen, joueur, arme)
+            jeu.boucle_principale()
+        elif lancement == 3 :   #3 est la valeur que retourne la fonction si on appuie sur le bouton quitter
+            break
+
