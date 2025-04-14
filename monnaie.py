@@ -40,7 +40,7 @@ class Pieces (pygame.sprite.Sprite):
         self.rect_gg = self.image_bouton.get_rect(topright=(self.x_gg, self.y_gg - 100))
 
         self.dernier_ulti = 0  # temps en ms
-        self.temps_cooldown = 10000  # 10 secondes en ms
+        self.temps_cooldown = 15000  # 10 secondes en ms
 
 
     def afficher_monnaie(self, surface):
@@ -55,7 +55,7 @@ class Pieces (pygame.sprite.Sprite):
         texte = self.font_piece.render("Barre espace pour Boost", True, (255, 255, 255))
         surface.blit(texte, (self.bouton_x - 780, self.bouton_y - 10))
         texte_2 = self.font_piece.render("Attendre 3 tirs", True, (221, 226, 63))
-        surface.blit(texte_2, (self.bouton_x - 300, self.bouton_y + 150))
+        surface.blit(texte_2, (self.bouton_x - 500, self.bouton_y + 150))
         if self.coffre_ouvert and pygame.time.get_ticks() - self.dernier_ulti >= 1000:
             self.image_bouton = self.image_coffre_ferme
             self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))
