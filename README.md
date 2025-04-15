@@ -45,3 +45,5 @@ création du jeu bowmaster
 -06/04/2025 Tim: 1ère fusion du main et main_menu réussi attente avec raphalél pour le faire avec le menu des joueurs puis début de la création du bouton paramètre pour changer et arrêter la musique à tout moment
 
 -10/04/2025 Tim: création du menu paramètre translucide + bouton qui change la musique
+
+-14/04/2025 Tim: finalisation du main fonctionnelle + ajout d'assets pour un jeu qui marche
