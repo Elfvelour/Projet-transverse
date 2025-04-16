@@ -85,7 +85,7 @@ def wrap_text(text, font, max_width):
     return lines
 def run_character_menu() :
     #Image de fond menu joueur
-    background_image = load_image("assests/images/menup/backgroundV2.png", WIDTH, HEIGHT)
+    background_image = pygame.image.load("assests/images/menup/logoiajeu.jpeg")
 
     #Image des personnages
     p1_img = load_image("assests/images/perso/canard.png", 175, 187.5)

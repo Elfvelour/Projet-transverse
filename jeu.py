@@ -22,8 +22,7 @@ class Jeu:
         self.perso = perso
         self.arme = arme
         self.image_projectile = self.obtenir_image_arme(self.perso, self.arme)
-        self.background = pygame.image.load("assests/images/menup/backgroundV2.png").convert()
-        self.background = pygame.transform.scale(self.background, (1920, 1024))
+        self.background = pygame.image.load("assests/images/menup/logoiajeu.jpeg")
         self.sol = Sol()
         self.joueur = Joueur(100, 672, [32, 64], perso, arme)
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")  # chargement des données

@@ -49,7 +49,7 @@ logo_para=pygame.image.load("assests/images/menup/logo_paraV2.png")
 fond_ecran=pygame.image.load("assests/images/menup/logoia3.jpg")
 logo_ar=pygame.image.load("assests/images/menup/back_bouton.png")
 fond_jeu=pygame.image.load("assests/images/menup/fond_jeu_partie.png")
-logo_next=pygame.image.load("assests/Forward_button.png")
+logo_next=pygame.image.load("assests/images/menup/Forward_button.png")
 #met le logo du jeu en haut à gauche à la place du logo pygame
 pygame.display.set_icon(logo_ecran)
 
@@ -297,5 +297,3 @@ def boucle_menu():
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
-
-
