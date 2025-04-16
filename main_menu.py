@@ -61,7 +61,7 @@ pygame.display.set_icon(logo_ecran)
 
 #creation des images cliquables
 image_rect = logo_next.get_rect() # création de la zone cliquable
-image_rect.topleft = (700, 500) # Position de l'image sur l'écran
+image_rect.topleft = (x_white, y_white) # Position de l'image sur l'écran
 
 #classe du menu
 class Menu:
@@ -319,4 +319,3 @@ def boucle_menu():
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
-boucle_menu()

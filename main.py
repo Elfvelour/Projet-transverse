@@ -10,7 +10,6 @@ from main_menu import  boucle_menu
 
 if __name__ == "__main__":
 
-
     # Lancement du jeu
     if boucle_menu():
         joueur, arme = run_character_menu()
