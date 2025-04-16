@@ -37,7 +37,11 @@ longueur_b = 300
 #paramètre bouton paramètre
 x_p=1860
 y_p=930
-
+#paramètre pour les boutons de changements de musiques
+x_white=1100
+y_white=250
+#paramètre des crédits
+y_credit=500
 ##############################################
 #initialisation musique
 pygame.mixer.music.load("assests/sons/The Red Sun in the Sky 100 - HQ.mp3")
@@ -49,9 +53,15 @@ logo_para=pygame.image.load("assests/images/menup/logo_paraV2.png")
 fond_ecran=pygame.image.load("assests/images/menup/logoia3.jpg")
 logo_ar=pygame.image.load("assests/images/menup/back_bouton.png")
 fond_jeu=pygame.image.load("assests/images/menup/fond_jeu_partie.png")
-logo_next=pygame.image.load("assests/images/menup/Forward_button.png")
+logo_next=pygame.image.load("assests/images/menup/Forward_button_white2.png")
+logo_next_inverse=pygame.image.load("assests/images/menup/Forward_buttonwhite_inverse.png")
+logo_pause=pygame.image.load("assests/images/menup/pause.png")
 #met le logo du jeu en haut à gauche à la place du logo pygame
 pygame.display.set_icon(logo_ecran)
+
+#creation des images cliquables
+image_rect = logo_next.get_rect() # création de la zone cliquable
+image_rect.topleft = (700, 500) # Position de l'image sur l'écran
 
 #classe du menu
 class Menu:
@@ -125,8 +135,24 @@ class Bouton:
         surface_param=pygame.Surface(pygame.Rect(taille_param).size,pygame.SRCALPHA)# création de la surface translucide
         pygame.draw.rect(surface_param, couleur_param,surface_param.get_rect())# création du rectangle
         ecran.blit(surface_param, taille_param)# mise à jour de l'écran
-        mon_bouton_musique.CreationBouton(ecran)
-        #ecran.blit(logo_next, (700,500))
+        ecran.blit(logo_next, (x_white,y_white))
+        ecran.blit(logo_next_inverse, (x_white-500,y_white))
+        #ecran.blit(logo_pause, (x_white-300,y_white))
+
+        # Création de la zone de texte pour les crédits
+        police=pygame.font.Font("assests/images/affichage/04B_30__.TTF", 45)
+
+        texte_1 =police.render("Credits", True,"white") # affichage du texte
+        position_texte = (taille_param[0] + 275, taille_param[1] + y_credit)  # Position du texte dans le rectangle
+        ecran.blit(texte_1, position_texte)
+
+        texte_2 = police.render("Timothee Noemie Flavie", True, "white")
+        position_texte = (taille_param[0] + 10, taille_param[1] + y_credit+100)
+        ecran.blit(texte_2, position_texte)
+
+        texte_3 = police.render("Raphael Thomas", True,"white")
+        position_texte = (taille_param[0] + 125, taille_param[1] + y_credit+200)
+        ecran.blit(texte_3, position_texte)
 
 
     #verifie si le clic gauche de la souris clique sur le bouton
@@ -172,7 +198,7 @@ class Musique:
         self.indice_musique=0
         self.liste_chansons=list(self.chansons.keys())#liste des noms de chansons dans l'ordre
         self.dernier_clique=0 #temps du dernier clic
-        self.delai= 0.5 #delai entre chaque clique voulut en secondes
+        self.delai= 1 #delai entre chaque clique voulut en secondes
 
     #elle lance des bruitages pour le jeu comme un lancer de potion
     def jouer_bruitage(self,nom) :
@@ -198,28 +224,25 @@ class Musique:
             nom_chansons=self.liste_chansons[self.indice_musique]#recupère le nom de la chanson dans la liste
             self.jouer_musique(nom_chansons)
 
-# détecte si on clique sur le logo d'une image
-def Logoclique(image):
-   pos_souris = pygame.mouse.get_pos()
-   clique_gauche = pygame.mouse.get_pressed()[0]
-   logo=image.get_rect()
-   if clique_gauche and logo.collidepoint(pos_souris):
-       return True
-   else:
-       return False
-
-def verif_musique():
-    if Logoclique(logo_next):
-        print("musique")
-
 #initialisation de la classe musique dans la boucle
 musique=Musique()
+
+
+# détecte si on clique sur le logo d'une image
+def Logoclique(image_rect):
+    pos_souris = pygame.mouse.get_pos()
+    clique_gauche = pygame.mouse.get_pressed()[0]
+    if clique_gauche and image_rect.collidepoint(pos_souris):
+        return True
+    else:
+        return False
+
 
 # Gère les différents évènements du menu paramètre
 def Evenement_para():
     temps_actuel=time.time()
-    #si on clique dessus et que l'intervalle de temps est supérieur à 0.5 entre les cliques
-    if mon_bouton_musique.BoutonClique() and(temps_actuel-musique.dernier_clique > musique.delai):
+    #si on clique dessus et que l'intervalle de temps est supérieur à 1 entre les cliques
+    if Logoclique(image_rect) and(temps_actuel-musique.dernier_clique > musique.delai):
         musique.dernier_clique=temps_actuel
         musique.ChangementdeMusique()
 
@@ -239,7 +262,6 @@ def verif_boutons():
     Bouton.Evenement(mon_bouton_quitter)
     Bouton.Evenement(mon_bouton_parametre)
     Evenement_para()
-    #verif_musique()
 
 #affiche les boutons et le logo du menu principal
 def affichage_menu_bouton():
@@ -297,3 +319,4 @@ def boucle_menu():
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
+boucle_menu()
