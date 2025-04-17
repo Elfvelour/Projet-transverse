@@ -2,7 +2,7 @@
 ##############################################
 ###### Programme Python menu principal  ######
 ###### Auteur : Timothée Girault        ######
-###### Version: 2.0                     ######
+###### Version: 2.2                     ######
 ##############################################
 
 ##############################################
@@ -55,7 +55,8 @@ logo_ar=pygame.image.load("assests/images/menup/back_bouton.png")
 fond_jeu=pygame.image.load("assests/images/menup/fond_jeu_partie.png")
 logo_next=pygame.image.load("assests/images/menup/Forward_button_white2.png")
 logo_next_inverse=pygame.image.load("assests/images/menup/Forward_buttonwhite_inverse.png")
-logo_pause=pygame.image.load("assests/images/menup/pause.png")
+logo_pause=pygame.image.load("assests/images/menup/pause3.png")
+logo_play=pygame.image.load("assests/images/menup/play3.png")
 #met le logo du jeu en haut à gauche à la place du logo pygame
 pygame.display.set_icon(logo_ecran)
 
@@ -137,7 +138,7 @@ class Bouton:
         ecran.blit(surface_param, taille_param)# mise à jour de l'écran
         ecran.blit(logo_next, (x_white,y_white))
         ecran.blit(logo_next_inverse, (x_white-500,y_white))
-        #ecran.blit(logo_pause, (x_white-300,y_white))
+        Musique.Stop_lance_musique()
 
         # Création de la zone de texte pour les crédits
         police=pygame.font.Font("assests/images/affichage/04B_30__.TTF", 45)
@@ -167,7 +168,7 @@ class Bouton:
 
     # gère les évènements du menu principal
     def Evenement(self):
-        #si on clique le bouton "jouer", on lance la musique chill et le menu des personnages
+        #si on clique le bouton "jouer", on lance le menu des personnages
         if mon_bouton_jouer.BoutonClique() and mon_bouton_jouer.action == True:
             mon_bouton_jouer.action = False
         #si on clique sur le bouton quitter cela fait quitter le jeu
@@ -223,7 +224,20 @@ class Musique:
         else:
             nom_chansons=self.liste_chansons[self.indice_musique]#recupère le nom de la chanson dans la liste
             self.jouer_musique(nom_chansons)
-
+    @staticmethod
+    def Stop_lance_musique():
+        logo_stop_lance=logo_pause
+        print("okok")
+        if logo_stop_lance==logo_pause:
+            logo_stop_lance=logo_play
+            print("aaaa")
+            ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
+            pygame.mixer.music.stop()
+        if logo_stop_lance==logo_play:
+            logo_stop_lance=logo_pause
+            print("bbbb")
+            ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
+            pygame.mixer.music.play()
 #initialisation de la classe musique dans la boucle
 musique=Musique()
 
@@ -245,7 +259,10 @@ def Evenement_para():
     if Logoclique(image_rect) and(temps_actuel-musique.dernier_clique > musique.delai):
         musique.dernier_clique=temps_actuel
         musique.ChangementdeMusique()
-
+    x=logo_play.get_rect()
+    x.topleft=(x_white - 290, y_white - 50)
+    if Logoclique(x):
+        musique.Stop_lance_musique()
 
 # vérifie quand on clique sur le logo paramètre la page se lancer
 def verif_para():
@@ -298,8 +315,6 @@ mon_bouton_quitter=Bouton("quitter",x,y+120,couleur,longueur_b,hauteur_b,police_
 mon_bouton_parametre=Bouton("",x_p,y_p,'white',60,60,police_b,True)
 #bouton retour en arrière
 mon_bouton_ar=Bouton("",0,0,'white',50,50,police_b,True)
-#bouton pour changer de musique
-mon_bouton_musique=Bouton("Musique",700,500,'white',longueur_b,hauteur_b,police_b,True)
 #bouton pour quitter le menu paramètre
 mon_bouton_ar2=Bouton("",560,50,'white',50,50,police_b,True)
 
@@ -319,3 +334,4 @@ def boucle_menu():
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
+boucle_menu()
