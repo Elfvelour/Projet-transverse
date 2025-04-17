@@ -3,7 +3,6 @@
 # Auteurs: F.BREMAND et T.GIRAULT et N.MARQUES      #
 #####################################################
 
-import pygame
 from jeu import Jeu
 from menu_joueur import *
 from main_menu import  boucle_menu

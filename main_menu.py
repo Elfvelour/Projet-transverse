@@ -138,7 +138,7 @@ class Bouton:
         ecran.blit(surface_param, taille_param)# mise à jour de l'écran
         ecran.blit(logo_next, (x_white,y_white))
         ecran.blit(logo_next_inverse, (x_white-500,y_white))
-        Musique.Stop_lance_musique()
+        Stop_lance_musique()
 
         # Création de la zone de texte pour les crédits
         police=pygame.font.Font("assests/images/affichage/04B_30__.TTF", 45)
@@ -224,20 +224,7 @@ class Musique:
         else:
             nom_chansons=self.liste_chansons[self.indice_musique]#recupère le nom de la chanson dans la liste
             self.jouer_musique(nom_chansons)
-    @staticmethod
-    def Stop_lance_musique():
-        logo_stop_lance=logo_pause
-        print("okok")
-        if logo_stop_lance==logo_pause:
-            logo_stop_lance=logo_play
-            print("aaaa")
-            ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
-            pygame.mixer.music.stop()
-        if logo_stop_lance==logo_play:
-            logo_stop_lance=logo_pause
-            print("bbbb")
-            ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
-            pygame.mixer.music.play()
+
 #initialisation de la classe musique dans la boucle
 musique=Musique()
 
@@ -250,7 +237,32 @@ def Logoclique(image_rect):
         return True
     else:
         return False
+def Stop_lance_musique2():
+    logo_stop_lance=logo_pause
+    ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
+    x = logo_stop_lance.get_rect()
+    x.topleft = (x_white - 290, y_white - 50)
+    if Logoclique(x) and logo_stop_lance==logo_pause:
+        logo_stop_lance=logo_play
+        print("aaaa")
+        ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
+        pygame.mixer.music.stop()
+    if Logoclique(x) and logo_stop_lance==logo_play:
+        logo_stop_lance=logo_pause
+        print("bbbb")
+        ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
+        pygame.mixer.music.play()
 
+def Stop_lance_musique():
+    logo_stop_lance=logo_pause
+    x = logo_stop_lance.get_rect()
+    x.topleft = (x_white - 290, y_white - 50)
+    if not Logoclique(x):
+        ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
+    if Logoclique(x) and logo_stop_lance==logo_pause:
+        logo_stop_lance=logo_play
+        ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
+        pygame.mixer.music.stop()
 
 # Gère les différents évènements du menu paramètre
 def Evenement_para():
@@ -259,10 +271,10 @@ def Evenement_para():
     if Logoclique(image_rect) and(temps_actuel-musique.dernier_clique > musique.delai):
         musique.dernier_clique=temps_actuel
         musique.ChangementdeMusique()
-    x=logo_play.get_rect()
-    x.topleft=(x_white - 290, y_white - 50)
-    if Logoclique(x):
-        musique.Stop_lance_musique()
+    #x=logo_play.get_rect()
+    #x.topleft=(x_white - 290, y_white - 50)
+    #if Logoclique(x):
+        #musique.Stop_lance_musique()
 
 # vérifie quand on clique sur le logo paramètre la page se lancer
 def verif_para():
