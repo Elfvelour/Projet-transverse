@@ -2,7 +2,7 @@
 ##############################################
 ###### Programme Python menu principal  ######
 ###### Auteur : Timothée Girault        ######
-###### Version: 2.2                     ######
+###### Version: 2.3                     ######
 ##############################################
 
 ##############################################
@@ -58,44 +58,29 @@ logo_next=pygame.image.load("assests/images/menup/Forward_button_white2.png")
 logo_next_inverse=pygame.image.load("assests/images/menup/Forward_buttonwhite_inverse.png")
 logo_pause=pygame.image.load("assests/images/menup/pause4.png")
 logo_play=pygame.image.load("assests/images/menup/play3.png")
+
 #met le logo du jeu en haut à gauche à la place du logo pygame
 pygame.display.set_icon(logo_ecran)
 
 #creation des images cliquables
 image_rect = logo_next.get_rect() # création de la zone cliquable
 image_rect.topleft = (x_white, y_white) # Position de l'image sur l'écran
-image_rect_2 = logo_next_inverse.get_rect() # création de la zone cliquable
-image_rect_2.topleft = (x_white-500, y_white) # Position de l'image sur l'écran
+image_rect_2 = logo_next_inverse.get_rect()
+image_rect_2.topleft = (x_white-500, y_white)
+
 #creation de la variable globale pour arrêter et jouer de la musique
 switch_musique=True
+##############################################
 
-#classe du menu
-class Menu:
-
-    def __init__(self):
-        self.running=True
-        self.musique=Musique()
-        #liste de boutons
-        self.boutons=[#bouton jouer
-             #Bouton(texte, x, y, couleur,hauteur_b,longueur_b, police_b,action_bouton1),
-             #bouton quitter
-             #Bouton("quitter",x,y+120,'red',300,70,police_b,True),
-            #bouton parametre
-            #Bouton("",x_p,y_p,'white',50,50,police_b,True)
-            ]
-        #le jeu a commencé ou non
-        self.en_train_de_jouer=False
-
-    @staticmethod
-    # lance le menu principal sans les boutons de la fonction affichage_menu_bouton
-    def lancerjeuV3():
-        # Remplir l'écran avec une couleur de fond
-        ecran.fill('white')  # blanc
-        #creation des boutons paramètre et retour en arrière
-        mon_bouton_parametre.CreationBouton(ecran)
-        mon_bouton_ar.CreationBouton(ecran)
-        ecran.blit(fond_ecran, (0, 0))
-        ecran.blit(logo_para, (x_p,y_p))
+# lance le menu principal sans les boutons de la fonction affichage_menu_bouton
+def lancerjeuV3():
+    # Remplir l'écran avec une couleur de fond
+    ecran.fill('white')  # blanc
+    #creation des boutons paramètre et retour en arrière
+    mon_bouton_parametre.CreationBouton(ecran)
+    mon_bouton_ar.CreationBouton(ecran)
+    ecran.blit(fond_ecran, (0, 0))
+    ecran.blit(logo_para, (x_p,y_p))
 
 #classe des boutons
 class Bouton:
@@ -142,13 +127,14 @@ class Bouton:
         surface_param=pygame.Surface(pygame.Rect(taille_param).size,pygame.SRCALPHA)# création de la surface translucide
         pygame.draw.rect(surface_param, couleur_param,surface_param.get_rect())# création du rectangle
         ecran.blit(surface_param, taille_param)# mise à jour de l'écran
-        ecran.blit(logo_next, (x_white,y_white))
-        ecran.blit(logo_next_inverse, (x_white-500,y_white))
-        switch_musique = bascule_musique(switch_musique)# gère les évènements des boutons play et pause
+        ecran.blit(logo_next, (x_white,y_white))# affiche du logo next
+        ecran.blit(logo_next_inverse, (x_white-500,y_white))# affiche du logo retour en arrière pour la musique
+        switch_musique = bascule_musique(switch_musique)# gère les évènements des boutons play et pause et les affiches
 
         # Création de la zone de texte pour les crédits
         police=pygame.font.Font("assests/images/affichage/04B_30__.TTF", 45)
 
+        # affichage des crédits
         texte_1 =police.render("Credits", True,"white") # affichage du texte
         position_texte = (taille_param[0] + 275, taille_param[1] + y_credit)  # Position du texte dans le rectangle
         ecran.blit(texte_1, position_texte)
@@ -244,6 +230,7 @@ def Logoclique(image_rect):
         return True
     else:
         return False
+
 # gère les évènements des boutons play et arrêt
 def bascule_musique(switch_musique):
     # prend les variables globales
@@ -253,17 +240,17 @@ def bascule_musique(switch_musique):
     logo_actuel = logo_pause if switch_musique else logo_play
     # Afficher le logo actuel
     ecran.blit(logo_actuel, (x_white - 290, y_white - 50))
-    # Obtenir le rectangle du logo pour la détection de clic
+    # création de la zone cliquable du logo
     logo_rect = logo_actuel.get_rect(topleft=(x_white - 290, y_white - 50))
-    # Vérifier si le logo a été cliqué
+    # Vérifier si le logo a été cliqué avec un intervalle d'au moins 1 seconde
     if Logoclique(logo_rect) and (temps_actuel-musique.dernier_clique > musique.delai):
         musique.dernier_clique = temps_actuel
         if switch_musique:
-            # Arrêter la musique et afficher le logo play
+            # Arrête la musique et afficher le logo play
             pygame.mixer.music.stop()
             switch_musique = False
         else:
-            # Lancer la musique et afficher le logo pause
+            # Lance la musique et afficher le logo pause
             pygame.mixer.music.play()
             switch_musique = True
     return switch_musique
@@ -306,7 +293,7 @@ def affichage_menu_bouton():
 
 
 def affichage_menu():
-    Menu.lancerjeuV3()
+    lancerjeuV3()
     action_para=mon_bouton_parametre.action
     #on affiche les boutons tant qu'on n'appuie pas sur le bouton jouer pour lancer le jeu (on a action=True pour chaque bouton par défaut).
     if mon_bouton_jouer.action == True:
