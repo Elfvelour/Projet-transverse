@@ -12,7 +12,6 @@ pygame.init()
 
 WIDTH, HEIGHT = 1920, 1010
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Menu des Joueurs")
 
 #Couleurs
 WHITE = (255, 255, 255)

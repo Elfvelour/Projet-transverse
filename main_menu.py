@@ -42,9 +42,10 @@ x_white=1100
 y_white=250
 #paramètre des crédits
 y_credit=500
+
 ##############################################
 #initialisation musique
-pygame.mixer.music.load("assests/sons/The Red Sun in the Sky 100 - HQ.mp3")
+pygame.mixer.music.load("assests/sons/super-ambiance.mp3")
 pygame.mixer.music.play(-1)
 
 #chargements des textures
@@ -55,7 +56,7 @@ logo_ar=pygame.image.load("assests/images/menup/back_bouton.png")
 fond_jeu=pygame.image.load("assests/images/menup/fond_jeu_partie.png")
 logo_next=pygame.image.load("assests/images/menup/Forward_button_white2.png")
 logo_next_inverse=pygame.image.load("assests/images/menup/Forward_buttonwhite_inverse.png")
-logo_pause=pygame.image.load("assests/images/menup/pause3.png")
+logo_pause=pygame.image.load("assests/images/menup/pause4.png")
 logo_play=pygame.image.load("assests/images/menup/play3.png")
 #met le logo du jeu en haut à gauche à la place du logo pygame
 pygame.display.set_icon(logo_ecran)
@@ -63,6 +64,10 @@ pygame.display.set_icon(logo_ecran)
 #creation des images cliquables
 image_rect = logo_next.get_rect() # création de la zone cliquable
 image_rect.topleft = (x_white, y_white) # Position de l'image sur l'écran
+image_rect_2 = logo_next_inverse.get_rect() # création de la zone cliquable
+image_rect_2.topleft = (x_white-500, y_white) # Position de l'image sur l'écran
+#creation de la variable globale pour arrêter et jouer de la musique
+switch_musique=True
 
 #classe du menu
 class Menu:
@@ -131,6 +136,7 @@ class Bouton:
     @staticmethod
     # créer le menu paramètre
     def Menu_parametre():
+        global switch_musique
         couleur_param=(0,0,0,192)#noir transparent
         taille_param=(560,50,800,900)# paramètre du rectangle paramètre
         surface_param=pygame.Surface(pygame.Rect(taille_param).size,pygame.SRCALPHA)# création de la surface translucide
@@ -138,7 +144,7 @@ class Bouton:
         ecran.blit(surface_param, taille_param)# mise à jour de l'écran
         ecran.blit(logo_next, (x_white,y_white))
         ecran.blit(logo_next_inverse, (x_white-500,y_white))
-        Stop_lance_musique()
+        switch_musique = bascule_musique(switch_musique)# gère les évènements des boutons play et pause
 
         # Création de la zone de texte pour les crédits
         police=pygame.font.Font("assests/images/affichage/04B_30__.TTF", 45)
@@ -192,9 +198,10 @@ class Musique:
         }
         #bibliothèque des chansons
         self.chansons={
+            'super_ambiance': "assests/sons/super-ambiance.mp3",
+            'Lo-Fi':"assests/sons/lo-fi-synthwave.mp3",
             'musique_c': "assests/sons/The Red Sun in the Sky 100 - HQ.mp3",
             'chill':"assests/sons/chill.wav",
-            '':''
             }
         self.indice_musique=0
         self.liste_chansons=list(self.chansons.keys())#liste des noms de chansons dans l'ordre
@@ -213,17 +220,17 @@ class Musique:
             pygame.mixer.music.load(self.chansons[nom])
             pygame.mixer.music.play(-1)
 
-    #change les musiques lorsque qu'on appuie sur le bouton musique
+    #change les musiques en avant lorsque qu'on appuie sur le bouton musique
     def ChangementdeMusique(self):
-        if not self.chansons:
-            print("la chanson n'existe pas")
-            return
-        self.indice_musique=(self.indice_musique + 1) % len(self.liste_chansons)#modulu de la bibliothèque pour avoir une boucle infini de chanson
-        if self.indice_musique == 2:
-            pygame.mixer.music.stop()
-        else:
-            nom_chansons=self.liste_chansons[self.indice_musique]#recupère le nom de la chanson dans la liste
-            self.jouer_musique(nom_chansons)
+        self.indice_musique=(self.indice_musique + 1) % len(self.liste_chansons) # modulo de la bibliothèque pour avoir une boucle infini de chanson
+        nom_chansons=self.liste_chansons[self.indice_musique] # récupère le nom de la chanson dans la liste
+        self.jouer_musique(nom_chansons)
+
+    # change les musiques en arrière lorsque qu'on appuie sur le bouton musique
+    def Inverse_ChangementdeMusique(self):
+        self.indice_musique = (self.indice_musique -1) % len(self.liste_chansons)  # modulo de la bibliothèque pour avoir une boucle infini de chanson
+        nom_chansons = self.liste_chansons[self.indice_musique]  # récupère le nom de la chanson dans la liste
+        self.jouer_musique(nom_chansons)
 
 #initialisation de la classe musique dans la boucle
 musique=Musique()
@@ -237,44 +244,43 @@ def Logoclique(image_rect):
         return True
     else:
         return False
-def Stop_lance_musique2():
-    logo_stop_lance=logo_pause
-    ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
-    x = logo_stop_lance.get_rect()
-    x.topleft = (x_white - 290, y_white - 50)
-    if Logoclique(x) and logo_stop_lance==logo_pause:
-        logo_stop_lance=logo_play
-        print("aaaa")
-        ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
-        pygame.mixer.music.stop()
-    if Logoclique(x) and logo_stop_lance==logo_play:
-        logo_stop_lance=logo_pause
-        print("bbbb")
-        ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
-        pygame.mixer.music.play()
-
-def Stop_lance_musique():
-    logo_stop_lance=logo_pause
-    x = logo_stop_lance.get_rect()
-    x.topleft = (x_white - 290, y_white - 50)
-    if not Logoclique(x):
-        ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
-    if Logoclique(x) and logo_stop_lance==logo_pause:
-        logo_stop_lance=logo_play
-        ecran.blit(logo_stop_lance, (x_white - 290, y_white - 50))
-        pygame.mixer.music.stop()
+# gère les évènements des boutons play et arrêt
+def bascule_musique(switch_musique):
+    # prend les variables globales
+    global logo_play, logo_pause, x_white, y_white
+    temps_actuel = time.time()
+    # Détermine le logo actuel en fonction de la variable switch musique : jouer ou arrêt
+    logo_actuel = logo_pause if switch_musique else logo_play
+    # Afficher le logo actuel
+    ecran.blit(logo_actuel, (x_white - 290, y_white - 50))
+    # Obtenir le rectangle du logo pour la détection de clic
+    logo_rect = logo_actuel.get_rect(topleft=(x_white - 290, y_white - 50))
+    # Vérifier si le logo a été cliqué
+    if Logoclique(logo_rect) and (temps_actuel-musique.dernier_clique > musique.delai):
+        musique.dernier_clique = temps_actuel
+        if switch_musique:
+            # Arrêter la musique et afficher le logo play
+            pygame.mixer.music.stop()
+            switch_musique = False
+        else:
+            # Lancer la musique et afficher le logo pause
+            pygame.mixer.music.play()
+            switch_musique = True
+    return switch_musique
 
 # Gère les différents évènements du menu paramètre
 def Evenement_para():
+    global switch_musique
     temps_actuel=time.time()
-    #si on clique dessus et que l'intervalle de temps est supérieur à 1 entre les cliques
-    if Logoclique(image_rect) and(temps_actuel-musique.dernier_clique > musique.delai):
+    #si on clique sur le logo next et que l'intervalle de temps est supérieur à 1 entre les cliques
+    if Logoclique(image_rect) and (temps_actuel-musique.dernier_clique > musique.delai):
+        switch_musique = True
         musique.dernier_clique=temps_actuel
         musique.ChangementdeMusique()
-    #x=logo_play.get_rect()
-    #x.topleft=(x_white - 290, y_white - 50)
-    #if Logoclique(x):
-        #musique.Stop_lance_musique()
+    if Logoclique(image_rect_2) and (temps_actuel-musique.dernier_clique > musique.delai):
+        switch_musique = True
+        musique.dernier_clique = temps_actuel
+        musique.Inverse_ChangementdeMusique()
 
 # vérifie quand on clique sur le logo paramètre la page se lancer
 def verif_para():
@@ -346,4 +352,3 @@ def boucle_menu():
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
-boucle_menu()
