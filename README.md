@@ -47,3 +47,7 @@ création du jeu bowmaster
 -10/04/2025 Tim: création du menu paramètre translucide + bouton qui change la musique
 
 -14/04/2025 Tim: finalisation du main fonctionnelle + ajout d'assets pour un jeu qui marche
+
+-17/04/2025 Tim: affichage des crédits sur le menu paramètre avec l'interface des changements de musiques
+
+-19/04/2025 Tim: menu paramètre fonctionnelle et début du ractachement au main des paramètres
