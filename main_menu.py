@@ -2,7 +2,7 @@
 ##############################################
 ###### Programme Python menu principal  ######
 ###### Auteur : Timothée Girault        ######
-###### Version: 2.3                     ######
+###### Version: 2.4                     ######
 ##############################################
 
 ##############################################
@@ -243,7 +243,7 @@ def bascule_musique(switch_musique):
     ecran.blit(logo_actuel, (x_white - 290, y_white - 50))
     # création de la zone cliquable du logo
     logo_rect = logo_actuel.get_rect(topleft=(x_white - 290, y_white - 50))
-    # Vérifie si le logo a été cliqué avec un intervalle d'au moins 1 seconde
+    # Si le logo a été cliqué avec un intervalle d'au moins 0.5 seconde
     if Logoclique(logo_rect) and (temps_actuel-musique.dernier_clique > musique.delai/2):
         musique.dernier_clique = temps_actuel
         if switch_musique:
@@ -262,10 +262,13 @@ def Evenement_para():
     temps_actuel=time.time()
     #si on clique sur le logo next et que l'intervalle de temps est supérieur à 1 entre les cliques
     if Logoclique(image_rect) and (temps_actuel-musique.dernier_clique > musique.delai):
+        #on change de musique +1 dans la liste de musique
         switch_musique = True
         musique.dernier_clique=temps_actuel
         musique.ChangementdeMusique()
+    # si on clique sur le logo next inverse et que l'intervalle de temps est supérieur à 1 entre les cliques
     if Logoclique(image_rect_2) and (temps_actuel-musique.dernier_clique > musique.delai):
+        # on change de musique -1 dans la liste de musique
         switch_musique = True
         musique.dernier_clique = temps_actuel
         musique.Inverse_ChangementdeMusique()
@@ -276,6 +279,7 @@ def verif_para():
     # si on appuie sur le logo paramètre, on peut lancer, changer la musique et mettre en pause le jeu
     if action_para == False:
         Bouton.Menu_parametre()
+        Evenement_para()
         ecran.blit(logo_ar, (0, 0))
 
 
@@ -290,11 +294,11 @@ def affichage_menu_bouton():
     mon_bouton_jouer.CreationBouton(ecran)
     mon_bouton_quitter.CreationBouton(ecran)
 
+# affiche et gère le menu paramètre ainsi que son logo
 def affichage_parametre():
     ecran.blit(logo_para, (x_p, y_p))
     Bouton.Evenement(mon_bouton_parametre)
     verif_para()
-    Evenement_para()
 
 def affichage_menu():
     lancerjeuV3()
@@ -319,10 +323,9 @@ mon_bouton_jouer = Bouton(texte, x, y, couleur,longueur_b,hauteur_b, police_b,ac
 mon_bouton_quitter=Bouton("quitter",x,y+120,couleur,longueur_b,hauteur_b,police_b,True)
 #bouton paramètre
 mon_bouton_parametre=Bouton("",x_p,y_p,'white',60,60,police_b,True)
-#bouton retour en arrière
+#bouton retour en arrière pour quitter le menu paramètre
 mon_bouton_ar=Bouton("",0,0,'white',50,50,police_b,True)
-#bouton pour quitter le menu paramètre
-mon_bouton_ar2=Bouton("",560,50,'white',50,50,police_b,True)
+
 
 def boucle_menu():
     # Boucle principale
