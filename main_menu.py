@@ -63,8 +63,10 @@ logo_play=pygame.image.load("assests/images/menup/play3.png")
 pygame.display.set_icon(logo_ecran)
 
 #creation des images cliquables
+# logo play/pause
 image_rect = logo_next.get_rect() # création de la zone cliquable
 image_rect.topleft = (x_white, y_white) # Position de l'image sur l'écran
+# logo en arrière
 image_rect_2 = logo_next_inverse.get_rect()
 image_rect_2.topleft = (x_white-500, y_white)
 
@@ -80,7 +82,6 @@ def lancerjeuV3():
     mon_bouton_parametre.CreationBouton(ecran)
     mon_bouton_ar.CreationBouton(ecran)
     ecran.blit(fond_ecran, (0, 0))
-    ecran.blit(logo_para, (x_p,y_p))
 
 #classe des boutons
 class Bouton:
@@ -242,15 +243,15 @@ def bascule_musique(switch_musique):
     ecran.blit(logo_actuel, (x_white - 290, y_white - 50))
     # création de la zone cliquable du logo
     logo_rect = logo_actuel.get_rect(topleft=(x_white - 290, y_white - 50))
-    # Vérifier si le logo a été cliqué avec un intervalle d'au moins 1 seconde
-    if Logoclique(logo_rect) and (temps_actuel-musique.dernier_clique > musique.delai):
+    # Vérifie si le logo a été cliqué avec un intervalle d'au moins 1 seconde
+    if Logoclique(logo_rect) and (temps_actuel-musique.dernier_clique > musique.delai/2):
         musique.dernier_clique = temps_actuel
         if switch_musique:
-            # Arrête la musique et afficher le logo play
+            # Arrête la musique et affiche le logo play
             pygame.mixer.music.stop()
             switch_musique = False
         else:
-            # Lance la musique et afficher le logo pause
+            # Lance la musique et affiche le logo pause
             pygame.mixer.music.play()
             switch_musique = True
     return switch_musique
@@ -282,8 +283,6 @@ def verif_para():
 def verif_boutons():
     Bouton.Evenement(mon_bouton_jouer)
     Bouton.Evenement(mon_bouton_quitter)
-    Bouton.Evenement(mon_bouton_parametre)
-    Evenement_para()
 
 #affiche les boutons et le logo du menu principal
 def affichage_menu_bouton():
@@ -291,6 +290,11 @@ def affichage_menu_bouton():
     mon_bouton_jouer.CreationBouton(ecran)
     mon_bouton_quitter.CreationBouton(ecran)
 
+def affichage_parametre():
+    ecran.blit(logo_para, (x_p, y_p))
+    Bouton.Evenement(mon_bouton_parametre)
+    verif_para()
+    Evenement_para()
 
 def affichage_menu():
     lancerjeuV3()
@@ -298,9 +302,6 @@ def affichage_menu():
     #on affiche les boutons tant qu'on n'appuie pas sur le bouton jouer pour lancer le jeu (on a action=True pour chaque bouton par défaut).
     if mon_bouton_jouer.action == True:
         affichage_menu_bouton()
-    else:
-        #si on appuie sur jouer, on peut revenir en arrière grace au bouton en arrière
-        ecran.blit(logo_ar, (0, 0))
     verif_boutons()
 
     # si on appuie sur jouer cela fait lancer le jeu
@@ -328,7 +329,7 @@ def boucle_menu():
     running = True
     while running:
         affichage_menu()
-        verif_para()
+        affichage_parametre()
         pygame.display.flip()
         # boucle tant qu'on n'a pas appuyé sur le bouton quitter (running=False)
         if affichage_menu()==True:

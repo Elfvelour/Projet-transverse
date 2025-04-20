@@ -7,7 +7,7 @@
 ##############################################
 import pygame
 import os
-from main_menu import ecran
+from main_menu import ecran,affichage_parametre
 pygame.init()
 
 WIDTH, HEIGHT = 1920, 1010
@@ -145,7 +145,6 @@ def run_character_menu() :
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
         # Affichage des personnages
         for i, (char_img, (x, y), name) in enumerate(characters):
             #Permet de centrer image/bouton
@@ -232,7 +231,7 @@ def run_character_menu() :
                     running = False
 
                 y_offset += 80
-
+        affichage_parametre()
         pygame.display.flip()
 
     return (character, weapon)

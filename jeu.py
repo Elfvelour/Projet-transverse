@@ -111,6 +111,7 @@ class Jeu:
         continuer = True
         etat_jeu = "jeu"
         while continuer:
+            affichage_parametre()
             pos_souris = pygame.mouse.get_pos()
             # ----- 1. GESTION DES ÉVÉNEMENTS -----
             for event in pygame.event.get():
