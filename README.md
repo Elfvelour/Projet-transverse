@@ -51,3 +51,5 @@ création du jeu bowmaster
 -17/04/2025 Tim: affichage des crédits sur le menu paramètre avec l'interface des changements de musiques
 
 -19/04/2025 Tim: menu paramètre fonctionnelle et début du ractachement au main des paramètres
+
+-20/04/2025 Tim: ratachement au main du menu paramètre et fonctionnelle
