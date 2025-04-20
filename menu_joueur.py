@@ -84,23 +84,23 @@ def wrap_text(text, font, max_width):
     return lines
 def run_character_menu() :
     #Image de fond menu joueur
-    background_image = pygame.image.load("assests/images/menup/logoiajeu.jpeg")
+    background_image = pygame.image.load("assets/images/menup/logoiajeu.jpeg")
 
     #Image des personnages
-    p1_img = load_image("assests/images/perso/canard.png", 175, 187.5)
-    p2_img = load_image("assests/images/perso/mere_noel.png", 162.5   , 187.5)
-    p3_img = load_image("assests/images/perso/einstein.png", 134.6, 206)
-    p4_img = load_image("assests/images/perso/jean_soma.png", 150, 220)
-    p5_img = load_image("assests/images/perso/squelette.png", 118, 200)
+    p1_img = load_image("assets/images/perso/canard.png", 175, 187.5)
+    p2_img = load_image("assets/images/perso/mere_noel.png", 162.5, 187.5)
+    p3_img = load_image("assets/images/perso/einstein.png", 134.6, 206)
+    p4_img = load_image("assets/images/perso/jean_soma.png", 150, 220)
+    p5_img = load_image("assets/images/perso/squelette.png", 118, 200)
 
 
     #Liste d'armes pour chaque personnage
     weapons = {
-        "P1": [("Oeuf", "assests/images/armes/oeuf.png","A1"), ("Canard laqué", "assests/images/armes/plat_canard.png","A2")],
-        "P2": [("Cadeau", "assests/images/armes/cadeau.png","A1"), ("Biscuit", "assests/images/armes/cookie.png","A2")],
-        "P3": [("Fiole rouge", "assests/images/armes/fiole_rouge.png","A1"), ("Fiole bleu", "assests/images/armes/fiole_bleu.png","A2")],
-        "P4": [("Discours", "assests/images/armes/discours.png","A1"), ("SWS", "assests/images/armes/logo_sowesign.png","A2")],
-        "P5": [("Os", "assests/images/armes/arme_os.png","A1"), ("Tombe", "assests/images/armes/tombe.png","A2")],
+        "P1": [("Oeuf", "assets/images/armes/oeuf.png","A1"), ("Canard laqué", "assets/images/armes/plat_canard.png","A2")],
+        "P2": [("Cadeau", "assets/images/armes/cadeau.png","A1"), ("Biscuit", "assets/images/armes/cookie.png","A2")],
+        "P3": [("Fiole rouge", "assets/images/armes/fiole_rouge.png","A1"), ("Fiole bleu", "assets/images/armes/fiole_bleu.png","A2")],
+        "P4": [("Discours", "assets/images/armes/discours.png","A1"), ("SWS", "assets/images/armes/logo_sowesign.png","A2")],
+        "P5": [("Os", "assets/images/armes/arme_os.png","A1"), ("Tombe", "assets/images/armes/tombe.png","A2")],
     }
     #Position des perso
     padding = 60

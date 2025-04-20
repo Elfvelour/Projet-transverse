@@ -22,7 +22,7 @@ class Jeu:
         self.perso = perso
         self.arme = arme
         self.image_projectile = self.obtenir_image_arme(self.perso, self.arme)
-        self.background = pygame.image.load("assests/images/menup/logoiajeu.jpeg")
+        self.background = pygame.image.load("assets/images/menup/logoiajeu.jpeg")
         self.sol = Sol()
         self.joueur = Joueur(100, 672, [32, 64], perso, arme)
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")  # chargement des données
@@ -46,7 +46,7 @@ class Jeu:
         for item in self.donnees_json:
             if item["code P"] == personnage and item["code A"] == arme:
                 return pygame.image.load(item["image_arme"]).convert_alpha()
-        return pygame.image.load("assests/images/armes/default_projectile.png").convert_alpha()
+        return pygame.image.load("assets/images/armes/default_projectile.png").convert_alpha()
 
     def gerer_evenements_jeu(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:
@@ -106,12 +106,11 @@ class Jeu:
 
         if self.piece.monnaie_joueur >= 250:
             self.piece.afficher_gg(self.ecran)
-
+        affichage_parametre()
     def boucle_principale(self):
         continuer = True
         etat_jeu = "jeu"
         while continuer:
-            affichage_parametre()
             pos_souris = pygame.mouse.get_pos()
             # ----- 1. GESTION DES ÉVÉNEMENTS -----
             for event in pygame.event.get():

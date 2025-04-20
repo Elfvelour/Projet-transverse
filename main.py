@@ -5,7 +5,7 @@
 
 from jeu import Jeu
 from menu_joueur import *
-from main_menu import boucle_menu, affichage_parametre
+from main_menu import boucle_menu
 
 if __name__ == "__main__":
 

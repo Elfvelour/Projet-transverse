@@ -45,19 +45,19 @@ y_credit=500
 
 ##############################################
 #initialisation musique
-pygame.mixer.music.load("assests/sons/super-ambiance.mp3")
+pygame.mixer.music.load("assets/sons/super-ambiance.mp3")
 pygame.mixer.music.play(-1)
 
 #chargements des textures
-logo_ecran=pygame.image.load("assests/images/menup/logo.png")
-logo_para=pygame.image.load("assests/images/menup/logo_paraV2.png")
-fond_ecran=pygame.image.load("assests/images/menup/logoia3.jpg")
-logo_ar=pygame.image.load("assests/images/menup/back_bouton.png")
-fond_jeu=pygame.image.load("assests/images/menup/fond_jeu_partie.png")
-logo_next=pygame.image.load("assests/images/menup/Forward_button_white2.png")
-logo_next_inverse=pygame.image.load("assests/images/menup/Forward_buttonwhite_inverse.png")
-logo_pause=pygame.image.load("assests/images/menup/pause4.png")
-logo_play=pygame.image.load("assests/images/menup/play3.png")
+logo_ecran=pygame.image.load("assets/images/menup/logo.png")
+logo_para=pygame.image.load("assets/images/menup/logo_paraV2.png")
+fond_ecran=pygame.image.load("assets/images/menup/logoia3.jpg")
+logo_ar=pygame.image.load("assets/images/menup/back_bouton.png")
+fond_jeu=pygame.image.load("assets/images/menup/fond_jeu_partie.png")
+logo_next=pygame.image.load("assets/images/menup/Forward_button_white2.png")
+logo_next_inverse=pygame.image.load("assets/images/menup/Forward_buttonwhite_inverse.png")
+logo_pause=pygame.image.load("assets/images/menup/pause4.png")
+logo_play=pygame.image.load("assets/images/menup/play3.png")
 
 #met le logo du jeu en haut à gauche à la place du logo pygame
 pygame.display.set_icon(logo_ecran)
@@ -93,7 +93,7 @@ class Bouton:
         self.hauteur = hauteur
         self.longueur = longueur
         self.action = action
-        self.police_caractere =pygame.font.Font("assests/images/affichage/04B_30__.TTF", police)
+        self.police_caractere =pygame.font.Font("assets/images/affichage/04B_30__.TTF", police)
 
     def CreationBouton(self, ecran):
 
@@ -133,7 +133,7 @@ class Bouton:
         switch_musique = bascule_musique(switch_musique)# gère les évènements des boutons play et pause et les affiches
 
         # Création de la zone de texte pour les crédits
-        police=pygame.font.Font("assests/images/affichage/04B_30__.TTF", 45)
+        police=pygame.font.Font("assets/images/affichage/04B_30__.TTF", 45)
 
         # affichage des crédits
         texte_1 =police.render("Credits", True,"white") # affichage du texte
@@ -179,16 +179,16 @@ class Musique:
     #bibliothèque des sons
     def __init__(self):
         self.bruitage={
-            'clique':pygame.mixer.Sound("assests/sons/bruitage_bouton2.mp3"),
-            'potion':pygame.mixer.Sound("assests/sons/potion_bruit.mp3"),
+            'clique':pygame.mixer.Sound("assets/sons/bruitage_bouton2.mp3"),
+            'potion':pygame.mixer.Sound("assets/sons/potion_bruit.mp3"),
 
         }
         #bibliothèque des chansons
         self.chansons={
-            'super_ambiance': "assests/sons/super-ambiance.mp3",
-            'Lo-Fi':"assests/sons/lo-fi-synthwave.mp3",
-            'musique_c': "assests/sons/The Red Sun in the Sky 100 - HQ.mp3",
-            'chill':"assests/sons/chill.wav",
+            'super_ambiance': "assets/sons/super-ambiance.mp3",
+            'Lo-Fi':"assets/sons/lo-fi-synthwave.mp3",
+            'musique_c': "assets/sons/The Red Sun in the Sky 100 - HQ.mp3",
+            'chill':"assets/sons/chill.wav",
             }
         self.indice_musique=0
         self.liste_chansons=list(self.chansons.keys())#liste des noms de chansons dans l'ordre

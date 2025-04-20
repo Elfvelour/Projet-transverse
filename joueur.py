@@ -77,13 +77,13 @@ class Joueur(pygame.sprite.Sprite):
                 image = pygame.image.load(item["image_perso"]).convert_alpha()
                 # Redimensionner l'image à la taille souhaitée
                 return pygame.transform.scale(image, (150, 190))
-        return pygame.image.load("assests/images/perso/jean_soma.png").convert_alpha()
+        return pygame.image.load("assets/images/perso/jean_soma.png").convert_alpha()
 
     def obtenir_image_arme(self, personnage, arme):
         for item in self.donnees_json:
             if item["code P"] == personnage and item["code A"] == arme:
                 return pygame.image.load(item["image_arme"]).convert_alpha()
-        return pygame.image.load("assests/images/armes/default_projectile.png").convert_alpha()
+        return pygame.image.load("assets/images/armes/default_projectile.png").convert_alpha()
 
 
 

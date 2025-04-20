@@ -14,17 +14,17 @@ class Pieces (pygame.sprite.Sprite):
         self.taille = (70,70)
         self.monnaie_joueur = 100
         self.monnaie_depart = 100
-        self.image_monnaie = pygame.image.load('assests/images/affichage/image_piece.png')
+        self.image_monnaie = pygame.image.load('assets/images/affichage/image_piece.png')
         self.image_monnaie = pygame.transform.scale(self.image_monnaie, self.taille)
         self.rect_monnaie = self.image_monnaie.get_rect()
         self.font_piece = pygame.font.Font(None, 40)
-        self.font_piece = pygame.font.Font("assests/images/affichage/04B_30__.TTF", 40)
+        self.font_piece = pygame.font.Font("assets/images/affichage/04B_30__.TTF", 40)
         self.bouton_x = 1900
         self.bouton_y = 20
 
         #ajout d'un bouton de l'ulti
-        self.image_coffre_ferme = pygame.image.load("assests/images/affichage/coffre_ferme.png")
-        self.image_coffre_ouvert = pygame.image.load("assests/images/affichage/coffre_ouvert.png")
+        self.image_coffre_ferme = pygame.image.load("assets/images/affichage/coffre_ferme.png")
+        self.image_coffre_ouvert = pygame.image.load("assets/images/affichage/coffre_ouvert.png")
 
         self.image_bouton = self.image_coffre_ferme
         self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))  # Ajuste la taille du bouton
@@ -35,7 +35,7 @@ class Pieces (pygame.sprite.Sprite):
         self.x_gg = 900
         self.y_gg = 505
         self.taille_gg = (200,200)
-        self.image_gg = pygame.image.load('assests/images/affichage/trophe.png')
+        self.image_gg = pygame.image.load('assets/images/affichage/trophe.png')
         self.image_gg = pygame.transform.scale(self.image_gg, self.taille_gg)
         self.rect_gg = self.image_bouton.get_rect(topright=(self.x_gg, self.y_gg - 100))
 
