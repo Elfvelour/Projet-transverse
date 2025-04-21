@@ -3,7 +3,7 @@
 ## Contributeurs:
 #### - Timothée Girault :
 
-<span style="color:blue">main_menu.py</span>. création du menu principal du jeu ainsi que les paramètres pour changer de musique et l'allumer ou l'éteindre
+[![main_menu.py](https://img.shields.io/badge/main_menu-blue)](main_menu.py) création du menu principal du jeu ainsi que les paramètres pour changer de musique et l'allumer ou l'éteindre
 
 $${\color{blue}-main.py:}$$ résolution des bugs
 
