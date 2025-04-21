@@ -96,4 +96,5 @@ création du jeu bowmaster
 -19/04/2025 Tim: menu paramètre fonctionnelle et début du ractachement au main des paramètres
 
 -20/04/2025 Tim: ratachement au main du menu paramètre et fonctionnelle
-[lien notion:](https://www.notion.so/Projet-Transverse-Equipe-A8-18f30068216c806396a2f057d07e91ca?pvs=4)
+
+[lien notion](https://www.bing.com/images/search?view=detailV2&ccid=lQsNtbgk&id=00EE0F48F8CA92911BA284070DE70E898BDCBB68&thid=OIP.lQsNtbgk0RiFaJ8dNRHqNwHaEH&mediaurl=https%3a%2f%2fassets.stickpng.com%2fimages%2f62cc159e150d5de9a3dad5ec.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.950b0db5b824d11885689f1d3511ea37%3frik%3daLvci4kO5w0HhA%26pid%3dImgRaw%26r%3d0&exph=500&expw=900&q=logo+notion+png&simid=607993900725182425&FORM=IRPRST&ck=B1734CE73C01F133511DB5863A5F3B94&selectedIndex=0&itb=1&idpp=overlayview&ajaxhist=0&ajaxserp=0)[:](https://www.notion.so/Projet-Transverse-Equipe-A8-18f30068216c806396a2f057d07e91ca?pvs=4)
