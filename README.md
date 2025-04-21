@@ -1,37 +1,39 @@
 # Projet-transverse Bow Master
 
 ## Contributeurs:
+
 #### - Timothée Girault :
 
-[![main_menu.py](https://img.shields.io/badge/main_menu-blue)](main_menu.py) création du menu principal du jeu ainsi que les paramètres pour changer de musique et l'allumer ou l'éteindre
+-[![main_menu.py](https://img.shields.io/badge/main_menu-blue)](main_menu.py) : création du menu principal du jeu ainsi que les paramètres pour changer de musique et l'allumer ou l'éteindre
 
-$${\color{blue}-main.py:}$$ résolution des bugs
+-[![main.py](https://img.shields.io/badge/main-red)](main.py) : résolution des bugs
 
 #### - Flavie Brémand :
 
-$${\color{blue}-jeu.py:}$$
+-[![jeu.py](https://img.shields.io/badge/jeu-green)](jeu.py) :
 
-$${\color{blue}-trajectoire.py:}$$
+-[![trajectoires.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoires.py) :
 
-$${\color{blue}-bot.py}$$
+-[![bot.py](https://img.shields.io/badge/jeu-green)](bot.py) :
 
-$${\color{blue}-main.py:}$$
+-[![main.py](https://img.shields.io/badge/main-red)](main.py) :
 
 #### - Noémie Marques :
 
-$${\color{blue}-monnaie.py:}$$
+-[![monnaie.py](https://img.shields.io/badge/monnaie-purple)](monnaie.py) :
 
-$${\color{blue}-main.py:}$$
+-[![main.py](https://img.shields.io/badge/main-red)](main.py) :
 
 #### - Thomas Aubert :
 
-$${\color{blue}-trajectoire.py:}$$
+-[![trajectoires.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoires.py) :
 
-$${\color{blue}-bot.py}$$
+-[![bot.py](https://img.shields.io/badge/bot-green)](bot.py) :
+
 
 #### - Rafaël De Jesus Coelho :
 
-$${\color{blue}-menu_joueur.py:}$$
+-[![menu_joueur.py](https://img.shields.io/badge/menu_joueur-blue)](menu_joueur.py) :
 
 ## Carnet de bord:
 création du jeu bowmaster
@@ -94,3 +96,5 @@ création du jeu bowmaster
 -19/04/2025 Tim: menu paramètre fonctionnelle et début du ractachement au main des paramètres
 
 -20/04/2025 Tim: ratachement au main du menu paramètre et fonctionnelle
+
+[***lien notion:***](https://www.notion.so/Projet-Transverse-Equipe-A8-18f30068216c806396a2f057d07e91ca?pvs=4)
