@@ -1,10 +1,10 @@
 # Projet-transverse Bow Master
 
 ## Contributeurs:
-#### - Timothée Girault :
+#### $${\color{red}- Timothée Girault :}$$
 -main_menu.py: création du menu principal du jeu ainsi que les paramètres pour changer de musique et l'allumer ou l'éteindre
 
-$${\color{red}-main.py:}$$ résolution des bugs
+$${\color{blue}-main.py:}$$ résolution des bugs
 #### - Flavie Brémand :
 -jeu.py:
 -trajectoire.py:
