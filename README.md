@@ -1,15 +1,28 @@
-# Projet-transverse
+# Projet-transverse Bow Master
 
 ## Contributeurs:
 
-### - Timothée Girault
-### - Flavie Brémand
-### - Noémie Marques
-### - Thomas Aubert
-### - Rafaël De Jesus Coelho 
+#### - Timothée Girault :
+-main_menu.py: création du menu principal du jeu ainsi que les paramètres pour changer de musique et l'allumer ou l'éteindre
+-main.py: résolution des bugs
+#### - Flavie Brémand :
+-jeu.py:
+-trajectoire.py:
+-bot.py
+-main.py:
+#### - Noémie Marques :
+-monnaie.py:
+-main.py:
+#### - Thomas Aubert :
+-trajectoire.py:
+-bot.py
+#### - Rafaël De Jesus Coelho :
+-menu_joueur.py:
 
 ## Carnet de bord:
 création du jeu bowmaster
+
+#### Février 2025 :
 
 -03/02/2024, Noémie : Organisation des fichiers du jeu 
 
@@ -31,6 +44,8 @@ création du jeu bowmaster
 
 -28/02/2025, Tim: bouton quitter fonctionelle + musique
 
+#### Mars 2025 :
+
 -03/03/2025, Flavie : Ajustements dans la trajectoire (notamment sur la vitesse et l'angle)
                       Création du fichier bot et début de son code
 
@@ -45,6 +60,8 @@ création du jeu bowmaster
                     Ajustement du positionnement des images d'explosion (centrées par rapport au projectile)
 
 -25/03/2025 Tim: mise au propre des assets et correction bug sons potion
+
+#### Avril 2025 :
 
 -03/04/2025 Tim: mise au propre des commentaires ainsi que la création bu bouton "revenir en arrière".
 
