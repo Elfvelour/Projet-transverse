@@ -1,23 +1,37 @@
 # Projet-transverse Bow Master
 
 ## Contributeurs:
-#### $${\color{red}- Timothée Girault :}$$
--main_menu.py: création du menu principal du jeu ainsi que les paramètres pour changer de musique et l'allumer ou l'éteindre
+#### - Timothée Girault :
+
+$${\color{blue}-main_menu.py:}$$ création du menu principal du jeu ainsi que les paramètres pour changer de musique et l'allumer ou l'éteindre
 
 $${\color{blue}-main.py:}$$ résolution des bugs
+
 #### - Flavie Brémand :
--jeu.py:
--trajectoire.py:
--bot.py
--main.py:
+
+$${\color{blue}-jeu.py:}$$
+
+$${\color{blue}-trajectoire.py:}$$
+
+$${\color{blue}-bot.py}$$
+
+$${\color{blue}-main.py:}$$
+
 #### - Noémie Marques :
--monnaie.py:
--main.py:
+
+$${\color{blue}-monnaie.py:}$$
+
+$${\color{blue}-main.py:}$$
+
 #### - Thomas Aubert :
--trajectoire.py:
--bot.py
+
+$${\color{blue}-trajectoire.py:}$$
+
+$${\color{blue}-bot.py}$$
+
 #### - Rafaël De Jesus Coelho :
--menu_joueur.py:
+
+$${\color{blue}-menu_joueur.py:}$$
 
 ## Carnet de bord:
 création du jeu bowmaster
