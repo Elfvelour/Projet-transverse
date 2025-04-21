@@ -1,4 +1,14 @@
 # Projet-transverse
+
+## Contributeurs:
+
+### - Timothée Girault
+### - Flavie Brémand
+### - Noémie Marques
+### - Thomas Aubert
+### - Rafaël De Jesus Coelho 
+
+## Carnet de bord:
 création du jeu bowmaster
 
 -03/02/2024, Noémie : Organisation des fichiers du jeu 
