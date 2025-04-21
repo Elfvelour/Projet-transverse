@@ -8,7 +8,7 @@
 
 -[![main.py](https://img.shields.io/badge/main-red)](main.py): résolution des bugs
 
-#### * Flavie Brémand :
+#### - Flavie Brémand :
 
 -[![jeu.py](https://img.shields.io/badge/jeu-green)](jeu.py):
 
@@ -18,20 +18,20 @@
 
 -[![main.py](https://img.shields.io/badge/main-red)](main.py):
 
-#### + Noémie Marques :
+#### - Noémie Marques :
 
 -[![monnaie.py](https://img.shields.io/badge/monnaie-purple)](monnaie.py):
 
 -[![main.py](https://img.shields.io/badge/main-red)](main.py):
 
-#### + Thomas Aubert :
+#### - Thomas Aubert :
 
 -[![trajectoires.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoires.py):
 
 -[![bot.py](https://img.shields.io/badge/bot-green)](bot.py):
 
 
-#### + Rafaël De Jesus Coelho :
+#### - Rafaël De Jesus Coelho :
 
 -[![menu_joueur.py](https://img.shields.io/badge/menu_joueur-blue)](menu_joueur.py):
 
@@ -96,3 +96,4 @@ création du jeu bowmaster
 -19/04/2025 Tim: menu paramètre fonctionnelle et début du ractachement au main des paramètres
 
 -20/04/2025 Tim: ratachement au main du menu paramètre et fonctionnelle
+[lien notion:](https://www.notion.so/Projet-Transverse-Equipe-A8-18f30068216c806396a2f057d07e91ca?pvs=4)
