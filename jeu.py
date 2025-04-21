@@ -66,7 +66,7 @@ class Jeu:
 
         self.piece.verifier_clic(event, self)
 
-    def mettre_a_jour_jeu(self, event):
+    def mettre_a_jour_jeu(self):
         if self.en_attente:
             if pygame.time.get_ticks() - self.temps_attente >= 3000 and not self.explosion_active:
                 if not self.projectiles_joueur and not self.projectiles_bot:
@@ -107,30 +107,32 @@ class Jeu:
         if self.piece.monnaie_joueur >= 250:
             self.piece.afficher_gg(self.ecran)
         affichage_parametre()
+
     def boucle_principale(self):
         continuer = True
         etat_jeu = "jeu"
         while continuer:
             pos_souris = pygame.mouse.get_pos()
+
             # ----- 1. GESTION DES ÉVÉNEMENTS -----
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     continuer = False
 
                 if etat_jeu == "jeu":
-                    Jeu.gerer_evenements_jeu(self, event)
+                    self.gerer_evenements_jeu(event)
 
-            # ----- 2. MISE À JOUR LOGIQUE -----
-                if etat_jeu == "jeu":
-
-                    Jeu.mettre_a_jour_jeu(self, event)
+            # ----- 2. MISE À JOUR LOGIQUE (appelée à chaque frame) -----
+            if etat_jeu == "jeu":
+                self.mettre_a_jour_jeu()
 
             # ----- 3. AFFICHAGE -----
-                if etat_jeu == "jeu":
-                    Jeu.afficher_jeu(self, pos_souris)
+            if etat_jeu == "jeu":
+                self.afficher_jeu(pos_souris)
 
             pygame.display.update()
             clock.tick(60)
 
         pygame.quit()
+
 
