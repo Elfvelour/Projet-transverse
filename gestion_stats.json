@@ -7,9 +7,6 @@
     "image_perso" : "assets/images/perso/canard.png",
     "nom" : "Oeuf",
     "image_arme" : "assets/images/armes/oeuf.png",
-    "vie" : 100,
-    "masse" : 0.006,
-    "puissance" : 10,
     "description_perso" : "Ce légendaire combattant utilise ces compagnons pour attaquer son adversaire.",
     "description_arme" : "Quoi de mieux que sa progéniture pour arme ?"
   },
@@ -20,9 +17,6 @@
     "image_perso" : "assets/images/perso/canard.png",
     "nom" : "Canard laqué",
     "image_arme" : "assets/images/armes/plat_canard.png",
-    "vie" : 100,
-    "masse" : 0.7,
-    "puissance" : 10,
     "description_perso" : "Ce légendaire combattant utilise ces compagnons pour attaquer son adversaire.",
     "description_arme" : "Toute sa famille est passée à la casserole."
   },
@@ -33,10 +27,6 @@
     "image_perso" : "assets/images/perso/mere_noel.png",
     "nom" : "Cadeau",
     "image_arme" : "assets/images/armes/cadeau.png",
-    "cout" : "100",
-    "vie" : 250,
-    "masse" : 0.4,
-    "puissance" : 10,
     "description_perso" : "Elle n'a pas besoin de son mari pour livrer des cadeaux explosifs.",
     "description_arme" : "Visiblement, tu as été un vilain petit garnement..."
   },
@@ -47,10 +37,6 @@
     "image_perso" : "assets/images/perso/mere_noel.png",
     "nom" : "Biscuit",
     "image_arme" : "assets/images/armes/cookie.png",
-    "cout" : "100",
-    "vie" : 250,
-    "masse" : 0.07,
-    "puissance" : 10,
     "description_perso" : "Elle n'a pas besoin de son mari pour livrer des cadeaux explosifs.",
     "description_arme" : "Ses biscuits ont eu le temps de bien durcir depuis le temps."
   },
@@ -61,10 +47,6 @@
     "image_perso" : "assets/images/perso/einstein.png",
     "nom" : "Fiole rouge",
     "image_arme" : "assets/images/armes/fiole_rouge.png",
-    "cout" : "100",
-    "vie" : 200,
-    "masse" : 0.1,
-    "puissance" : 10,
     "description_perso" : "Ce scientifique fou revient encore une fois pout tout faire sauter.",
     "description_arme" : "On dit que cette fiole renferme du polonium."
   },
@@ -74,11 +56,7 @@
     "personnage" : "Einstein",
     "image_perso" : "assets/images/perso/einstein.png",
     "nom" : "Fiole bleu",
-    "vie" : 200,
-    "cout" : "100",
     "image_arme" : "assets/images/armes/fiole_bleu.png",
-    "masse" : 0.15,
-    "puissance" : 10,
     "description_perso" : "Ce scientifique fou revient encore une fois pout tout faire sauter.",
     "description_arme" : "On dit que cette fiole renferme du radium."
   },
@@ -89,10 +67,6 @@
     "image_perso" : "assets/images/perso/jean_soma.png",
     "nom" : "Discour",
     "image_arme" : "assets/images/armes/discours.png",
-    "vie" : 300,
-    "cout" : "100",
-    "masse" : 5,
-    "puissance" : 10,
     "description_perso" : "Le plus grand professeur des matières littéraires.",
     "description_arme" : "Qui a dit que des actions valaient mieux que mille mots ?"
   },
@@ -103,10 +77,6 @@
     "image_perso" : "assets/images/perso/jean_soma.png",
     "nom" : "SWS",
     "image_arme" : "assets/images/armes/logo_sowesign.png",
-    "vie" : 300,
-    "cout" : "100",
-    "masse" : 2,
-    "puissance" : 10,
     "description_perso" : "Le plus grand professeur des matières littéraires.",
     "description_arme" : "Et hop là, une absence non-excusée."
   },
@@ -117,10 +87,6 @@
     "image_perso" : "assets/images/perso/squelette.png",
     "nom" : "Os",
     "image_arme" : "assets/images/armes/arme_os.png",
-    "cout" : "100",
-    "vie" : 200,
-    "masse" : 1,
-    "puissance" : 10,
     "description_perso" : "Elle est revenu d'entre les morts pour se venger de son ex.",
     "description_arme" : "Elle a tellement la haine qu'elle utilise son propre corps."
   },
@@ -131,10 +97,16 @@
     "image_perso" : "assets/images/perso/squelette.png",
     "nom" : "Tombe",
     "image_arme" : "assets/images/armes/tombe.png",
-    "vie" : 200,
-    "cout" : "100",
-    "masse" : 300,
-    "puissance" : 10,
+    "description_perso" : "Elle est revenu d'entre les morts pour se venger de son ex.",
+    "description_arme" : "Un gros KAYOUX est utile pour se protéger."
+  },
+  {
+    "code P" : "PB",
+    "code A" : "A0",
+    "personnage" : "Jean-Soma méchant",
+    "image_perso" : "assets/images/perso/jean_soma_bot.png",
+    "nom" : "Default projectile",
+    "image_arme" : "assets/images/armes/default_projectile.png",
     "description_perso" : "Elle est revenu d'entre les morts pour se venger de son ex.",
     "description_arme" : "Un gros KAYOUX est utile pour se protéger."
   }

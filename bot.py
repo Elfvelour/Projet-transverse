@@ -6,6 +6,7 @@
 import pygame
 import random
 import math
+import json
 
 # Constantes de difficulté
 DIFFICULTE_PLAGE = {
@@ -18,13 +19,13 @@ difficulte = "FACILE"  # Valeur par défaut
 class Bot(pygame.sprite.Sprite):
     def __init__(self, x, y, taille):
         super().__init__()
-        self.rect = pygame.Rect(x, y, *taille)
-        self.image = pygame.Surface(taille)
-        self.image.fill((178, 30, 240))  # Couleur pour le BOT
+        self.donnees_json = self.charger_donnees_json("gestion_stats.json")  # chargement des données
+        self.image_bot = self.obtenir_image_perso("PB", "A0") #code associé à l'image de "Jean-Soma" et à celui de l'arme par défaut
+        self.rect = pygame.Rect(x, y, 150, 190)
         self.angle = 0
 
     def affichage(self, surface):
-        surface.blit(self.image, self.rect)
+        surface.blit(self.image_bot, self.rect)
 
     def obtenir_plage_position(self, joueur_x):
         """Détermine la plage de position horizontale du BOT en fonction de la difficulté."""
@@ -53,3 +54,15 @@ class Bot(pygame.sprite.Sprite):
         angle = self.calcul_angle(target_x, joueur_y)
         puissance = self.calcul_puissance(target_x)
         return angle, puissance
+
+    def charger_donnees_json(self, fichier):
+        with open(fichier, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    def obtenir_image_perso(self, personnage, arme):
+        for item in self.donnees_json:
+            if item["code P"] == personnage and item["code A"] == arme:
+                image = pygame.image.load(item["image_perso"]).convert_alpha()
+                # Redimensionner l'image à la taille souhaitée
+                return pygame.transform.scale(image, (150, 190))
+        return pygame.image.load("assets/images/perso/jean_soma_bot.png").convert_alpha()
