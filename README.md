@@ -11,7 +11,7 @@
 
 -[![jeu.py](https://img.shields.io/badge/jeu-green)](jeu.py):
 
--[![trajectoire.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoire.py):
+-[![trajectoires.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoires.py):
 
 -[![bot.py](https://img.shields.io/badge/jeu-green)](bot.py):
 
@@ -25,9 +25,9 @@
 
 #### - Thomas Aubert :
 
--[![trajectoire.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoire.py):
+-[![trajectoires.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoires.py):
 
--[![bot.py](https://img.shields.io/badge/jeu-green)](bot.py):
+-[![bot.py](https://img.shields.io/badge/bot-green)](bot.py):
 
 $${\color{blue}-bot.py}$$
 
