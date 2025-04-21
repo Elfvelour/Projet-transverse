@@ -1,14 +1,14 @@
 # Projet-transverse Bow Master
-<span style="color:red">Benoit</span>.
-![Benoit](https://img.shields.io/badge/Benoit-red)
+
 ## Contributeurs:
+
 #### - Timothée Girault :
 
 -[![main_menu.py](https://img.shields.io/badge/main_menu-blue)](main_menu.py): création du menu principal du jeu ainsi que les paramètres pour changer de musique et l'allumer ou l'éteindre
 
 -[![main.py](https://img.shields.io/badge/main-red)](main.py): résolution des bugs
 
-#### - Flavie Brémand :
+#### * Flavie Brémand :
 
 -[![jeu.py](https://img.shields.io/badge/jeu-green)](jeu.py):
 
@@ -18,20 +18,20 @@
 
 -[![main.py](https://img.shields.io/badge/main-red)](main.py):
 
-#### - Noémie Marques :
+#### + Noémie Marques :
 
 -[![monnaie.py](https://img.shields.io/badge/monnaie-purple)](monnaie.py):
 
 -[![main.py](https://img.shields.io/badge/main-red)](main.py):
 
-#### - Thomas Aubert :
+#### + Thomas Aubert :
 
 -[![trajectoires.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoires.py):
 
 -[![bot.py](https://img.shields.io/badge/bot-green)](bot.py):
 
 
-#### - Rafaël De Jesus Coelho :
+#### + Rafaël De Jesus Coelho :
 
 -[![menu_joueur.py](https://img.shields.io/badge/menu_joueur-blue)](menu_joueur.py):
 
