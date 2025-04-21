@@ -1,5 +1,6 @@
 # Projet-transverse Bow Master
-
+<span style="color:red">Benoit</span>.
+![Benoit](https://img.shields.io/badge/Benoit-red)
 ## Contributeurs:
 #### - Timothée Girault :
 
@@ -29,7 +30,6 @@
 
 -[![bot.py](https://img.shields.io/badge/bot-green)](bot.py):
 
-$${\color{blue}-bot.py}$$
 
 #### - Rafaël De Jesus Coelho :
 
