@@ -10,8 +10,7 @@ from trajectoires import Projectile
 from trajectoires import Sol
 from monnaie import Pieces
 from bot import Bot
-from main_menu import  affichage_menu
-
+from main_menu import  Musique
 clock = pygame.time.Clock()
 
 
@@ -52,7 +51,7 @@ class Jeu:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:
             self.joueur.temps_debut = pygame.time.get_ticks()
 
-        if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.tour_joueur:
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.tour_joueur and mon_bouton_parametre.action:
             puissance = self.joueur.relacher_tir()
             x_proj, y_proj = self.joueur.position_depart_projectile()
             projectile = Projectile(x_proj, y_proj, [60, 60], self.image_projectile, self.joueur.angle,
@@ -110,7 +109,6 @@ class Jeu:
 
     def boucle_principale(self):
         continuer = True
-        etat_jeu = "jeu"
         while continuer:
             pos_souris = pygame.mouse.get_pos()
 
@@ -118,17 +116,11 @@ class Jeu:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     continuer = False
-
-                if etat_jeu == "jeu":
-                    self.gerer_evenements_jeu(event)
-
+                self.gerer_evenements_jeu(event)
             # ----- 2. MISE À JOUR LOGIQUE (appelée à chaque frame) -----
-            if etat_jeu == "jeu":
-                self.mettre_a_jour_jeu()
-
+            self.mettre_a_jour_jeu()
             # ----- 3. AFFICHAGE -----
-            if etat_jeu == "jeu":
-                self.afficher_jeu(pos_souris)
+            self.afficher_jeu(pos_souris)
 
             pygame.display.update()
             clock.tick(60)
