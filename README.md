@@ -1,4 +1,4 @@
-# Projet-transverse Bow Master [](assets/images/menup/logo.png)
+# Projet-transverse Bow Master [](https://github.com/Elfvelour/Projet-transverse/blob/main/assets/images/menup/logo.png)
 
 ## Contributeurs:
 
@@ -36,24 +36,32 @@
 [![menu_joueur.py](https://img.shields.io/badge/menu_joueur-blue)](menu_joueur.py) :
 
 ## Carnet de bord:
-création du jeu bowmaster
+
+Nom du jeu : BOW MASTER
+
+Type de jeu : jeu de tir
+
+Nombre de joueur(s) : un contre le bot de difficulté croissante
+
+But : tuer le bot en lui affligeant des dégâts grâce aux projectiles lancés
 
 #### Février 2025 :
 
 ##### -03/02/2024:
-- __Noémie__: Organisation des fichiers du jeu 
+- __Noémie__: Organisation des fichiers du jeu sur le fichier ***contenu.txt***
 
 ##### -04/02/2025:
-- __Noémie__: Création des statistiques des armes 
+- __Noémie__: Création des statistiques des armes sur le fichier ***gestion_stats.json***
 
 ##### -09/02/2025:
-- __Noémie__: Initialisation de la fonction run_game dans le fichier main + invention des descriptions
+- __Noémie__: Initialisation de la fonction run_game dans le fichier ***main.py*** + invention des descriptions
 
 ##### -10/02/2025:
-- __Noémie__: Initialisation de la fonction **monnaie.py**
+- __Noémie__: Initialisation de la fonction ***monnaie.py***
 
 
-- __Timothée__: Initialistaion de la fonction **main_menu.py**
+- __Timothée__: Initialisation du fichier ***main_menu.py*** et suppression de l'ancien fichier menu.py pour repartir 
+d'une base saine après de nombreux tests sur ce dernier
 
 ##### -23/02/2025:
 - __Flavie__: Mise en place du lancement du projectile par clic gauche
@@ -62,13 +70,17 @@ création du jeu bowmaster
 - __Noémie__: Le joueur gagne une pièce à chaque fois qu'il tire
 
 
-- __Timothée__: création de la page et des bouton
+- __Timothée__: Création de la fenêtre du jeu de taille 1920 par 1024 ainsi que des boutons "jouer" et "quitter"
+dans le fichier ***main_menu.py***. Je teste les différentes couleurs comme le rouge, rouge bordeaux ou le noir pour les boutons 
+ou le fond
 
 ##### -28/02/2025:
 - __Flavie__: Mise en place de la trajectoire parabole (vitesse en fonction du temps du clic gauche)
 
 
-- __Timothée__: bouton quitter fonctionelle + musique
+- __Timothée__: J'ai créé une fonction pour détecter le clic de la souris sur une surface rectangulaire tel qu'on appuie sur 
+le bouton quitter cela fait fermer la fenêtre. Puis j'ai initialisé la musique avec une boucle infinie avec la bibliothèque pygame 
+dans le fichier ***main_menu.py***.
 
 #### Mars 2025 :
 
@@ -84,19 +96,28 @@ création du jeu bowmaster
 - __Noémie__: Ajout du bouton pour utiliser l'ultime coup du personnage 
 
 ##### -15/03/2025:
-- __Timothée__: revue en profondeur des assets pour le menu principal (nouvelles images et redimensions)+animation bouton et sons
+- __Timothée__: Création d'une fonction pour animer les boutons tels qu'on appuie dessus cela lui donne une couleur plus sombre.
+Par exemple, j'utilise le rouge et le rouge bordeaux pour l'animation. Et une autre pour qu'on puisse changer de musique. J'ai mis
+au propre les ***assets*** en les classant en 2 types les images et les sons puis dans les images dans différents dossiers pour chacune
+fichiers du jeu comme ***menup*** pour ***main_menu.py***etc. J'ai recherché de nouvelles images pour le jeu ainsi que 
+le redimensionnement du fond d'écran sur gimp.
 
 ##### -24/03/2025:
 - __Flavie__: Améliorations des trajectoires et du bot (gravité et projectiles)
                     Ajustement du positionnement des images d'explosion (centrées par rapport au projectile)
 
 ##### -25/03/2025:
-- __Timothée__: mise au propre des assets et correction bug sons potion
+- __Timothée__: Après avoir mis au propre les ***assets***, j'ai continué de faire le ménage en supprimant et remplacent 
+certaines par d'autres plus pertinentes et esthétiques. Lors de toutes les modifications d'images trouvées sur internet, j'ai utilisé
+GIMP qui fut d'une grande utilité pour moi. J'ai aussi corrigé le bug du son de la potion en s'activant une fois
+et non plus à chaque rafraichissement de la fenêtre dans ***trajectoires.py***.
 
 #### Avril 2025 :
 
--03/04/2025 __Timothée__: mise au propre des commentaires ainsi que la création bu bouton "revenir en arrière".
-
+-03/04/2025 __Timothée__: J'ai commencé à commenter mon code pour que chaque personne du groupe puisse comprendre le mien
+et lors de problèmes sur le code, que j'arrive plus facilement à comprendre l'erreur. J'ai aussi créé le bouton "revenir en arrière" pour
+revenir en arrière lors du lancement du jeu prévu initialement. Il s'agit d'un bouton en 2 parties la partie caché le bouton physique
+caché par le fond d'écran et la partie visible l'image du bouton.
 ##### -06/04/2025:
 
 - __Flavie__: Refonte de la boucle principale
@@ -104,11 +125,16 @@ création du jeu bowmaster
                     [Améliorations des tirs du bot (corrections des plages de distance en fonction du joueur)]->pas réussi...T^T
 
 
-- __Timothée__: 1ère fusion du main et main_menu réussi attente avec raphalél pour le faire avec le menu des joueurs puis début de la création du bouton paramètre pour changer et arrêter la musique à tout moment
+- __Timothée__: Après beaucoup d'efforts, de problèmes et d'énervements, j'ai réussi pour la première fois à relier chaque fichier pour
+que le jeu soit enfin fonctionnelle soit entre ***main_menu.py*** et ***trajectoires.py*** dans le fichier ***main.py***. J'attends que 
+Raphaël finisse son fichier ***menu_joueur.py*** pour le joindre au***main.py***. J'ai fait une refonte complète pour la musique en créant
+une classe dédiée pour ce dernier avec 2 bibliothèques, une de son et une de musique. J'ai refait toutes les fonctions précédemment créer pour la musique
+et créer deux fonctions pour changer et arrêter la musique. Enfin la création du bouton paramètre pour faire un menu translucide et changer de musique.
 
 
 ##### -10/04/2025:
-- __Timothée__: création du menu paramètre translucide + bouton qui change la musique
+- __Timothée__: `rgb(255, 215, 0)` jaune dorée et `rgb(230, 170, 80)` jaune moutarde
+création du menu paramètre translucide + bouton qui change la musique
 
 ##### -14/04/:
 - __Timothée__: finalisation du main fonctionnelle + ajout d'assets pour un jeu qui marche+ résolution du problème de rafraichisement du menu paramètre
@@ -117,11 +143,15 @@ création du jeu bowmaster
 - __Timothée__: affichage des crédits sur le menu paramètre avec l'interface des changements de musiques
 
 ##### -19/04/2025:
-- __Timothée__: menu paramètre fonctionnelle et début du ractachement au main des paramètres
+- __Timothée__: menu paramètre fonctionnelle et début du ractachement au ***main.py*** des paramètres
 
 ##### -20/04/2025:
-- __Timothée__: ratachement au main du menu paramètre et fonctionnelle
+- __Timothée__: ratachement au ***main.py*** du menu paramètre et fonctionnelle
 #### -22/04/2025:
-- __Timothée__: résolution pb de l'interface tir et paramètre
+- __Timothée__: En faisant quelques tests sur le jeu pour vérifier que mon code n'avait pas d'erreurs, je m'aperçois qu'on peut cliquer 
+sur les personnages et lancer le jeu tandis que le menu des paramètres est lancé. Le même problème est apparu sur le lancer des projectiles avec le menu ouvert.
+Je résous le problème en rajoutant la condition de fermeture du menu pour qu'on puisse choisir son personnage sur le fichier ***menu_joueur.py***.
+Et sur le fichier ***jeu.py***, je rajoute la même condition en rajoutant une limite d'angle de 95° du tireur pour qu'on ne puisse pas tirer immédiatement
+lorsque qu'on sort du menu.
 
 [***lien notion***](https://www.notion.so/Projet-Transverse-Equipe-A8-18f30068216c806396a2f057d07e91ca?pvs=4)
