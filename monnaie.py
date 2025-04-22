@@ -9,6 +9,7 @@ import pygame
 class Pieces (pygame.sprite.Sprite):
     def __init__(self, taille):
         super().__init__()
+        #Affichage du compteur de pièce
         self.x = 0
         self.y = 0
         self.taille = (70,70)
@@ -22,7 +23,7 @@ class Pieces (pygame.sprite.Sprite):
         self.bouton_x = 1900
         self.bouton_y = 20
 
-        #ajout d'un bouton de l'ulti
+        #ajout d'un bouton de l'ulti, animation coffre ouvert et fermé
         self.image_coffre_ferme = pygame.image.load("assets/images/affichage/coffre_ferme.png")
         self.image_coffre_ouvert = pygame.image.load("assets/images/affichage/coffre_ouvert.png")
 
@@ -30,8 +31,10 @@ class Pieces (pygame.sprite.Sprite):
         self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))  # Ajuste la taille du bouton
         self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))
 
+        #Etat du coffre au lancement du jeu
         self.coffre_ouvert = False
 
+        #animation de réussite après un certain nombre de pièce
         self.x_gg = 900
         self.y_gg = 505
         self.taille_gg = (200,200)
@@ -39,41 +42,41 @@ class Pieces (pygame.sprite.Sprite):
         self.image_gg = pygame.transform.scale(self.image_gg, self.taille_gg)
         self.rect_gg = self.image_bouton.get_rect(topright=(self.x_gg, self.y_gg - 100))
 
+        #temps de recharge pour le bonus de pièce
         self.dernier_ulti = 0  # temps en ms
         self.temps_cooldown = 15000  # 10 secondes en ms
 
 
-    def afficher_monnaie(self, surface):
+    def afficher_monnaie(self, surface):  #affichage de l'image de pièce
         surface.blit(self.image_monnaie, (self.x, self.y))
 
-    def afficher_nombre_pieces(self, surface):
+    def afficher_nombre_pieces(self, surface):  #affichage du nombe de pièce
         texte = self.font_piece.render(f"{self.monnaie_joueur}", True, (255, 255, 255)) #texte du nombre de pièce
         surface.blit(texte, (self.x + 80, self.y + 20))  # Affichage à côté de la pièce
 
-    def afficher_bouton(self, surface): #affichage de la phrase
+    def afficher_bouton(self, surface): #affichage du bouton boost
         surface.blit(self.image_bouton, self.rect_bouton)
         texte = self.font_piece.render("Barre espace pour Boost", True, (255, 255, 255))
         surface.blit(texte, (self.bouton_x - 780, self.bouton_y - 10))
         texte_2 = self.font_piece.render("Attendre 3 tirs", True, (221, 226, 63))
         surface.blit(texte_2, (self.bouton_x - 500, self.bouton_y + 150))
-        if self.coffre_ouvert and pygame.time.get_ticks() - self.dernier_ulti >= 1000:
-            self.image_bouton = self.image_coffre_ferme
+        if self.coffre_ouvert and pygame.time.get_ticks() - self.dernier_ulti >= 1000:  #Affichage du coffre en fonction du temps
+            self.image_bouton = self.image_coffre_ferme  #coffre fermé si l'ulti pas utilisé depuis un certain temps
             self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))
             self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))
-            self.coffre_ouvert = False
+            self.coffre_ouvert = False  #coffre ouvert si bouton cliqué et temps de couldown
 
-    def ulti(self, jeu):
+    def ulti(self, jeu): #gestion du boost de pièce et de l'affichage du coffre
         temps_actuel = pygame.time.get_ticks()
         if temps_actuel - self.dernier_ulti >= self.temps_cooldown:
-            self.monnaie_joueur += 35
-            self.image_bouton = self.image_coffre_ouvert
+            self.monnaie_joueur += 35 #+35 pièces si ulti utilisé
+            self.image_bouton = self.image_coffre_ouvert  #changement du coffre fermé en ouvert
             self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))
             self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))
             self.coffre_ouvert = True
             self.dernier_ulti = temps_actuel
-            print("Ulti activé : +35 pièces")
 
-    def verifier_clic(self, event, jeu):
+    def verifier_clic(self, event, jeu):  #vérification de l'activation de l'ulti, si espace est appuyé
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             self.ulti(jeu)
 
@@ -84,7 +87,7 @@ class Pieces (pygame.sprite.Sprite):
             self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))
             self.coffre_ouvert = False
 
-    def afficher_gg(self, surface):  # affichage de la phrase
+    def afficher_gg(self, surface):  # affichage de la phrase de fin
         surface.blit(self.image_gg, self.rect_gg)
         texte_3 = self.font_piece.render("Ennemie battu !", True, (255, 255, 255))
         surface.blit(texte_3, (self.x_gg, self.y_gg))
