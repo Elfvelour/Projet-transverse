@@ -114,7 +114,8 @@ et non plus à chaque rafraichissement de la fenêtre dans ***trajectoires.py***
 
 #### Avril 2025 :
 
--03/04/2025 __Timothée__: J'ai commencé à commenter mon code pour que chaque personne du groupe puisse comprendre le mien
+#### -03/04/2025:
+- __Timothée__: J'ai commencé à commenter mon code pour que chaque personne du groupe puisse comprendre le mien
 et lors de problèmes sur le code, que j'arrive plus facilement à comprendre l'erreur. J'ai aussi créé le bouton "revenir en arrière" pour
 revenir en arrière lors du lancement du jeu prévu initialement. Il s'agit d'un bouton en 2 parties la partie caché le bouton physique
 caché par le fond d'écran et la partie visible l'image du bouton.
@@ -133,20 +134,35 @@ et créer deux fonctions pour changer et arrêter la musique. Enfin la création
 
 
 ##### -10/04/2025:
-- __Timothée__: `rgb(255, 215, 0)` jaune dorée et `rgb(230, 170, 80)` jaune moutarde
-création du menu paramètre translucide + bouton qui change la musique
+
+- __Timothée__: Refonte graphique du jeu en modifiant le fond d'écran. J'ai utilisé openart.ai pour améliorer le fond d'écran. Puis j'ai
+utilisé GIMP pour redimensionner les images. J'ai changé les couleurs des boutons : `rgb(255, 215, 0)` le jaune doré et `rgb(230, 170, 80)` le jaune moutarde.
+Création du menu paramètre translucide avec la bibliothèque pygame. Simplification du code : pour avoir un code plus lisible et plus simple, j'ai regroupé
+les lignes de codes de ma boucle principales dans des fonctions. Puis j'ai simplifié leurs expressions jusqu'à avoir 2 lignes de codes dans ma
+boucle principale sans compter les lignes de bases pour lancer le jeu.
 
 ##### -14/04/:
-- __Timothée__: finalisation du main fonctionnelle + ajout d'assets pour un jeu qui marche+ résolution du problème de rafraichisement du menu paramètre
+
+- __Timothée__:  Après avoir eu de nouveau un *main* qui ne marchait pas, je me suis remis au travail pour trouver une solution. Et après
+quelques tentatives, j'ai réussi à avoir un *main* fonctionnelle avec tous les fichiers du projet. J'ai aussi refait un ménage des assets
+pour en remplacer et supprimer certains pour avoir une charte graphique à peu près homogène. Enfin, j'ai résolu le problème de 
+rafraichissement du menu des paramètres en changeant les conditions pour qu'il apparaisse. J'ai mis en place pour le bouton "en avant" pour
+la musique un délai de temps avec la bibliothèque time avec un intervalle de 1s pour changer de musique.
+
 
 ##### -17/04/2025:
-- __Timothée__: affichage des crédits sur le menu paramètre avec l'interface des changements de musiques
-
+- __Timothée__: J'ai affiché l'interface de la musique sur le menu des paramètres avec les boutons "jouer" et "pause" et "en avant" et "en arrière".
+Puis j'ai ajouté dans ***main_menu.py*** dans la fonction *Menu_parametre()* des lignes de codes pour afficher les crédits.
+Je l'ai mis dans la police souhaitée avec nos noms respectifs.
 ##### -19/04/2025:
-- __Timothée__: menu paramètre fonctionnelle et début du ractachement au ***main.py*** des paramètres
+- __Timothée__:  Après quelques heures, j'ai résolu le problème d'affichage du bouton jouer et arrêter avec un booléen. Puis j'ai mis
+les bonnes fonctions pour arrêter et jouer de la musique. Et on a rajouté une condition en plus lorsqu'on change de musique cela reste
+sur le logo pause. On a donc un menu qui permet de faire pause et jouer de la musique en changeant en avant ou arrière la chanson parmi la liste.
 
 ##### -20/04/2025:
-- __Timothée__: ratachement au ***main.py*** du menu paramètre et fonctionnelle
+- __Timothée__: J'ai réussi après quelque temps à pouvoir utiliser les paramètres tout le temps sur le jeu en mettant la fonction
+*affichage_paramètre()* dans les fichiers ***jeu.py*** et ***menu_joueur.py***. On a donc un menu des paramètres fonctionnel dans le jeu.
+
 #### -22/04/2025:
 - __Timothée__: En faisant quelques tests sur le jeu pour vérifier que mon code n'avait pas d'erreurs, je m'aperçois qu'on peut cliquer 
 sur les personnages et lancer le jeu tandis que le menu des paramètres est lancé. Le même problème est apparu sur le lancer des projectiles avec le menu ouvert.
