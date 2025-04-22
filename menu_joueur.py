@@ -7,7 +7,8 @@
 ##############################################
 import pygame
 import os
-from main_menu import ecran,affichage_parametre
+from main_menu import ecran, affichage_parametre, mon_bouton_parametre
+
 pygame.init()
 
 WIDTH, HEIGHT = 1920, 1010
@@ -154,9 +155,11 @@ def run_character_menu() :
         #Affichage des boutons
         for i, button in enumerate(character_buttons):
             button.draw(screen)
-            if button.check_click():
-                selected_character = f"P{i + 1}"  # Ex: P1, P2, ...
-                print(f"{selected_character} sélectionné !")
+            #si on n'ouvre pas le menu paramètre
+            if mon_bouton_parametre.action:
+                if button.check_click() :
+                    selected_character = f"P{i + 1}"  # Ex: P1, P2, ...
+                    print(f"{selected_character} sélectionné !")
 
         #Affichage des info/arme
         if selected_character:
