@@ -67,23 +67,23 @@ class Joueur(pygame.sprite.Sprite):
         print(f"Position de départ du projectile : ({x_depart}, {y_depart})")  # Debug
         return x_depart, y_depart
 
-    def charger_donnees_json(self, fichier):
+    def charger_donnees_json(self, fichier): # Fonctions servant à charger les données du fichier .json
         with open(fichier, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    def obtenir_image_perso(self, personnage, arme):
+    def obtenir_image_perso(self, personnage, arme): #Chercher le chemin de l'image du joueur à charger dans le json
         for item in self.donnees_json:
-            if item["code P"] == personnage and item["code A"] == arme:
-                image = pygame.image.load(item["image_perso"]).convert_alpha()
-                # Redimensionner l'image à la taille souhaitée
+            if item["code P"] == personnage and item["code A"] == arme: #Si le code envoyé correspond à un code de joueur dans le json...
+                image = pygame.image.load(item["image_perso"]).convert_alpha() #... il charge l'image du chemin présent dans le json
+                # Redimensionner le sprite du joueur à la taille souhaitée
                 return pygame.transform.scale(image, (150, 190))
-        return pygame.image.load("assets/images/perso/jean_soma.png").convert_alpha()
+        return pygame.image.load("assets/images/perso/jean_soma.png").convert_alpha() #Dans le cas où le perso envoyé n'est pas trouvé
 
-    def obtenir_image_arme(self, personnage, arme):
+    def obtenir_image_arme(self, personnage, arme):  #Chercher le chemin de l'image de l'arme à charger dans le json
         for item in self.donnees_json:
-            if item["code P"] == personnage and item["code A"] == arme:
-                return pygame.image.load(item["image_arme"]).convert_alpha()
-        return pygame.image.load("assets/images/armes/default_projectile.png").convert_alpha()
+            if item["code P"] == personnage and item["code A"] == arme:  #Si le code envoyé correspond à un code d'arme dans le json...
+                return pygame.image.load(item["image_arme"]).convert_alpha()  #... il charge l'image du chemin présent dans le json
+        return pygame.image.load("assets/images/armes/default_projectile.png").convert_alpha()  #Dans le cas où l'arme envoyé n'est pas trouvée
 
 
 
