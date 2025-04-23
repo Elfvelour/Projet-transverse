@@ -23,7 +23,7 @@ action_bouton1=True
 action=False
 #defini la taille de l'écran
 ecran=pygame.display.set_mode((largeur,hauteur),pygame.RESIZABLE)
-#donne le nom a la page
+#donne le nom à la fenêtre
 pygame.display.set_caption("BOW MASTER")
 
 # Définir les paramètres du bouton jouer
