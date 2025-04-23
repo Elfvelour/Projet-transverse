@@ -260,13 +260,13 @@ def bascule_musique(switch_musique):
 def Evenement_para():
     global switch_musique
     temps_actuel=time.time()
-    #si on clique sur le logo next et que l'intervalle de temps est supérieur à 1 entre les cliques
+    #si on clique sur le logo next et que l'intervalle de temps est supérieur à 1s entre les cliques
     if Logoclique(image_rect) and (temps_actuel-musique.dernier_clique > musique.delai):
         #on change de musique +1 dans la liste de musique
         switch_musique = True
         musique.dernier_clique=temps_actuel
         musique.ChangementdeMusique()
-    # si on clique sur le logo next inverse et que l'intervalle de temps est supérieur à 1 entre les cliques
+    # si on clique sur le logo next inverse et que l'intervalle de temps est supérieur à 1s entre les cliques
     if Logoclique(image_rect_2) and (temps_actuel-musique.dernier_clique > musique.delai):
         # on change de musique -1 dans la liste de musique
         switch_musique = True
