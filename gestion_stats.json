@@ -8,7 +8,9 @@
     "nom" : "Oeuf",
     "image_arme" : "assets/images/armes/oeuf.png",
     "description_perso" : "Ce légendaire combattant utilise ces compagnons pour attaquer son adversaire.",
-    "description_arme" : "Quoi de mieux que sa progéniture pour arme ?"
+    "description_arme" : "Quoi de mieux que sa progéniture pour arme ?",
+    "pv" : 150,
+    "degat" : 20
   },
   {
     "code P" : "P1",
@@ -18,7 +20,9 @@
     "nom" : "Canard laqué",
     "image_arme" : "assets/images/armes/plat_canard.png",
     "description_perso" : "Ce légendaire combattant utilise ces compagnons pour attaquer son adversaire.",
-    "description_arme" : "Toute sa famille est passée à la casserole."
+    "description_arme" : "Toute sa famille est passée à la casserole.",
+    "pv" : 150,
+    "degat" : 30
   },
   {
     "code P" : "P2",
@@ -28,7 +32,9 @@
     "nom" : "Cadeau",
     "image_arme" : "assets/images/armes/cadeau.png",
     "description_perso" : "Elle n'a pas besoin de son mari pour livrer des cadeaux explosifs.",
-    "description_arme" : "Visiblement, tu as été un vilain petit garnement..."
+    "description_arme" : "Visiblement, tu as été un vilain petit garnement...",
+    "pv" : 200,
+    "degat" : 30
   },
   {
     "code P" : "P2",
@@ -38,7 +44,9 @@
     "nom" : "Biscuit",
     "image_arme" : "assets/images/armes/cookie.png",
     "description_perso" : "Elle n'a pas besoin de son mari pour livrer des cadeaux explosifs.",
-    "description_arme" : "Ses biscuits ont eu le temps de bien durcir depuis le temps."
+    "description_arme" : "Ses biscuits ont eu le temps de bien durcir depuis le temps.",
+    "pv" : 200,
+    "degat" : 20
   },
   {
     "code P" : "P3",
@@ -48,7 +56,9 @@
     "nom" : "Fiole rouge",
     "image_arme" : "assets/images/armes/fiole_rouge.png",
     "description_perso" : "Ce scientifique fou revient encore une fois pout tout faire sauter.",
-    "description_arme" : "On dit que cette fiole renferme du polonium."
+    "description_arme" : "On dit que cette fiole renferme du polonium.",
+    "pv" : 150,
+    "degat" : 20
   },
   {
     "code P" : "P3",
@@ -58,7 +68,9 @@
     "nom" : "Fiole bleu",
     "image_arme" : "assets/images/armes/fiole_bleu.png",
     "description_perso" : "Ce scientifique fou revient encore une fois pout tout faire sauter.",
-    "description_arme" : "On dit que cette fiole renferme du radium."
+    "description_arme" : "On dit que cette fiole renferme du radium.",
+    "pv" : 150,
+    "degat" : 20
   },
   {
     "code P" : "P4",
@@ -68,7 +80,9 @@
     "nom" : "Discour",
     "image_arme" : "assets/images/armes/discours.png",
     "description_perso" : "Le plus grand professeur des matières littéraires.",
-    "description_arme" : "Qui a dit que des actions valaient mieux que mille mots ?"
+    "description_arme" : "Qui a dit que des actions valaient mieux que mille mots ?",
+    "pv" : 250,
+    "degat" : 30
   },
   {
     "code P" : "P4",
@@ -78,7 +92,9 @@
     "nom" : "SWS",
     "image_arme" : "assets/images/armes/logo_sowesign.png",
     "description_perso" : "Le plus grand professeur des matières littéraires.",
-    "description_arme" : "Et hop là, une absence non-excusée."
+    "description_arme" : "Et hop là, une absence non-excusée.",
+    "pv" : 250,
+    "degat" : 40
   },
   {
     "code P" : "P5",
@@ -88,7 +104,9 @@
     "nom" : "Os",
     "image_arme" : "assets/images/armes/arme_os.png",
     "description_perso" : "Elle est revenu d'entre les morts pour se venger de son ex.",
-    "description_arme" : "Elle a tellement la haine qu'elle utilise son propre corps."
+    "description_arme" : "Elle a tellement la haine qu'elle utilise son propre corps.",
+    "pv" : 150,
+    "degat" : 20
   },
   {
     "code P" : "P5",
@@ -98,7 +116,9 @@
     "nom" : "Tombe",
     "image_arme" : "assets/images/armes/tombe.png",
     "description_perso" : "Elle est revenu d'entre les morts pour se venger de son ex.",
-    "description_arme" : "Un gros KAYOUX est utile pour se protéger."
+    "description_arme" : "Un gros KAYOUX est utile pour se protéger.",
+    "pv" : 150,
+    "degat" : 35
   },
   {
     "code P" : "PB",
@@ -108,6 +128,8 @@
     "nom" : "Default projectile",
     "image_arme" : "assets/images/armes/default_projectile.png",
     "description_perso" : "Elle est revenu d'entre les morts pour se venger de son ex.",
-    "description_arme" : "Un gros KAYOUX est utile pour se protéger."
+    "description_arme" : "Un gros KAYOUX est utile pour se protéger.",
+    "pv" : 250,
+    "degat" : 20
   }
 ]
