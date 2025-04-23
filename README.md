@@ -141,7 +141,7 @@ Création du menu paramètre translucide avec la bibliothèque pygame. Simplific
 les lignes de codes de ma boucle principales dans des fonctions. Puis j'ai simplifié leurs expressions jusqu'à avoir 2 lignes de codes dans ma
 boucle principale sans compter les lignes de bases pour lancer le jeu.
 
-##### -14/04/:
+##### -14/04/2025:
 
 - __Timothée__:  Après avoir eu de nouveau un *main* qui ne marchait pas, je me suis remis au travail pour trouver une solution. Et après
 quelques tentatives, j'ai réussi à avoir un *main* fonctionnelle avec tous les fichiers du projet. J'ai aussi refait un ménage des assets
