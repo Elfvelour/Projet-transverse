@@ -93,6 +93,9 @@ class Jeu:
         self.joueur.affichage(self.ecran, pos_souris)
         self.bot.affichage(self.ecran)
 
+        self.joueur.afficher_barre_vie(self.ecran)
+        self.bot.afficher_barre_vie(self.ecran)
+
         for projectile in self.projectiles_joueur:
             projectile.afficher(self.ecran)
 
@@ -126,5 +129,3 @@ class Jeu:
             clock.tick(60)
 
         pygame.quit()
-
-
