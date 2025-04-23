@@ -120,7 +120,7 @@ et lors de problèmes sur le code, que j'arrive plus facilement à comprendre l'
 revenir en arrière lors du lancement du jeu prévu initialement. Il s'agit d'un bouton en 2 parties la partie caché le bouton physique
 caché par le fond d'écran et la partie visible l'image du bouton.
 ##### -06/04/2025:
-
+ 
 - __Flavie__: Refonte de la boucle principale
                     Positionnement correct des images d'explosion (SUR le sol)
                     [Améliorations des tirs du bot (corrections des plages de distance en fonction du joueur)]->pas réussi...T^T
