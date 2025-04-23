@@ -18,6 +18,14 @@ class Joueur(pygame.sprite.Sprite):
         self.joueur = perso
         self.arme = arme
         self.image_perso = self.obtenir_image_perso(perso, arme)
+        # Récupération des PV et dégâts depuis les données JSON
+        for item in self.donnees_json:
+            if item["code P"] == perso and item["code A"] == arme:
+                self.pv_max = item["pv"]
+                self.pv = item["pv"]
+                self.degat = item["degat"]
+                break
+
         self.rect = pygame.Rect(x, y, taille[0], taille[1])
         self.angle = 0
         self.charge_tir = 0
@@ -67,26 +75,36 @@ class Joueur(pygame.sprite.Sprite):
         print(f"Position de départ du projectile : ({x_depart}, {y_depart})")  # Debug
         return x_depart, y_depart
 
-    def charger_donnees_json(self, fichier): # Fonctions servant à charger les données du fichier .json
+    def charger_donnees_json(self, fichier):
         with open(fichier, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    def obtenir_image_perso(self, personnage, arme): #Chercher le chemin de l'image du joueur à charger dans le json
+    def obtenir_image_perso(self, personnage, arme):
         for item in self.donnees_json:
-            if item["code P"] == personnage and item["code A"] == arme: #Si le code envoyé correspond à un code de joueur dans le json...
-                image = pygame.image.load(item["image_perso"]).convert_alpha() #... il charge l'image du chemin présent dans le json
-                # Redimensionner le sprite du joueur à la taille souhaitée
+            if item["code P"] == personnage and item["code A"] == arme:
+                image = pygame.image.load(item["image_perso"]).convert_alpha()
+                # Redimensionner l'image à la taille souhaitée
                 return pygame.transform.scale(image, (150, 190))
-        return pygame.image.load("assets/images/perso/jean_soma.png").convert_alpha() #Dans le cas où le perso envoyé n'est pas trouvé
+        return pygame.image.load("assets/images/perso/jean_soma.png").convert_alpha()
 
-    def obtenir_image_arme(self, personnage, arme):  #Chercher le chemin de l'image de l'arme à charger dans le json
+    def obtenir_image_arme(self, personnage, arme):
         for item in self.donnees_json:
-            if item["code P"] == personnage and item["code A"] == arme:  #Si le code envoyé correspond à un code d'arme dans le json...
-                return pygame.image.load(item["image_arme"]).convert_alpha()  #... il charge l'image du chemin présent dans le json
-        return pygame.image.load("assets/images/armes/default_projectile.png").convert_alpha()  #Dans le cas où l'arme envoyé n'est pas trouvée
+            if item["code P"] == personnage and item["code A"] == arme:
+                return pygame.image.load(item["image_arme"]).convert_alpha()
+        return pygame.image.load("assets/images/armes/default_projectile.png").convert_alpha()
 
+    def subir_degats(self, montant):
+        """Réduit les points de vie du joueur"""
+        self.pv = max(0, self.pv - montant)
+        print(f"Le joueur a été touché ! PV restants : {self.pv}")
 
+    def afficher_barre_vie(self, surface):
+        """Affiche une barre de vie verte au-dessus du joueur"""
+        largeur_max = 100
+        hauteur = 10
+        x = self.rect.centerx - largeur_max // 2
+        y = self.rect.top - 20
 
-
-
-
+        largeur_actuelle = int((self.pv / self.pv_max) * largeur_max)
+        pygame.draw.rect(surface, (255, 0, 0), (x, y, largeur_max, hauteur))  # fond rouge
+        pygame.draw.rect(surface, (0, 255, 0), (x, y, largeur_actuelle, hauteur))  # barre verte
