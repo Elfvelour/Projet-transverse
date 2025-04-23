@@ -21,6 +21,13 @@ class Bot(pygame.sprite.Sprite):
         super().__init__()
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")  # chargement des données
         self.image_bot = self.obtenir_image_perso("PB", "A0") #code associé à l'image de "Jean-Soma" et à celui de l'arme par défaut
+        # Récupération des PV et dégâts depuis les données JSON
+        for item in self.donnees_json:
+            if item["code P"] == "PB" and item["code A"] == "A0":
+                self.pv_max = item["pv"]
+                self.pv = item["pv"]
+                self.degat = item["degat"]
+                break
         self.rect = pygame.Rect(x, y, 150, 190)
         self.angle = 0
 
@@ -48,11 +55,43 @@ class Bot(pygame.sprite.Sprite):
         distance = abs(target_x - self.rect.centerx)
         return max(min(distance / 200, 1), 0.1)  # Valeur minimale pour éviter un tir nul
 
+    def calcul_angle_parabole(self, dx, dy, vitesse):
+        """Calcule l'angle de tir en degrés pour atteindre une cible à dx, dy avec vitesse donnée"""
+        g = 7  # gravité
+        v2 = vitesse ** 2
+        racine = v2 ** 2 - g * (g * dx ** 2 + 2 * dy * v2)
+
+        if racine < 0:
+            return 45  # Si pas de solution, angle par défaut
+
+        racine = math.sqrt(racine)
+        angle_rad1 = math.atan((v2 + racine) / (g * dx))
+        angle_rad2 = math.atan((v2 - racine) / (g * dx))
+
+        # Choix de l'angle le plus grand (tir plus en cloche)
+        angle = math.degrees(max(angle_rad1, angle_rad2))
+        return angle
+
     def tir(self, joueur_x, joueur_y):
-        """Définit l'angle et la puissance du tir."""
+        """Définit l'angle et la puissance du tir avec une trajectoire balistique réaliste."""
         target_x = self.choisir_position(joueur_x)
-        angle = self.calcul_angle(target_x, joueur_y)
-        puissance = self.calcul_puissance(target_x)
+        target_y = joueur_y + random.randint(-10, 10)  # Ajouter un peu d'erreur verticale
+
+        dx = target_x - self.rect.centerx
+        dy = self.rect.centery - target_y
+
+        tir_vers_gauche = dx < 0
+        dx = abs(dx)
+
+        distance = dx
+        puissance = max(min(distance / 210, 1), 0.1)
+        vitesse = 110 + (7 * puissance)
+
+        angle = self.calcul_angle_parabole(dx, -dy, vitesse)
+
+        if tir_vers_gauche:
+            angle = 180 - angle  # Inverser l’angle pour tirer vers la gauche
+
         return angle, puissance
 
     def charger_donnees_json(self, fichier):
@@ -66,3 +105,19 @@ class Bot(pygame.sprite.Sprite):
                 # Redimensionner l'image à la taille souhaitée
                 return pygame.transform.scale(image, (150, 190))
         return pygame.image.load("assets/images/perso/jean_soma_bot.png").convert_alpha()
+
+    def subir_degats(self, montant):
+        """Réduit les points de vie du bot"""
+        self.pv = max(0, self.pv - montant)
+        print(f"Le bot a été touché ! PV restants : {self.pv}")
+
+    def afficher_barre_vie(self, surface):
+        """Affiche une barre de vie verte au-dessus du bot"""
+        largeur_max = 100
+        hauteur = 10
+        x = self.rect.centerx - largeur_max // 2
+        y = self.rect.top - 20
+
+        largeur_actuelle = int((self.pv / self.pv_max) * largeur_max)
+        pygame.draw.rect(surface, (255, 0, 0), (x, y, largeur_max, hauteur))  # fond rouge
+        pygame.draw.rect(surface, (0, 255, 0), (x, y, largeur_actuelle, hauteur))  # barre verte
