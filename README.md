@@ -155,7 +155,7 @@ la musique un délai de temps avec la bibliothèque time avec un intervalle de 1
 Puis j'ai ajouté dans ***main_menu.py*** dans la fonction *Menu_parametre()* des lignes de codes pour afficher les crédits.
 Je l'ai mis dans la police souhaitée avec nos noms respectifs.
 ##### -19/04/2025:
-- __Timothée__:  Après quelques heures, j'ai résolu le problème d'affichage du bouton jouer et arrêter avec un booléen. Puis j'ai mis
+- __Timothée__:  Après quelques heures, j'ai résolu le problème d'affichage du bouton jouer et arrêter avec un booléen sur le fichier ***main_menu.py***. Puis j'ai mis
 les bonnes fonctions pour arrêter et jouer de la musique. Et on a rajouté une condition en plus lorsqu'on change de musique cela reste
 sur le logo pause. On a donc un menu qui permet de faire pause et jouer de la musique en changeant en avant ou arrière la chanson parmi la liste.
 
