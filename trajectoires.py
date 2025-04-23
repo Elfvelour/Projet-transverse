@@ -48,6 +48,13 @@ class Projectile(pygame.sprite.Sprite):
                     jeu.projectiles_bot.remove(self)
                 jeu.explosion_active = False
             return
+        if self.tireur == "bot" and self.rect.colliderect(jeu.joueur.rect):
+            self.creer_explosion(jeu.joueur.rect.centerx, jeu.joueur.rect.centery)
+            self.temps_explosion = pygame.time.get_ticks()
+            jeu.joueur.subir_degats(jeu.bot.degat)  # Inflige les dégâts du bot
+            jeu.explosion_active = True
+            print(f"Le projectile du bot a touché le joueur.")  # Debug
+            return
 
         # Appliquer la gravité
         self.vitesse_y += self.gravite
@@ -67,6 +74,7 @@ class Projectile(pygame.sprite.Sprite):
             self.temps_explosion = pygame.time.get_ticks()
             self.a_touche_bot = True
             piece.monnaie_joueur += 10
+            bot.subir_degats(jeu.joueur.degat)  # Inflige les dégâts du joueur
             jeu.explosion_active = True
             print(f"Le projectile a touché le bot.")  # Debug
             return
