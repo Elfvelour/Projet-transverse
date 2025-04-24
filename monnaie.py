@@ -4,6 +4,7 @@
 ##################################################
 
 import pygame
+from joueur import *
 
 # Création de la classe qui va gérer la monnaie
 class Pieces (pygame.sprite.Sprite):
@@ -34,14 +35,6 @@ class Pieces (pygame.sprite.Sprite):
         #Etat du coffre au lancement du jeu
         self.coffre_ouvert = False
 
-        #animation de réussite après un certain nombre de pièce
-        self.x_gg = 900
-        self.y_gg = 505
-        self.taille_gg = (200,200)
-        self.image_gg = pygame.image.load('assets/images/affichage/trophe.png')
-        self.image_gg = pygame.transform.scale(self.image_gg, self.taille_gg)
-        self.rect_gg = self.image_bouton.get_rect(topright=(self.x_gg, self.y_gg - 100))
-
         #temps de recharge pour le bonus de pièce
         self.dernier_ulti = 0  # temps en ms
         self.temps_cooldown = 15000  # 10 secondes en ms
@@ -69,7 +62,7 @@ class Pieces (pygame.sprite.Sprite):
     def ulti(self, jeu): #gestion du boost de pièce et de l'affichage du coffre
         temps_actuel = pygame.time.get_ticks()
         if temps_actuel - self.dernier_ulti >= self.temps_cooldown:
-            self.monnaie_joueur += 35 #+35 pièces si ulti utilisé
+            jeu.joueur.degat += 10
             self.image_bouton = self.image_coffre_ouvert  #changement du coffre fermé en ouvert
             self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))
             self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))
@@ -87,7 +80,3 @@ class Pieces (pygame.sprite.Sprite):
             self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))
             self.coffre_ouvert = False
 
-    def afficher_gg(self, surface):  # affichage de la phrase de fin
-        surface.blit(self.image_gg, self.rect_gg)
-        texte_3 = self.font_piece.render("Ennemie battu !", True, (255, 255, 255))
-        surface.blit(texte_3, (self.x_gg, self.y_gg))

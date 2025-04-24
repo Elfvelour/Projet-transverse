@@ -31,6 +31,16 @@ class Bot(pygame.sprite.Sprite):
         self.rect = pygame.Rect(x, y, 150, 190)
         self.angle = 0
 
+        # animation de réussite après la mort du bot
+        self.font = pygame.font.Font(None, 40)
+        self.font = pygame.font.Font("assets/images/affichage/04B_30__.TTF", 40)
+        self.x_gg = 900
+        self.y_gg = 505
+        self.taille_gg = (200, 200)
+        self.image_gg = pygame.image.load('assets/images/affichage/trophe.png')
+        self.image_gg = pygame.transform.scale(self.image_gg, self.taille_gg)
+        self.rect_gg = self.image_gg.get_rect(topright=(self.x_gg, self.y_gg - 100))
+
     def affichage(self, surface):
         surface.blit(self.image_bot, self.rect)
 
@@ -121,3 +131,8 @@ class Bot(pygame.sprite.Sprite):
         largeur_actuelle = int((self.pv / self.pv_max) * largeur_max)
         pygame.draw.rect(surface, (255, 0, 0), (x, y, largeur_max, hauteur))  # fond rouge
         pygame.draw.rect(surface, (0, 255, 0), (x, y, largeur_actuelle, hauteur))  # barre verte
+
+    def afficher_gg(self, surface):  # affichage de la phrase de fin
+        surface.blit(self.image_gg, self.rect_gg)
+        texte_3 = self.font.render("Ennemie battu !", True, (255, 255, 255))
+        surface.blit(texte_3, (self.x_gg, self.y_gg))

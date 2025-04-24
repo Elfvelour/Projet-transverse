@@ -106,8 +106,8 @@ class Jeu:
         self.piece.afficher_nombre_pieces(self.ecran)
         self.piece.afficher_bouton(self.ecran)
 
-        if self.piece.monnaie_joueur >= 250:
-            self.piece.afficher_gg(self.ecran)
+        if self.bot.pv <= 0 :
+            self.bot.afficher_gg(self.ecran)
         affichage_parametre()
 
     def boucle_principale(self):
