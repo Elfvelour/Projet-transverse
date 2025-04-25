@@ -134,5 +134,5 @@ class Bot(pygame.sprite.Sprite):
 
     def afficher_gg(self, surface):  # affichage de la phrase de fin
         surface.blit(self.image_gg, self.rect_gg)
-        texte_3 = self.font.render("Ennemie battu !", True, (255, 255, 255))
+        texte_3 = self.font.render("Ennemi battu !", True, (255, 255, 255))
         surface.blit(texte_3, (self.x_gg, self.y_gg))
