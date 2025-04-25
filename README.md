@@ -10,13 +10,13 @@
 
 #### - Flavie Brémand :
 
-[![jeu.py](https://img.shields.io/badge/jeu-green)](jeu.py) :
+[![jeu.py](https://img.shields.io/badge/jeu-green)](jeu.py) : gestion de l'alternance entre le joueur et le bot, affichage de l'explosion et boucle principale
 
-[![trajectoires.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoires.py) :
+[![trajectoires.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoires.py) : calcul de la trajectoire du tir du joueur et de la puissance du tir en fonction du clic gauche, gestion des images d'explosion
 
-[![bot.py](https://img.shields.io/badge/jeu-green)](bot.py) :
+[![bot.py](https://img.shields.io/badge/jeu-green)](bot.py) : bases du bot (sa position et début des fonctions pour son lancer)
 
-[![main.py](https://img.shields.io/badge/main-red)](main.py) :
+[![main.py](https://img.shields.io/badge/main-red)](main.py) : création de l'ancienne version
 
 #### - Noémie Marques :
 
@@ -43,7 +43,7 @@ Type de jeu : jeu de tir
 
 Nombre de joueur(s) : un contre le bot de difficulté croissante
 
-But : tuer le bot en lui affligeant des dégâts grâce aux projectiles lancés
+But : tuer le bot en lui infligeant des dégâts grâce aux projectiles lancés
 
 #### Février 2025 :
 
@@ -64,7 +64,7 @@ But : tuer le bot en lui affligeant des dégâts grâce aux projectiles lancés
 d'une base saine après de nombreux tests sur ce dernier
 
 ##### -23/02/2025:
-- __Flavie__: Mise en place du lancement du projectile par clic gauche
+- __Flavie__: Mise en place du lancement du projectile par clic gauche et de la ligne blanche qui montre le début de la trajectoire
 
 ##### -24/02/2025:
 - __Noémie__: Le joueur gagne une pièce à chaque fois qu'il tire
@@ -75,7 +75,7 @@ dans le fichier ***main_menu.py***. Je teste les différentes couleurs comme le 
 ou le fond
 
 ##### -28/02/2025:
-- __Flavie__: Mise en place de la trajectoire parabole (vitesse en fonction du temps du clic gauche)
+- __Flavie__: Mise en place de la puissance de la trajectoire parabole (vitesse en fonction du temps du clic gauche)
 
 
 - __Timothée__: J'ai créé une fonction pour détecter le clic de la souris sur une surface rectangulaire tel qu'on appuie sur 
@@ -87,6 +87,7 @@ dans le fichier ***main_menu.py***.
 ##### -03/03/2025:
 - __Flavie__: Ajustements dans la trajectoire (notamment sur la vitesse et l'angle)
                       Création du fichier bot et début de son code
+                      Séparation des fichiers ***main.py*** et ***trajectoires.py*** pour plus de clarté
 
 
 - __Noémie__: Recherche des assets pour les armes du jeu
@@ -119,18 +120,26 @@ et non plus à chaque rafraichissement de la fenêtre dans ***trajectoires.py***
 et lors de problèmes sur le code, que j'arrive plus facilement à comprendre l'erreur. J'ai aussi créé le bouton "revenir en arrière" pour
 revenir en arrière lors du lancement du jeu prévu initialement. Il s'agit d'un bouton en 2 parties la partie caché le bouton physique
 caché par le fond d'écran et la partie visible l'image du bouton.
+
 ##### -06/04/2025:
  
 - __Flavie__: Refonte de la boucle principale
                     Positionnement correct des images d'explosion (SUR le sol)
-                    [Améliorations des tirs du bot (corrections des plages de distance en fonction du joueur)]->pas réussi...T^T
+                    Essais d'instauration pour le bot de plages de valeurs où tirer
 
 
 - __Timothée__: Après beaucoup d'efforts, de problèmes et d'énervements, j'ai réussi pour la première fois à relier chaque fichier pour
-que le jeu soit enfin fonctionnelle soit entre ***main_menu.py*** et ***trajectoires.py*** dans le fichier ***main.py***. J'attends que 
+que le jeu soit enfin fonctionnel soit entre ***main_menu.py*** et ***trajectoires.py*** dans le fichier ***main.py***. J'attends que 
 Raphaël finisse son fichier ***menu_joueur.py*** pour le joindre au***main.py***. J'ai fait une refonte complète pour la musique en créant
 une classe dédiée pour ce dernier avec 2 bibliothèques, une de son et une de musique. J'ai refait toutes les fonctions précédemment créer pour la musique
 et créer deux fonctions pour changer et arrêter la musique. Enfin la création du bouton paramètre pour faire un menu translucide et changer de musique.
+
+
+##### -07/04/2025:
+ 
+- __Flavie__: Améliorations dans ***trajectoires.py*** pour plus de clarté
+                    Séparation du fichier en plusieurs : ***trajectoires.py*** (sol et trajectoire du joueur), ***joueur.py***, ***bot.py***,***jeu.py***
+                    Rectifications qui en découlent dans le main
 
 
 ##### -10/04/2025:
@@ -144,7 +153,7 @@ boucle principale sans compter les lignes de bases pour lancer le jeu.
 ##### -14/04/2025:
 
 - __Timothée__:  Après avoir eu de nouveau un *main* qui ne marchait pas, je me suis remis au travail pour trouver une solution. Et après
-quelques tentatives, j'ai réussi à avoir un *main* fonctionnelle avec tous les fichiers du projet. J'ai aussi refait un ménage des assets
+quelques tentatives, j'ai réussi à avoir un *main* fonctionnel avec tous les fichiers du projet. J'ai aussi refait un ménage des assets
 pour en remplacer et supprimer certains pour avoir une charte graphique à peu près homogène. Enfin, j'ai résolu le problème de 
 rafraichissement du menu des paramètres en changeant les conditions pour qu'il apparaisse. J'ai mis en place pour le bouton "en avant" pour
 la musique un délai de temps avec la bibliothèque time avec un intervalle de 1s pour changer de musique.
@@ -154,6 +163,7 @@ la musique un délai de temps avec la bibliothèque time avec un intervalle de 1
 - __Timothée__: J'ai affiché l'interface de la musique sur le menu des paramètres avec les boutons "jouer" et "pause" et "en avant" et "en arrière".
 Puis j'ai ajouté dans ***main_menu.py*** dans la fonction *Menu_parametre()* des lignes de codes pour afficher les crédits.
 Je l'ai mis dans la police souhaitée avec nos noms respectifs.
+
 ##### -19/04/2025:
 - __Timothée__:  Après quelques heures, j'ai résolu le problème d'affichage du bouton jouer et arrêter avec un booléen sur le fichier ***main_menu.py***. Puis j'ai mis
 les bonnes fonctions pour arrêter et jouer de la musique. Et on a rajouté une condition en plus lorsqu'on change de musique cela reste
