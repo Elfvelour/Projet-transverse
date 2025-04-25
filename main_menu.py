@@ -75,12 +75,12 @@ switch_musique=True
 ##############################################
 
 # lance le menu principal sans les boutons de la fonction affichage_menu_bouton
-def lancerjeuV3():
+def lancerjeuv3():
     # Remplir l'écran avec une couleur de fond
     ecran.fill('white')  # blanc
     #creation des boutons paramètre et retour en arrière
-    mon_bouton_parametre.CreationBouton(ecran)
-    mon_bouton_ar.CreationBouton(ecran)
+    mon_bouton_parametre.creation_bouton(ecran)
+    mon_bouton_ar.creation_bouton(ecran)
     ecran.blit(fond_ecran, (0, 0))
 
 #classe des boutons
@@ -95,7 +95,7 @@ class Bouton:
         self.action = action
         self.police_caractere =pygame.font.Font("assets/images/affichage/04B_30__.TTF", police)
 
-    def CreationBouton(self, ecran):
+    def creation_bouton(self, ecran):
 
         # Ajouter le texte sur le bouton
         texte_surface = self.police_caractere.render(self.texte, True, 'white')  # Couleur du texte : blanc
@@ -110,7 +110,7 @@ class Bouton:
 
         #animation du bouton
         if self.couleur == couleur:
-            if self.BoutonClique():
+            if self.bouton_clique():
                 pygame.draw.rect(ecran,(255, 215, 0), bouton_creer,border_radius=10) #jaune doré
                 pygame.draw.rect(ecran, "black", (self.axe_x, self.axe_y, self.longueur, self.hauteur), 2, border_radius=10)
             else:
@@ -121,7 +121,7 @@ class Bouton:
 
     @staticmethod
     # créer le menu paramètre
-    def Menu_parametre():
+    def menu_parametre():
         global switch_musique
         couleur_param=(0,0,0,192)#noir transparent
         taille_param=(560,50,800,900)# paramètre du rectangle paramètre
@@ -150,7 +150,7 @@ class Bouton:
 
 
     #verifie si le clic gauche de la souris clique sur le bouton
-    def BoutonClique(self):
+    def bouton_clique(self):
         pos_souris=pygame.mouse.get_pos()
         clique_gauche=pygame.mouse.get_pressed()[0]
         bouton_creer=pygame.Rect(self.axe_x, self.axe_y, 300, 70)
@@ -160,19 +160,19 @@ class Bouton:
             return False
 
     # gère les évènements du menu principal
-    def Evenement(self):
+    def evenement(self):
         #si on clique le bouton "jouer", on lance le menu des personnages
-        if mon_bouton_jouer.BoutonClique() and mon_bouton_jouer.action == True:
+        if mon_bouton_jouer.bouton_clique() and mon_bouton_jouer.action == True:
             mon_bouton_jouer.action = False
         #si on clique sur le bouton quitter cela fait quitter le jeu
-        if mon_bouton_quitter.BoutonClique():
+        if mon_bouton_quitter.bouton_clique():
             return False
         # si on clique le bouton paramètre, on lance le bruitage de bouton
-        if mon_bouton_parametre.BoutonClique() and mon_bouton_parametre.action==True:
+        if mon_bouton_parametre.bouton_clique() and mon_bouton_parametre.action==True:
             mon_bouton_parametre.action=False
             musique.jouer_bruitage('clique')
         #si on clique sur le bouton revenir en arrière, on peut revenir au menu principal
-        if mon_bouton_ar.BoutonClique() and self.action == False:
+        if mon_bouton_ar.bouton_clique() and self.action == False:
             self.action=True
 
 class Musique:
@@ -211,13 +211,13 @@ class Musique:
             pygame.mixer.music.play(-1)
 
     #change les musiques en avant lorsque qu'on appuie sur le bouton musique
-    def ChangementdeMusique(self):
+    def changement_de_musique(self):
         self.indice_musique=(self.indice_musique + 1) % len(self.liste_chansons) # modulo de la bibliothèque pour avoir une boucle infini de chanson
         nom_chansons=self.liste_chansons[self.indice_musique] # récupère le nom de la chanson dans la liste
         self.jouer_musique(nom_chansons)
 
     # change les musiques en arrière lorsque qu'on appuie sur le bouton musique
-    def Inverse_ChangementdeMusique(self):
+    def inverse_changement_de_musique(self):
         self.indice_musique = (self.indice_musique -1) % len(self.liste_chansons)  # modulo de la bibliothèque pour avoir une boucle infini de chanson
         nom_chansons = self.liste_chansons[self.indice_musique]  # récupère le nom de la chanson dans la liste
         self.jouer_musique(nom_chansons)
@@ -227,7 +227,7 @@ musique=Musique()
 
 
 # détecte si on clique sur le logo d'une image
-def Logoclique(image_rect):
+def logo_clique(image_rect):
     pos_souris = pygame.mouse.get_pos()
     clique_gauche = pygame.mouse.get_pressed()[0]
     if clique_gauche and image_rect.collidepoint(pos_souris):
@@ -247,7 +247,7 @@ def bascule_musique(switch_musique):
     # création de la zone cliquable du logo
     logo_rect = logo_actuel.get_rect(topleft=(x_white - 290, y_white - 50))
     # Si le logo a été cliqué avec un intervalle d'au moins 0.5 seconde
-    if Logoclique(logo_rect) and (temps_actuel-musique.dernier_clique > musique.delai/2):
+    if logo_clique(logo_rect) and (temps_actuel-musique.dernier_clique > musique.delai/2):
         musique.dernier_clique = temps_actuel
         if switch_musique:
             # Arrête la musique et affiche le logo play
@@ -260,51 +260,51 @@ def bascule_musique(switch_musique):
     return switch_musique
 
 # Gère les différents évènements du menu paramètre
-def Evenement_para():
+def evenement_para():
     global switch_musique
     temps_actuel=time.time()
     #si on clique sur le logo next et que l'intervalle de temps est supérieur à 1s entre les cliques
-    if Logoclique(image_rect) and (temps_actuel-musique.dernier_clique > musique.delai):
+    if logo_clique(image_rect) and (temps_actuel-musique.dernier_clique > musique.delai):
         #on change de musique +1 dans la liste de musique
         switch_musique = True
         musique.dernier_clique=temps_actuel
-        musique.ChangementdeMusique()
+        musique.changement_de_musique()
     # si on clique sur le logo next inverse et que l'intervalle de temps est supérieur à 1s entre les cliques
-    if Logoclique(image_rect_2) and (temps_actuel-musique.dernier_clique > musique.delai):
+    if logo_clique(image_rect_2) and (temps_actuel-musique.dernier_clique > musique.delai):
         # on change de musique -1 dans la liste de musique
         switch_musique = True
         musique.dernier_clique = temps_actuel
-        musique.Inverse_ChangementdeMusique()
+        musique.inverse_changement_de_musique()
 
 # vérifie quand on clique sur le logo paramètre la page se lancer
 def verif_para():
     action_para = mon_bouton_parametre.action
     # si on appuie sur le logo paramètre, on peut lancer, changer la musique et mettre en pause le jeu
     if action_para == False:
-        Bouton.Menu_parametre()
-        Evenement_para()
+        Bouton.menu_parametre()
+        evenement_para()
         ecran.blit(logo_ar, (0, 0))
 
 
 #verifie les différents évènements pour chaque bouton
 def verif_boutons():
-    Bouton.Evenement(mon_bouton_jouer)
-    Bouton.Evenement(mon_bouton_quitter)
+    Bouton.evenement(mon_bouton_jouer)
+    Bouton.evenement(mon_bouton_quitter)
 
 #affiche les boutons et le logo du menu principal
 def affichage_menu_bouton():
     # Créer et affiche les boutons jouer et quitter
-    mon_bouton_jouer.CreationBouton(ecran)
-    mon_bouton_quitter.CreationBouton(ecran)
+    mon_bouton_jouer.creation_bouton(ecran)
+    mon_bouton_quitter.creation_bouton(ecran)
 
 # affiche et gère le menu paramètre ainsi que son logo
 def affichage_parametre():
     ecran.blit(logo_para, (x_p, y_p))
-    Bouton.Evenement(mon_bouton_parametre)
+    Bouton.evenement(mon_bouton_parametre)
     verif_para()
 
 def affichage_menu():
-    lancerjeuV3()
+    lancerjeuv3()
     action_para=mon_bouton_parametre.action
     #on affiche les boutons tant qu'on n'appuie pas sur le bouton jouer pour lancer le jeu (on a action=True pour chaque bouton par défaut).
     if mon_bouton_jouer.action == True:
@@ -315,7 +315,7 @@ def affichage_menu():
     if mon_bouton_jouer.action == False and action_para == True:
         return True
     #si on appuie sur quitter cela fait quitter le jeu
-    if Bouton.Evenement(mon_bouton_quitter) == False and action_para == True:
+    if Bouton.evenement(mon_bouton_quitter) == False and action_para == True:
         return False
 
 
