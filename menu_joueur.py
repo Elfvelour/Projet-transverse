@@ -177,18 +177,23 @@ def run_character_menu() :
             if selected_character == "P1":
                 character_img = p1_img
                 name_text = "Canard"
+                song = 'canard'
             elif selected_character == "P2":
                 character_img = p2_img
                 name_text = "Mère Noël"
+                song = 'noel'
             elif selected_character == "P3":
                 character_img = p3_img
                 name_text = "Einstein"
+                song='potion'
             elif selected_character == "P4":
                 character_img = p4_img
                 name_text = "Jean-Soma"
+                song = 'potion'
             elif selected_character == "P5":
                 character_img = p5_img
                 name_text = "Squelette"
+                song = 'os'
             ecran.blit(character_img, (rect_x + 20, rect_y + 50))
             text_surface = font.render(name_text, True, BLACK)
             ecran.blit(text_surface, (rect_x + 20, rect_y + 10))
@@ -237,5 +242,5 @@ def run_character_menu() :
         affichage_parametre()
         pygame.display.flip()
 
-    return (character, weapon)
+    return (character, weapon,song)
 

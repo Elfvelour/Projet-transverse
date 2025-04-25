@@ -11,6 +11,6 @@ if __name__ == "__main__":
 
     # Lancement du jeu
     if boucle_menu():
-        joueur, arme = run_character_menu()
-        jeu = Jeu(screen, joueur, arme)
+        joueur, arme,sons = run_character_menu()
+        jeu = Jeu(screen, joueur, arme,sons)
         jeu.boucle_principale()

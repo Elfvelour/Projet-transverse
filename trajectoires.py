@@ -5,7 +5,8 @@
 
 import pygame
 import math
-
+from main_menu import  Musique
+musique = Musique()
 clock = pygame.time.Clock()
 
 
@@ -38,7 +39,7 @@ class Projectile(pygame.sprite.Sprite):
         self.hors_ecran = False  # True si le projectile est sorti de l'écran
         self.tireur = tireur  # "joueur" ou "bot" pour éviter les mélanges
 
-    def mouvement(self, bot, piece, jeu):
+    def mouvement(self, bot, piece, jeu,sons):
         """Gère le mouvement du projectile et ses collisions"""
         if self.temps_explosion:
             if pygame.time.get_ticks() - self.temps_explosion > 500:
@@ -77,6 +78,7 @@ class Projectile(pygame.sprite.Sprite):
             bot.subir_degats(jeu.joueur.degat)  # Inflige les dégâts du joueur
             jeu.explosion_active = True
             print(f"Le projectile a touché le bot.")  # Debug
+            musique.jouer_bruitage(sons)
             return
 
         if self.rect.bottom >= self.sol_y:
@@ -84,6 +86,8 @@ class Projectile(pygame.sprite.Sprite):
             self.temps_explosion = pygame.time.get_ticks()
             jeu.explosion_active = True
             print(f"Le projectile a touché le sol.")  # Debug
+            if self.tireur == "joueur":
+                musique.jouer_bruitage(sons)
             return
 
     def creer_explosion(self, x, y):

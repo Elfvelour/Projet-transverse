@@ -3,19 +3,16 @@
 # Auteurs : tous                                    #
 #####################################################
 
-import pygame
-import json
 from joueur import *
 from trajectoires import Projectile
 from trajectoires import Sol
 from monnaie import Pieces
 from bot import Bot
-from main_menu import Musique, mon_bouton_ar
 clock = pygame.time.Clock()
 
 
 class Jeu:
-    def __init__(self, screen, perso, arme):
+    def __init__(self, screen, perso, arme,sons):
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")  # chargement des données
         self.ecran = screen
         self.perso = perso
@@ -23,14 +20,14 @@ class Jeu:
         self.image_projectile = self.obtenir_image_arme(self.perso, self.arme)
         self.background = pygame.image.load("assets/images/menup/logoiajeu.jpeg")
         self.sol = Sol()
-        self.joueur = Joueur(100, 672, [32, 64], perso, arme)
+        self.joueur = Joueur(100, 670, [32, 64], perso, arme)
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")  # chargement des données
-
+        self.sons=sons
         self.projectiles_joueur = pygame.sprite.Group()
         self.projectiles_bot = pygame.sprite.Group()
 
         self.piece = Pieces((50, 50))
-        self.bot = Bot(1920 - 100, 672, [64, 128])
+        self.bot = Bot((1920 - 200), 670, [32, 128])
 
         self.tour_joueur = True  # Le joueur commence
         self.en_attente = False  # Attente entre les tours
@@ -81,10 +78,10 @@ class Jeu:
                         print(f"Le bot a tiré.")  # Debug
 
         for projectile in self.projectiles_joueur:
-            projectile.mouvement(self.bot, self.piece, self)
+            projectile.mouvement(self.bot, self.piece, self,self.sons)
 
         for projectile in self.projectiles_bot:
-            projectile.mouvement(self.bot, self.piece, self)
+            projectile.mouvement(self.bot, self.piece, self,self.sons)
 
     def afficher_jeu(self, pos_souris):
         self.ecran.blit(self.background, (0, 0))

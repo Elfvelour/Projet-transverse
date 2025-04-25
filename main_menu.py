@@ -181,6 +181,9 @@ class Musique:
         self.bruitage={
             'clique':pygame.mixer.Sound("assets/sons/bruitage_bouton2.mp3"),
             'potion':pygame.mixer.Sound("assets/sons/potion_bruit.mp3"),
+            'canard':pygame.mixer.Sound("assets/sons/canard.mp3"),
+            'os':pygame.mixer.Sound("assets/sons/os.mp3"),
+            'noel':pygame.mixer.Sound("assets/sons/mere_noel.mp3"),
 
         }
         #bibliothèque des chansons
