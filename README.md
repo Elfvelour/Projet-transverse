@@ -180,4 +180,8 @@ Je résous le problème en rajoutant la condition de fermeture du menu pour qu'o
 Et sur le fichier ***jeu.py***, je rajoute la même condition en rajoutant une limite d'angle de 95° du tireur pour qu'on ne puisse pas tirer immédiatement
 lorsque qu'on sort du menu.
 
+#### -25/04/2025:
+- __Timothée__: J'ai raccordé les différents bruitages aux personnages à l'aide de ma bibliothèque de bruitages dans ***main_menu.py***.
+Maintenant quand un personnage lance son arme et touche le sol ou le bot, cela produit un son.
+
 [***lien notion***](https://www.notion.so/Projet-Transverse-Equipe-A8-18f30068216c806396a2f057d07e91ca?pvs=4)
