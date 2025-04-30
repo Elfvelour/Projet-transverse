@@ -100,7 +100,7 @@ dans le fichier ***main_menu.py***.
 - __Timothée__: Création d'une fonction pour animer les boutons tels qu'on appuie dessus cela lui donne une couleur plus sombre.
 Par exemple, j'utilise le rouge et le rouge bordeaux pour l'animation. Et une autre pour qu'on puisse changer de musique. J'ai mis
 au propre les ***assets*** en les classant en 2 types les images et les sons puis dans les images dans différents dossiers pour chacune
-fichiers du jeu comme ***menup*** pour ***main_menu.py***etc. J'ai recherché de nouvelles images pour le jeu ainsi que 
+fichiers du jeu comme ***menup*** pour ***main_menu.py*** etc. J'ai recherché de nouvelles images pour le jeu ainsi que 
 le redimensionnement du fond d'écran sur gimp.
 
 ##### -24/03/2025:
