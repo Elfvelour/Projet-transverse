@@ -5,9 +5,8 @@
 
 import pygame
 import random
-import math
-import json
-
+from main_menu import *
+from jeu import *
 # Constantes de difficulté
 DIFFICULTE_PLAGE = {
     "FACILE": 250,
@@ -132,7 +131,17 @@ class Bot(pygame.sprite.Sprite):
         pygame.draw.rect(surface, (255, 0, 0), (x, y, largeur_max, hauteur))  # fond rouge
         pygame.draw.rect(surface, (0, 255, 0), (x, y, largeur_actuelle, hauteur))  # barre verte
 
+    #affiche un bouton quitter pour quitter le jeu lorsqu'on a fini le jeu
+    def gestion_quitter(self, x, y, couleur, longueur_b, hauteur_b, police_b):
+        # bouton quitter
+        mon_bouton_quitter_2 = Bouton("quitter", x, y + 120, couleur, longueur_b, hauteur_b, police_b, True)
+        mon_bouton_quitter_2.creation_bouton(ecran)
+        if mon_bouton_quitter_2.bouton_clique():
+            return True
     def afficher_gg(self, surface):  # affichage de la phrase de fin
         surface.blit(self.image_gg, self.rect_gg)
         texte_3 = self.font.render("Ennemi battu !", True, (255, 255, 255))
+        Bot.gestion_quitter(self, x, y, couleur, longueur_b, hauteur_b, police_b)
+        if Bot.gestion_quitter(self, x, y, couleur, longueur_b, hauteur_b, police_b):
+            return True
         surface.blit(texte_3, (self.x_gg, self.y_gg))

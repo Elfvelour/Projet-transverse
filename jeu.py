@@ -9,7 +9,7 @@ from trajectoires import Sol
 from monnaie import Pieces
 from bot import Bot
 clock = pygame.time.Clock()
-
+continuer = True
 
 class Jeu:
     def __init__(self, screen, perso, arme,sons):
@@ -84,6 +84,7 @@ class Jeu:
             projectile.mouvement(self.bot, self.piece, self,self.sons)
 
     def afficher_jeu(self, pos_souris):
+        global continuer
         self.ecran.blit(self.background, (0, 0))
         self.sol.affichage(self.ecran)
 
@@ -105,10 +106,12 @@ class Jeu:
 
         if self.bot.pv <= 0 :
             self.bot.afficher_gg(self.ecran)
+            if self.bot.afficher_gg(self.ecran):
+                continuer=False
         affichage_parametre()
 
     def boucle_principale(self):
-        continuer = True
+        global continuer
         while continuer:
             pos_souris = pygame.mouse.get_pos()
 
@@ -121,7 +124,6 @@ class Jeu:
             self.mettre_a_jour_jeu()
             # ----- 3. AFFICHAGE -----
             self.afficher_jeu(pos_souris)
-
             pygame.display.update()
             clock.tick(60)
 
