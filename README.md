@@ -184,4 +184,9 @@ lorsque qu'on sort du menu.
 - __Timothée__: J'ai raccordé les différents bruitages aux personnages à l'aide de ma bibliothèque de bruitages dans ***main_menu.py***.
 Maintenant quand un personnage lance son arme et touche le sol ou le bot, cela produit un son.
 
+#### 2/05/2025:
+- __Timothée__: J'ai mis en place un bouton quitter à la fin du jeu lorsqu'on a éliminé le bot sur ***bot.py***. Puis pour ne pas forcer
+le code, j'ai mis la variable "continuer" de la boucle principale dans ***jeu.py*** en globale pour qu'en on appuie sur le bouton, cela
+fait quitter proprement la fenêtre.
+
 [***lien notion***](https://www.notion.so/Projet-Transverse-Equipe-A8-18f30068216c806396a2f057d07e91ca?pvs=4)
