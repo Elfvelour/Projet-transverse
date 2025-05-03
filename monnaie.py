@@ -37,7 +37,7 @@ class Pieces (pygame.sprite.Sprite):
 
         #temps de recharge pour le bonus de pièce
         self.dernier_ulti = 0  # temps en ms
-        self.temps_cooldown = 15000  # 10 secondes en ms
+        self.temps_cooldown = 10000  # 10 secondes en ms
 
 
     def afficher_monnaie(self, surface):  #affichage de l'image de pièce
