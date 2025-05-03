@@ -189,4 +189,9 @@ Maintenant quand un personnage lance son arme et touche le sol ou le bot, cela p
 le code, j'ai mis la variable "continuer" de la boucle principale dans ***jeu.py*** en globale pour qu'en on appuie sur le bouton, cela
 fait quitter proprement la fenêtre.
 
+#### 3/05/2025:
+- __Timothée__: Création d'une condition en plus pour le joueur et le bot pour qu'on ne puisse plus tirer lorsque le bot ou le joueur
+a été battu.
+
+
 [***lien notion***](https://www.notion.so/Projet-Transverse-Equipe-A8-18f30068216c806396a2f057d07e91ca?pvs=4)
