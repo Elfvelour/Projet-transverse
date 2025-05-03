@@ -67,7 +67,7 @@ class Jeu:
             if pygame.time.get_ticks() - self.temps_attente >= 3000 and not self.explosion_active:
                 if not self.projectiles_joueur and not self.projectiles_bot:
                     self.en_attente = False
-                    if not self.tour_joueur and self.bot.pv>0:
+                    if not self.tour_joueur and (self.bot.pv>0 or self.joueur.pv>0):
                         angle, puissance = self.bot.tir(self.joueur.rect.centerx, self.joueur.rect.centery)
                         projectile = Projectile(self.bot.rect.centerx, self.bot.rect.centery, [60, 60],
                                                 self.image_projectile, angle, puissance, "bot")
