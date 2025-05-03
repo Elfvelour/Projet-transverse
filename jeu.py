@@ -48,7 +48,7 @@ class Jeu:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:
             self.joueur.temps_debut = pygame.time.get_ticks()
         # tant qu'on appuis pas sur les paramètres et que l'angle est de moins de 95 °
-        if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.tour_joueur and mon_bouton_parametre.action and self.joueur.angle<=95 and (self.bot.pv>0 or self.joueur.pv>0):
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.tour_joueur and mon_bouton_parametre.action and self.joueur.angle<=95 and (self.bot.pv>0 and self.joueur.pv>0):
             puissance = self.joueur.relacher_tir()
             x_proj, y_proj = self.joueur.position_depart_projectile()
             projectile = Projectile(x_proj, y_proj, [60, 60], self.image_projectile, self.joueur.angle,
@@ -67,7 +67,7 @@ class Jeu:
             if pygame.time.get_ticks() - self.temps_attente >= 3000 and not self.explosion_active:
                 if not self.projectiles_joueur and not self.projectiles_bot:
                     self.en_attente = False
-                    if not self.tour_joueur and (self.bot.pv>0 or self.joueur.pv>0):
+                    if not self.tour_joueur and (self.bot.pv>0 and self.joueur.pv>0):
                         angle, puissance = self.bot.tir(self.joueur.rect.centerx, self.joueur.rect.centery)
                         projectile = Projectile(self.bot.rect.centerx, self.bot.rect.centery, [60, 60],
                                                 self.image_projectile, angle, puissance, "bot")
