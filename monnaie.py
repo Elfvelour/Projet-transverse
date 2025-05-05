@@ -3,7 +3,6 @@
 # Auteure : Marques Noémie                       #
 ##################################################
 
-import pygame
 from joueur import *
 
 # Création de la classe qui va gérer la monnaie
