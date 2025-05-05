@@ -4,15 +4,17 @@
 #####################################################
 
 from joueur import *
-from trajectoires import Projectile
-from trajectoires import Sol
+from trajectoires import Projectile, Sol, Trajectoire
 from monnaie import Pieces
 from bot import Bot
+import json
+import pygame
+
 clock = pygame.time.Clock()
 continuer = True
 
 class Jeu:
-    def __init__(self, screen, perso, arme,sons):
+    def __init__(self, screen, perso, arme, sons):
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")  # chargement des données
         self.ecran = screen
         self.perso = perso
@@ -22,7 +24,7 @@ class Jeu:
         self.sol = Sol()
         self.joueur = Joueur(100, 670, [32, 64], perso, arme)
         self.donnees_json = self.charger_donnees_json("gestion_stats.json")  # chargement des données
-        self.sons=sons
+        self.sons = sons
         self.projectiles_joueur = pygame.sprite.Group()
         self.projectiles_bot = pygame.sprite.Group()
 
@@ -34,9 +36,18 @@ class Jeu:
         self.temps_attente = 0  # Temps de début d'attente
         self.explosion_active = False  # True si une explosion est affichée
 
+        self.trajectoire = Trajectoire()
+        self.masse_projectile = self.get_masse_projectile()
+
     def charger_donnees_json(self, fichier):
         with open(fichier, "r", encoding="utf-8") as f:
             return json.load(f)
+
+    def get_masse_projectile(self):
+        for item in self.donnees_json:
+            if item["code P"] == self.perso and item["code A"] == self.arme:
+                return item.get("masse", 1)
+        return 1
 
     def obtenir_image_arme(self, personnage, arme):
         for item in self.donnees_json:
@@ -46,16 +57,17 @@ class Jeu:
 
     def gerer_evenements_jeu(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:
-            self.joueur.temps_debut = pygame.time.get_ticks()
-        # tant qu'on appuis pas sur les paramètres et que l'angle est de moins de 95 °
-        if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.tour_joueur and mon_bouton_parametre.action and self.joueur.angle<=95 and (self.bot.pv>0 and self.joueur.pv>0):
-            puissance = self.joueur.relacher_tir()
+            self.trajectoire.start_charging()
+
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.tour_joueur and mon_bouton_parametre.action and self.joueur.angle <= 95:
+            vitesse_initiale = self.trajectoire.stop_charging_and_compute_speed(self.masse_projectile)
+            puissance = vitesse_initiale / 10  # Exemple de conversion
             x_proj, y_proj = self.joueur.position_depart_projectile()
             projectile = Projectile(x_proj, y_proj, [60, 60], self.image_projectile, self.joueur.angle,
-                                    puissance, "joueur")
+                                    puissance, vitesse_initiale, "joueur")
             self.projectiles_joueur.add(projectile)
             self.piece.monnaie_joueur += 1
-            print(f"Le projectile a été tiré : puissance={puissance:.2f}")  # Debug
+            print(f"Le projectile a été tiré : puissance={puissance:.2f}, vitesse_initiale={vitesse_initiale:.2f}")  # Debug
             self.temps_attente = pygame.time.get_ticks()
             self.en_attente = True
             self.tour_joueur = False
@@ -67,10 +79,11 @@ class Jeu:
             if pygame.time.get_ticks() - self.temps_attente >= 3000 and not self.explosion_active:
                 if not self.projectiles_joueur and not self.projectiles_bot:
                     self.en_attente = False
-                    if not self.tour_joueur and (self.bot.pv>0 and self.joueur.pv>0):
+                    if not self.tour_joueur:
                         angle, puissance = self.bot.tir(self.joueur.rect.centerx, self.joueur.rect.centery)
+                        vitesse_initiale = 110 + (7 * puissance)  # Vous pouvez ajuster cette valeur selon vos besoins
                         projectile = Projectile(self.bot.rect.centerx, self.bot.rect.centery, [60, 60],
-                                                self.image_projectile, angle, puissance, "bot")
+                                                self.image_projectile, angle, puissance, vitesse_initiale, "bot")
                         self.projectiles_bot.add(projectile)
                         self.temps_attente = pygame.time.get_ticks()
                         self.en_attente = True
@@ -78,10 +91,10 @@ class Jeu:
                         print(f"Le bot a tiré.")  # Debug
 
         for projectile in self.projectiles_joueur:
-            projectile.mouvement(self.bot, self.piece, self,self.sons)
+            projectile.mouvement(self.bot, self.piece, self, self.sons)
 
         for projectile in self.projectiles_bot:
-            projectile.mouvement(self.bot, self.piece, self,self.sons)
+            projectile.mouvement(self.bot, self.piece, self, self.sons)
 
     def afficher_jeu(self, pos_souris):
         global continuer
@@ -104,10 +117,10 @@ class Jeu:
         self.piece.afficher_nombre_pieces(self.ecran)
         self.piece.afficher_bouton(self.ecran)
 
-        if self.bot.pv <= 0 :
+        if self.bot.pv <= 0:
             self.bot.afficher_gg(self.ecran)
             if self.bot.afficher_gg(self.ecran):
-                continuer=False
+                continuer = False
         affichage_parametre()
 
     def boucle_principale(self):

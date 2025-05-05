@@ -5,10 +5,10 @@
 
 import pygame
 import math
-from main_menu import  Musique
+from main_menu import Musique
+
 musique = Musique()
 clock = pygame.time.Clock()
-
 
 class Sol(pygame.sprite.Sprite):
     def __init__(self):
@@ -18,14 +18,13 @@ class Sol(pygame.sprite.Sprite):
     def affichage(self, surface):
         pygame.draw.rect(surface, (0, 200, 100), self.rect)
 
-
 class Projectile(pygame.sprite.Sprite):
-    def __init__(self, x, y, taille, image, angle, puissance, tireur):
+    def __init__(self, x, y, taille, image, angle, puissance, vitesse_initiale, tireur):
         super().__init__()
         self.image = pygame.transform.scale(image, (taille[0], taille[1]))
         self.rect = pygame.Rect(x, y, taille[0], taille[1])
         self.angle = angle
-        self.vitesse = 110 + (7 * puissance)
+        self.vitesse = vitesse_initiale
         self.vitesse_x = math.cos(math.radians(self.angle)) * self.vitesse
         self.vitesse_y = -math.sin(math.radians(self.angle)) * self.vitesse
         self.gravite = 7
@@ -39,7 +38,7 @@ class Projectile(pygame.sprite.Sprite):
         self.hors_ecran = False  # True si le projectile est sorti de l'écran
         self.tireur = tireur  # "joueur" ou "bot" pour éviter les mélanges
 
-    def mouvement(self, bot, piece, jeu,sons):
+    def mouvement(self, bot, piece, jeu, sons):
         """Gère le mouvement du projectile et ses collisions"""
         if self.temps_explosion:
             if pygame.time.get_ticks() - self.temps_explosion > 500:
@@ -104,3 +103,20 @@ class Projectile(pygame.sprite.Sprite):
             surface.blit(self.explosion, self.explosion_rect)
         else:
             surface.blit(self.image, self.rect)
+
+
+class Trajectoire:
+    def __init__(self):
+        self.temps_chargement = 0
+        self.temps_debut = 0
+
+    def start_charging(self):
+        self.temps_debut = pygame.time.get_ticks()
+
+    def stop_charging_and_compute_speed(self, masse):
+        self.temps_chargement = (pygame.time.get_ticks() - self.temps_debut) / 1000  # en secondes
+        if self.temps_chargement > 3:
+            self.temps_chargement = 3
+        facteur = 1200  # tu peux ajuster ce facteur pour équilibrer gameplay vs physique
+        energie = facteur * self.temps_chargement
+        return math.sqrt((2 * energie) / masse)
