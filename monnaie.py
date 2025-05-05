@@ -48,25 +48,25 @@ class Pieces (pygame.sprite.Sprite):
         surface.blit(texte, (self.x + 80, self.y + 20))  # Affichage à côté de la pièce
 
     def afficher_bouton(self, surface): #affichage du bouton boost
-        surface.blit(self.image_bouton, self.rect_bouton)
+        surface.blit(self.image_bouton, self.rect_bouton) #affichage de l'image de la pièce
         texte = self.font_piece.render("Barre espace pour Boost", True, (255, 255, 255))
-        surface.blit(texte, (self.bouton_x - 780, self.bouton_y - 10))
+        surface.blit(texte, (self.bouton_x - 780, self.bouton_y - 10)) #affichage de texte
         texte_2 = self.font_piece.render("Attendre 3 tirs", True, (221, 226, 63))
-        surface.blit(texte_2, (self.bouton_x - 500, self.bouton_y + 150))
+        surface.blit(texte_2, (self.bouton_x - 500, self.bouton_y + 150)) #affichage de texte
         if self.coffre_ouvert and pygame.time.get_ticks() - self.dernier_ulti >= 1000:  #Affichage du coffre en fonction du temps
             self.image_bouton = self.image_coffre_ferme  #coffre fermé si l'ulti pas utilisé depuis un certain temps
-            self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))
+            self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157)) #position du coffre
             self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))
             self.coffre_ouvert = False  #coffre ouvert si bouton cliqué et temps de couldown
 
     def ulti(self, jeu): #gestion du boost de pièce et de l'affichage du coffre
         temps_actuel = pygame.time.get_ticks()
         if temps_actuel - self.dernier_ulti >= self.temps_cooldown:
-            jeu.joueur.degat += 10
+            jeu.joueur.degat += 10 #augmentation des dégâts de joueur
             self.image_bouton = self.image_coffre_ouvert  #changement du coffre fermé en ouvert
             self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))
             self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))
-            self.coffre_ouvert = True
+            self.coffre_ouvert = True #Etat du coffre pendant le temps du couldown
             self.dernier_ulti = temps_actuel
 
     def verifier_clic(self, event, jeu):  #vérification de l'activation de l'ulti, si espace est appuyé
