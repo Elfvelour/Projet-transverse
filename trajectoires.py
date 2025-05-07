@@ -14,9 +14,12 @@ class Sol(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.rect = pygame.Rect(0, 800, 1920, 300)
+        #self.rect = pygame.image.load("assets/images/affichage/toit_immeuble.png").convert()
+        self.rect = pygame.image.load("assets/images/affichage/toit_immeuble.png").convert()
+        self.rect_position = (0, 800)
 
     def affichage(self, surface):
-        pygame.draw.rect(surface, (0, 200, 100), self.rect)
+        surface.blit(self.rect, self.rect_position)
 
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, x, y, taille, image, angle, puissance, vitesse_initiale, tireur):
