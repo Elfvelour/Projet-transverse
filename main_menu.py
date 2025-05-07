@@ -184,7 +184,6 @@ class Musique:
             'canard':pygame.mixer.Sound("assets/sons/canard.mp3"),
             'os':pygame.mixer.Sound("assets/sons/os.mp3"),
             'noel':pygame.mixer.Sound("assets/sons/mere_noel.mp3"),
-
         }
         #bibliothèque des chansons
         self.chansons={
@@ -207,6 +206,7 @@ class Musique:
     #elle lance une musique
     def jouer_musique(self,nom):
         if nom in self.chansons:
+            pygame.mixer.music.stop()
             pygame.mixer.music.load(self.chansons[nom])
             pygame.mixer.music.play(-1)
 
