@@ -59,7 +59,7 @@ class Jeu:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:
             self.trajectoire.start_charging()
 
-        if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.tour_joueur and mon_bouton_parametre.action and self.joueur.angle <= 95:
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and self.tour_joueur and mon_bouton_parametre.action and self.joueur.angle <= 95 and self.joueur.pv :
             vitesse_initiale = self.trajectoire.stop_charging_and_compute_speed(self.masse_projectile)
             puissance = vitesse_initiale / 10  # Exemple de conversion
             x_proj, y_proj = self.joueur.position_depart_projectile()
@@ -79,7 +79,7 @@ class Jeu:
             if pygame.time.get_ticks() - self.temps_attente >= 3000 and not self.explosion_active:
                 if not self.projectiles_joueur and not self.projectiles_bot:
                     self.en_attente = False
-                    if not self.tour_joueur:
+                    if not self.tour_joueur and self.bot.pv > 0:
                         angle, puissance = self.bot.tir(self.joueur.rect.centerx, self.joueur.rect.centery)
                         vitesse_initiale = 110 + (7 * puissance)  # Vous pouvez ajuster cette valeur selon vos besoins
                         projectile = Projectile(self.bot.rect.centerx, self.bot.rect.centery, [60, 60],
