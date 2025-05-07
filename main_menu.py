@@ -251,11 +251,11 @@ def bascule_musique(switch_musique):
         musique.dernier_clique = temps_actuel
         if switch_musique:
             # Arrête la musique et affiche le logo play
-            pygame.mixer.music.stop()
+            pygame.mixer.music.pause()
             switch_musique = False
         else:
             # Lance la musique et affiche le logo pause
-            pygame.mixer.music.play()
+            pygame.mixer.music.unpause()
             switch_musique = True
     return switch_musique
 
