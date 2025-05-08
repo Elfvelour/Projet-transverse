@@ -23,6 +23,7 @@ class Joueur(pygame.sprite.Sprite):
                 self.pv_max = item["pv"]
                 self.pv = item["pv"]
                 self.degat = item["degat"]
+                self.joueur_touche = 0  # Compteur pour les collisions qui touche le joueur (historique)
                 break
 
         self.rect = pygame.Rect(x, y, taille[0], taille[1])
@@ -31,6 +32,8 @@ class Joueur(pygame.sprite.Sprite):
         self.max_charge = 60
         self.temps_debut = None  # Temps au début du clic
         self.longueur_ligne = 50  # Longueur de la ligne blanche
+
+        self.collisions_joueur = 0  # Compteur pour les collisions du joueur (historique)
 
     def charger_tir(self):
         if self.temps_debut:
@@ -102,6 +105,7 @@ class Joueur(pygame.sprite.Sprite):
     def subir_degats(self, montant):
         """Réduit les points de vie du joueur"""
         self.pv = max(0, self.pv - montant)
+        self.collisions_joueur += 1  # Incrémenter le compteur (historique)
         print(f"Le joueur a été touché ! PV restants : {self.pv}")
 
     def afficher_barre_vie(self, surface):

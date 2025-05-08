@@ -62,6 +62,7 @@ class Pieces (pygame.sprite.Sprite):
         temps_actuel = pygame.time.get_ticks()
         if temps_actuel - self.dernier_ulti >= self.temps_cooldown:
             jeu.joueur.degat += 10 #augmentation des dégâts de joueur
+            self.monnaie_joueur -= 30 #Les pièces du joueur sont utilisées
             self.image_bouton = self.image_coffre_ouvert  #changement du coffre fermé en ouvert
             self.image_bouton = pygame.transform.scale(self.image_bouton, (211, 157))
             self.rect_bouton = self.image_bouton.get_rect(topright=(self.bouton_x, self.bouton_y))

@@ -9,6 +9,11 @@ from monnaie import Pieces
 from bot import Bot
 import json
 import pygame
+from datetime import datetime
+
+# Ouvrir le fichier historique.txt en mode ajout
+with open("historique.txt", "a", encoding="utf-8") as fichier_historique:
+    pass  # Juste pour s'assurer que le fichier est ouvert
 
 clock = pygame.time.Clock()
 continuer = True
@@ -42,9 +47,48 @@ class Jeu:
 
         self.debut_partie = pygame.time.get_ticks()
 
+        # Historique
+        self.lancements_joueur = 0  # Compteur pour les lancements du joueur
+        #self.collisions_joueur = 0  # Compteur pour les collisions du joueur
+        self.lancements_bot = 0  # Compteur pour les lancements du bot
+        #self.collisions_bot = 0  # Compteur pour les collisions du bot
+
     def charger_donnees_json(self, fichier):
         with open(fichier, "r", encoding="utf-8") as f:
             return json.load(f)
+
+    def enregistrer_historique(self, perso, arme):
+        # Trouver les détails du personnage et de l'arme
+        details_perso = None
+        details_arme = None
+
+        for item in self.donnees_json:
+            if item["code P"] == perso:
+                details_perso = item
+                if item["code A"] == arme:
+                    details_arme = item
+
+        if details_perso and details_arme:
+            # Créer des entrées pour l'historique
+            date_heure = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            date_h = f"{date_heure}\n"
+            choix_perso_h = f"- Personnage choisi : {details_perso['personnage']}\n"
+            choix_arme_h = f"- Arme choisie : {details_arme['nom']}\n"
+            joueur_h = f"- Le bot a touché le joueur {self.joueur.collisions_joueur} fois sur {self.lancements_bot} coup(s)\n"
+            bot_h = f"- Le joueur a touché le bot {self.bot.collisions_bot} fois sur {self.lancements_joueur} coup(s)\n"
+            if self.bot.victoire_joueur :
+                resultat_h = f"-> Victoire du joueur ! Félicitations !\n\n"
+            else :
+                resultat_h = f"-> Partie non finie ou perdue...\n\n"
+
+            # Écrire dans le fichier historique.txt
+            with open("historique.txt", "a", encoding="utf-8") as fichier:
+                fichier.write(date_h)
+                fichier.write(choix_perso_h)
+                fichier.write(choix_arme_h)
+                fichier.write(joueur_h)
+                fichier.write(bot_h)
+                fichier.write(resultat_h)
 
     def get_masse_projectile(self):
         for item in self.donnees_json:
@@ -74,6 +118,7 @@ class Jeu:
                                     puissance, vitesse_initiale, "joueur")
             self.projectiles_joueur.add(projectile)
             self.piece.monnaie_joueur += 1
+            self.lancements_joueur += 1  # Incrémenter le compteur de lancements du joueur (historique)
             print(f"Le projectile a été tiré : puissance={puissance:.2f}, vitesse_initiale={vitesse_initiale:.2f}")
             self.temps_attente = pygame.time.get_ticks()
             self.en_attente = True
@@ -92,6 +137,7 @@ class Jeu:
                         projectile = Projectile(self.bot.rect.centerx, self.bot.rect.centery, [60, 60],
                                                 self.image_projectile_bot, angle, puissance, vitesse_initiale, "bot")
                         self.projectiles_bot.add(projectile)
+                        self.lancements_bot += 1  # Incrémenter le compteur de lancements du bot (historique)
                         self.temps_attente = pygame.time.get_ticks()
                         self.en_attente = True
                         self.tour_joueur = True
@@ -144,5 +190,7 @@ class Jeu:
             self.afficher_jeu(pos_souris)
             pygame.display.update()
             clock.tick(40)
+
+        self.enregistrer_historique(self.perso, self.arme)
 
         pygame.quit()

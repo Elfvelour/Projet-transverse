@@ -26,6 +26,7 @@ class Bot(pygame.sprite.Sprite):
                 self.pv_max = item["pv"]
                 self.pv = item["pv"]
                 self.degat = item["degat"]
+                self.bot_touche = 0  # Compteur pour les collisions qui touche le bot (historique)
                 break
         self.rect = pygame.Rect(x, y, 150, 190)
         self.angle = 0
@@ -39,6 +40,9 @@ class Bot(pygame.sprite.Sprite):
         self.image_gg = pygame.image.load('assets/images/affichage/trophe.png')
         self.image_gg = pygame.transform.scale(self.image_gg, self.taille_gg)
         self.rect_gg = self.image_gg.get_rect(topright=(self.x_gg, self.y_gg - 100))
+
+        self.collisions_bot = 0  # Compteur pour les collisions du bot (historique)
+        self.victoire_joueur = False
 
     def affichage(self, surface):
         surface.blit(self.image_bot, self.rect)
@@ -118,6 +122,7 @@ class Bot(pygame.sprite.Sprite):
     def subir_degats(self, montant):
         """Réduit les points de vie du bot"""
         self.pv = max(0, self.pv - montant)
+        self.collisions_bot += 1  # Incrémenter le compteur (historique)
         print(f"Le bot a été touché ! PV restants : {self.pv}")
 
     def afficher_barre_vie(self, surface):
@@ -139,6 +144,7 @@ class Bot(pygame.sprite.Sprite):
         if mon_bouton_quitter_2.bouton_clique():
             return True
     def afficher_gg(self, surface):  # affichage de la phrase de fin
+        self.victoire_joueur = True
         surface.blit(self.image_gg, self.rect_gg)
         texte_3 = self.font.render("Ennemi battu !", True, (255, 255, 255))
         Bot.gestion_quitter(self, x, y, couleur, longueur_b, hauteur_b, police_b)
