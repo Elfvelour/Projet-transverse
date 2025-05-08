@@ -138,6 +138,6 @@ class Jeu:
             # ----- 3. AFFICHAGE -----
             self.afficher_jeu(pos_souris)
             pygame.display.update()
-            clock.tick(60)
+            clock.tick(40)
 
         pygame.quit()
