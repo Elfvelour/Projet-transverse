@@ -52,9 +52,13 @@ pygame, math, random, json, os, ctypes, time
 
 #### - Thomas Aubert :
 
-[![trajectoires.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoires.py) :
+[![trajectoires.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoires.py) : Création et amélioration de la trajectoire. Ajout de physique et d'un système de masse pour les projectiles. 
 
-[![bot.py](https://img.shields.io/badge/bot-green)](bot.py) :
+[![bot.py](https://img.shields.io/badge/bot-green)](bot.py) : Faire tirer le bot. Ajout d'un système de vie, dégâts, barre de vie. 
+
+[![bot.py](https://img.shields.io/badge/joueur.py-green)](joueur.py) : Base du personnage joueur. Ajout du système de vie, dégâts et barre de vie.
+
+[![bot.py](https://img.shields.io/badge/gestion_stats-blue)](gestion_stats.json) : Création des statistiques de vie, dégâts et masse pour les personnages
 
 
 #### - Rafaël De Jesus Coelho :
@@ -85,6 +89,8 @@ Commun : ***assets***
 - __Timothée__ : Initialisation du fichier ***main_menu.py*** et suppression de l'ancien fichier menu.py pour repartir 
 d'une base saine après de nombreux tests sur ce dernier
 
+
+- __Thomas__ : Début du fichier **trajectoires.py** avec quelsques images pour commencer. J'ai commencé la class Sol. 
 ##### -23/02/2025:
 - __Flavie__ : Mise en place du lancement du projectile par clic gauche et de la ligne blanche qui montre le début de la trajectoire
 
@@ -115,6 +121,9 @@ dans le fichier ***main_menu.py***.
 - __Noémie__ : Recherche des assets pour les armes du jeu
                       Modification du .json pour correspondre au choix du joueur
 
+
+- __Thomas__ : Class Sol fini. Possibilité de tirer donc amélioration de la trajectoire. J'ai aussi réussi à réaliser la collition avec le sol.
+
 ##### -14/03/2025:
 - __Noémie__ : Ajout du bouton pour utiliser l'ultime coup du personnage 
 
@@ -125,9 +134,15 @@ au propre les ***assets*** en les classant en deux types les images et les sons 
 fichiers du jeu comme ***menup*** pour ***main_menu.py***, etc. J'ai recherché de nouvelles images pour le jeu ainsi que 
 le redimensionnement du fond d'écran sur gimp.
 
+#### -17/03/2025:
+- __Thomas__ : J'ai réussi à faire jouer le bot et le joueur chacun leur tour et j'ai fais en sorte qu'une collision entre le joueur et le bot affiche une explosion à l'impact.
+
 ##### -24/03/2025:
 - __Flavie__ : Améliorations des trajectoires et du bot (gravité et projectiles)
                     Ajustement du positionnement des images d'explosion (centrées par rapport au projectile)
+
+
+- __Thomas__ : Quelques petites modifications du bot et l'affichage de l'explosion fonctionne mieux. Quelques ajustement avec le code de Timothée pour que nos deux programmes fonctionnent ensembles.
 
 ##### -25/03/2025:
 - __Timothée__ : Après avoir mis au propre les ***assets***, j'ai continué de faire le ménage en supprimant et remplacent 
@@ -202,6 +217,10 @@ Je résous le problème en rajoutant la condition de fermeture du menu pour qu'o
 Et sur le fichier ***jeu.py***, je rajoute la même condition en rajoutant une limite d'angle de 95° du tireur pour qu'on ne puisse pas tirer immédiatement
 lorsque qu'on sort du menu.
 
+#### -23/04/2025:
+- __Thomas__ : Après une pause d'un mois sur le projet, j'ai (après beaucoup de galères)  réussi à faire tirer le bot vers le joueur et fais en sorte que ce dernier puisse le toucher. J'ai également ajouté un système de PV et de dégâts au joueur et bot. 
+
+
 #### -25/04/2025:
 - __Timothée__ : J'ai raccordé les différents bruitages aux personnages à l'aide de ma bibliothèque de bruitages dans ***main_menu.py***.
 Maintenant quand un personnage lance son arme et touche le sol ou le bot, cela produit un son.
@@ -216,5 +235,14 @@ fait quitter proprement la fenêtre.
 a été battu.
 #### 3/05/2025:
 - __Timothée__ :
+
+#### 04/05/2025:
+- __Thomas__ : J'ai ajouté la masse de chaque arme au fichier **gestion_stats.json** et la physique mais il y a encore beaucoup de bugs.
+
+#### 05/05/2025:
+- __Thomas__ : Ajout d'un système de vitesse initiale ce qui a règlé tous mes problèmes de masses. 
+
+#### 08/05/2025: 
+- __Thomas__ : Finalisation du système de masse et corrections de tous les petits bugs qui ne gênait pas le jeu mais qui visuellement étaient dérangeants.
 
 [***Lien notion***](https://www.notion.so/Projet-Transverse-Equipe-A8-18f30068216c806396a2f057d07e91ca?pvs=4)
