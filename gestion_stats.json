@@ -132,10 +132,10 @@
   {
     "code P" : "PB",
     "code A" : "A0",
-    "personnage" : "Jean-Soma méchant",
+    "personnage" : "Jean-Soma bot",
     "image_perso" : "assets/images/perso/jean_soma_bot.png",
     "nom" : "Default projectile",
-    "image_arme" : "assets/images/armes/default_projectile.png",
+    "image_arme" : "assets/images/armes/discours.png",
     "description_perso" : "Le plus grand professeur des matières littéraires.",
     "description_arme" : "Un gros KAYOUX est utile pour se protéger.",
     "pv" : 250,
