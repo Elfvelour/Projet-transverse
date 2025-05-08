@@ -4,19 +4,20 @@
  Développement d'un jeu sur python à l'aide de la bibliothèque python
 
 ## Caractéristiques
--  Jeu de tir en 2D
+- Jeu de tir en 2D
 - 1 Vs 1 contre un bot 
--  De multiples personnages et armes
-- Un menu intéractif de musique
+- De multiples personnages et armes
+- Un menu interactif de musique
 
 ### Caractéristiques techniques :
 
--8 fichiers _py_, 1 fichier _json_, 1 fichier _txt_, 35 fichiers _png_, 10 fichiers _mp3_, 1 fichier _wav_
+- 8 fichiers _.py_, 1 fichier _.json_, 2 fichiers _.txt_, 35 fichiers _.png_, 10 fichiers _.mp3_, 1 fichier _.wav_
 noémie pk utilisation du json
-thomas pk enlever le pleine écran
+thomas pk enlever le plein écran
 flavie comment déterminer les trajectoires
 - utilisation de langage orienté objet avec l'utilisation des classes.
-#### bibliothèques python utilisées :
+
+#### Bibliothèques python utilisées :
 
 pygame, math, random, json, os, ctypes, time
 
@@ -36,7 +37,7 @@ pygame, math, random, json, os, ctypes, time
 
 #### - Flavie Brémand :
 
-[![jeu.py](https://img.shields.io/badge/jeu-green)](jeu.py) : gestion de l'alternance entre le joueur et le bot, affichage de l'explosion et boucle principale
+[![jeu.py](https://img.shields.io/badge/jeu-green)](jeu.py) : gestion de l'alternance entre le joueur et le bot, affichage de l'explosion, boucle principale et gestion de l'historique
 
 [![trajectoires.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoires.py) : calcul de la trajectoire du tir du joueur et de la puissance du tir en fonction du clic gauche, gestion des images d'explosion
 
@@ -65,6 +66,7 @@ pygame, math, random, json, os, ctypes, time
 
 [![menu_joueur.py](https://img.shields.io/badge/menu_joueur-blue)](menu_joueur.py) :
 
+
 Commun : ***assets***
 
 
@@ -74,15 +76,22 @@ Commun : ***assets***
 #### Février 2025 :
 
 ##### -03/02/2024:
+
 - __Noémie__ : Organisation des fichiers du jeu sur le fichier ***contenu.txt***
 
+
 ##### -04/02/2025:
+
 - __Noémie__ : Création des statistiques des armes sur le fichier ***gestion_stats.json***
 
+
 ##### -09/02/2025:
+
 - __Noémie__ : Initialisation de la fonction run_game dans le fichier ***main.py*** + invention des descriptions
 
+
 ##### -10/02/2025:
+
 - __Noémie__ : Initialisation de la fonction ***monnaie.py***
 
 
@@ -91,10 +100,15 @@ d'une base saine après de nombreux tests sur ce dernier
 
 
 - __Thomas__ : Début du fichier **trajectoires.py** avec quelsques images pour commencer. J'ai commencé la class Sol. 
+
+
 ##### -23/02/2025:
+
 - __Flavie__ : Mise en place du lancement du projectile par clic gauche et de la ligne blanche qui montre le début de la trajectoire
 
+
 ##### -24/02/2025:
+
 - __Noémie__ : Le joueur gagne une pièce à chaque fois qu'il tire
 
 
@@ -102,7 +116,9 @@ d'une base saine après de nombreux tests sur ce dernier
 dans le fichier ***main_menu.py***. Je teste les différentes couleurs comme le rouge, rouge bordeaux ou le noir pour les boutons 
 ou le fond
 
+
 ##### -28/02/2025:
+
 - __Flavie__ : Mise en place de la puissance de la trajectoire parabole (vitesse en fonction du temps du clic gauche)
 
 
@@ -110,9 +126,11 @@ ou le fond
 le bouton quitter cela fait fermer la fenêtre. Puis j'ai initialisé la musique avec une boucle infinie avec la bibliothèque pygame 
 dans le fichier ***main_menu.py***.
 
+
 #### Mars 2025 :
 
 ##### -03/03/2025:
+
 - __Flavie__ : Ajustements dans la trajectoire (notamment sur la vitesse et l'angle)
                       Création du fichier bot et début de son code
                       Séparation des fichiers ***main.py*** et ***trajectoires.py*** pour plus de clarté
@@ -124,8 +142,11 @@ dans le fichier ***main_menu.py***.
 
 - __Thomas__ : Class Sol fini. Possibilité de tirer donc amélioration de la trajectoire. J'ai aussi réussi à réaliser la collition avec le sol.
 
+
 ##### -14/03/2025:
+
 - __Noémie__ : Ajout du bouton pour utiliser l'ultime coup du personnage 
+
 
 ##### -15/03/2025:
 - __Timothée__ : Création d'une fonction pour animer les boutons tels qu'on appuie dessus cela lui donne une couleur plus sombre.
@@ -134,32 +155,41 @@ au propre les ***assets*** en les classant en deux types les images et les sons 
 fichiers du jeu comme ***menup*** pour ***main_menu.py***, etc. J'ai recherché de nouvelles images pour le jeu ainsi que 
 le redimensionnement du fond d'écran sur gimp.
 
+
 #### -17/03/2025:
+
 - __Thomas__ : J'ai réussi à faire jouer le bot et le joueur chacun leur tour et j'ai fais en sorte qu'une collision entre le joueur et le bot affiche une explosion à l'impact.
 
+
 ##### -24/03/2025:
+
 - __Flavie__ : Améliorations des trajectoires et du bot (gravité et projectiles)
                     Ajustement du positionnement des images d'explosion (centrées par rapport au projectile)
 
 
 - __Thomas__ : Quelques petites modifications du bot et l'affichage de l'explosion fonctionne mieux. Quelques ajustement avec le code de Timothée pour que nos deux programmes fonctionnent ensembles.
 
+
 ##### -25/03/2025:
+
 - __Timothée__ : Après avoir mis au propre les ***assets***, j'ai continué de faire le ménage en supprimant et remplacent 
 certaines par d'autres plus pertinentes et esthétiques. Lors de toutes les modifications d'images trouvées sur internet, j'ai utilisé
 GIMP qui fut d'une grande utilité pour moi. J'ai aussi corrigé le bug du son de la potion en s'activant une fois
 et non plus à chaque rafraichissement de la fenêtre dans ***trajectoires.py***.
 
+
 #### Avril 2025 :
 
 #### -03/04/2025:
+
 - __Timothée__ : J'ai commencé à commenter mon code pour que chaque personne du groupe puisse comprendre le mien
 et lors de problèmes sur le code, que j'arrive plus facilement à comprendre l'erreur. J'ai aussi créé le bouton "revenir en arrière" pour
 revenir en arrière lors du lancement du jeu prévu initialement. Il s'agit d'un bouton en deux parties la partie caché le bouton physique
 caché par le fond d'écran et la partie visible l'image du bouton.
 
+
 ##### -06/04/2025:
- 
+
 - __Flavie__ : Refonte de la boucle principale
                     Positionnement correct des images d'explosion (SUR le sol)
                     Essais d'instauration pour le bot de plages de valeurs où tirer
@@ -173,7 +203,7 @@ et créer deux fonctions pour changer et arrêter la musique. Enfin la création
 
 
 ##### -07/04/2025:
- 
+
 - __Flavie__ : Améliorations dans ***trajectoires.py*** pour plus de clarté
                     Séparation du fichier en plusieurs : ***trajectoires.py*** (sol et trajectoire du joueur), ***joueur.py***, ***bot.py***, ***jeu.py***
                     Rectifications qui en découlent dans le main
@@ -187,6 +217,7 @@ Création du menu paramètre translucide avec la bibliothèque pygame. Simplific
 les lignes de codes de ma boucle principales dans des fonctions. Puis j'ai simplifié leurs expressions jusqu'à avoir deux lignes de codes dans ma
 boucle principale sans compter les lignes de bases pour lancer le jeu.
 
+
 ##### -14/04/2025:
 
 - __Timothée__ :  Après avoir eu de nouveau un *main* qui ne marchait pas, je me suis remis au travail pour trouver une solution. Et après
@@ -197,52 +228,75 @@ la musique un délai de temps avec la bibliothèque time avec un intervalle de 1
 
 
 ##### -17/04/2025:
+
 - __Timothée__ : J'ai affiché l'interface de la musique sur le menu des paramètres avec les boutons "jouer" et "pause" et "en avant" et "en arrière".
 Puis j'ai ajouté dans ***main_menu.py*** dans la fonction *Menu_parametre()* des lignes de codes pour afficher les crédits.
 Je l'ai mis dans la police souhaitée avec nos noms respectifs.
 
+
 ##### -19/04/2025:
+
 - __Timothée__ :  Après quelques heures, j'ai résolu le problème d'affichage du bouton jouer et arrêter avec un booléen sur le fichier ***main_menu.py***. Puis j'ai mis
 les bonnes fonctions pour arrêter et jouer de la musique. Et on a rajouté une condition en plus lorsqu'on change de musique cela reste
 sur le logo pause. On a donc un menu qui permet de faire pause et jouer de la musique en changeant en avant ou arrière la chanson parmi la liste.
 
+
 ##### -20/04/2025:
+
 - __Timothée__ : J'ai réussi après quelque temps à pouvoir utiliser les paramètres tout le temps sur le jeu en mettant la fonction
 *affichage_paramètre()* dans les fichiers ***jeu.py*** et ***menu_joueur.py***. On a donc un menu des paramètres fonctionnel dans le jeu.
 
+
 #### -22/04/2025:
+
 - __Timothée__ : En faisant quelques tests sur le jeu pour vérifier que mon code n'avait pas d'erreurs, je m'aperçois qu'on peut cliquer 
 sur les personnages et lancer le jeu tandis que le menu des paramètres est lancé. Le même problème est apparu sur le lancer des projectiles avec le menu ouvert.
 Je résous le problème en rajoutant la condition de fermeture du menu pour qu'on puisse choisir son personnage sur le fichier ***menu_joueur.py***.
 Et sur le fichier ***jeu.py***, je rajoute la même condition en rajoutant une limite d'angle de 95° du tireur pour qu'on ne puisse pas tirer immédiatement
 lorsque qu'on sort du menu.
 
+
 #### -23/04/2025:
+
 - __Thomas__ : Après une pause d'un mois sur le projet, j'ai (après beaucoup de galères)  réussi à faire tirer le bot vers le joueur et fais en sorte que ce dernier puisse le toucher. J'ai également ajouté un système de PV et de dégâts au joueur et bot. 
 
 
 #### -25/04/2025:
+
 - __Timothée__ : J'ai raccordé les différents bruitages aux personnages à l'aide de ma bibliothèque de bruitages dans ***main_menu.py***.
 Maintenant quand un personnage lance son arme et touche le sol ou le bot, cela produit un son.
 
+
 #### 2/05/2025:
+
 - __Timothée__ : J'ai mis en place un bouton quitter à la fin du jeu lorsqu'on a éliminé le bot sur ***bot.py***. Puis pour ne pas forcer
 le code, j'ai mis la variable "continuer" de la boucle principale dans ***jeu.py*** en globale pour quand on appuie sur le bouton, cela
 fait quitter proprement la fenêtre.
 
+
 #### 3/05/2025:
+
 - __Timothée__ : Création d'une condition en plus pour le joueur et le bot pour qu'on ne puisse plus tirer lorsque le bot ou le joueur
 a été battu.
-#### 3/05/2025:
-- __Timothée__ :
+
 
 #### 04/05/2025:
+
 - __Thomas__ : J'ai ajouté la masse de chaque arme au fichier **gestion_stats.json** et la physique mais il y a encore beaucoup de bugs.
 
+
 #### 05/05/2025:
+
 - __Thomas__ : Ajout d'un système de vitesse initiale ce qui a règlé tous mes problèmes de masses. 
 
-#### 08/05/2025: 
+
+#### 08/05/2025:
+
 - __Thomas__ : Finalisation du système de masse et corrections de tous les petits bugs qui ne gênait pas le jeu mais qui visuellement étaient dérangeants.
+
+
+- __Flavie__ : Création et finalisation de l'historique
+
+
 
 [***Lien notion***](https://www.notion.so/Projet-Transverse-Equipe-A8-18f30068216c806396a2f057d07e91ca?pvs=4)
