@@ -120,6 +120,6 @@ class Trajectoire:
         self.temps_chargement = (pygame.time.get_ticks() - self.temps_debut) / 1000  # en secondes
         if self.temps_chargement > 3:
             self.temps_chargement = 3
-        facteur = 1200  # tu peux ajuster ce facteur pour équilibrer gameplay vs physique
+        facteur = 2000  #ajuster ce facteur pour équilibrer gameplay vs physique
         energie = facteur * self.temps_chargement
-        return math.sqrt((2 * energie) / masse)
+        return math.sqrt((3 * energie) / masse)
