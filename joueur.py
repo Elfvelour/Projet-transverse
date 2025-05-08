@@ -10,7 +10,6 @@ from menu_joueur import *
 
 clock = pygame.time.Clock()
 
-
 class Joueur(pygame.sprite.Sprite):
     def __init__(self, x, y, taille, perso, arme):
         super().__init__()
@@ -40,10 +39,17 @@ class Joueur(pygame.sprite.Sprite):
 
     def relacher_tir(self):
         puissance = self.charge_tir / self.max_charge
+        vitesse_initiale = self.calculer_vitesse_initiale(puissance)
         self.charge_tir = 0
         self.temps_debut = None
-        print(f"Puissance du tir : {puissance:.2f}")  # Debug
-        return puissance
+        print(f"Puissance du tir : {puissance:.2f}, Vitesse initiale : {vitesse_initiale:.2f}")  # Debug
+        return puissance, vitesse_initiale
+
+    def calculer_vitesse_initiale(self, puissance):
+        """Calcule la vitesse initiale en fonction de la puissance du tir."""
+        vitesse_min = 100
+        vitesse_max = 200
+        return vitesse_min + (vitesse_max - vitesse_min) * puissance
 
     def rotation_arme(self, pos_souris):
         dx = pos_souris[0] - self.rect.centerx
@@ -103,7 +109,7 @@ class Joueur(pygame.sprite.Sprite):
         largeur_max = 100
         hauteur = 10
         x = self.rect.centerx - largeur_max // 2
-        y = self.rect.top - 20
+        y = self.rect.top - 60 #hauteur de la barre de vie
 
         largeur_actuelle = int((self.pv / self.pv_max) * largeur_max)
         pygame.draw.rect(surface, (255, 0, 0), (x, y, largeur_max, hauteur))  # fond rouge
