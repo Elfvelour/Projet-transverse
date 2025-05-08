@@ -151,9 +151,6 @@ class Bouton:
     @staticmethod
     # créer le menu des règles
     def menu_regle():
-
-        if mon_bouton_jouer.bouton_clique():
-            mon_bouton_ok.action=False
         couleur_param = (0, 0, 0, 192)  # noir transparent
         taille_param = (50, 50, 1800, 800)  # paramètre du rectangle paramètre
         surface_param = pygame.Surface(pygame.Rect(taille_param).size,pygame.SRCALPHA)  # création de la surface translucide
@@ -201,8 +198,8 @@ class Bouton:
         #si on clique sur le bouton quitter cela fait quitter le jeu
         if mon_bouton_quitter.bouton_clique():
             return False
-        # si on clique le bouton paramètre, on lance le bruitage de bouton
-        if mon_bouton_parametre.bouton_clique() and mon_bouton_parametre.action==True:
+        # si on clique le bouton paramètre, on lance le bruitage de bouton (on ne peut pas le lancer pendant les règles)
+        if mon_bouton_parametre.bouton_clique() and mon_bouton_parametre.action==True and mon_bouton_jouer.action == True:
             mon_bouton_parametre.action=False
             musique.jouer_bruitage('clique')
         #si on clique sur le bouton revenir en arrière, on peut revenir au menu principal
@@ -314,7 +311,7 @@ def evenement_para():
 def verif_para():
     action_para = mon_bouton_parametre.action
     # si on appuie sur le logo paramètre, on peut lancer, changer la musique et mettre en pause le jeu
-    if action_para == False:
+    if action_para == False :
         Bouton.menu_parametre()
         evenement_para()
         ecran.blit(logo_ar, (0, 0))
@@ -345,7 +342,7 @@ def affichage_menu():
         affichage_menu_bouton()
     verif_boutons()
 
-    # si on appuie sur jouer cela fait lancer le jeu
+    # si on appuie sur jouer cela fait lancer le menu règle
     if mon_bouton_jouer.action == False and action_para == True:
         return True
     #si on appuie sur quitter cela fait quitter le jeu
@@ -377,6 +374,8 @@ def boucle_menu():
         pygame.display.flip()
         # boucle tant qu'on n'a pas appuyé sur le bouton quitter (running=False)
         if affichage_menu() and Bouton.menu_regle():
+            # réactivation du menu musique après les règles
+            mon_bouton_jouer.action = True
             return True
         if affichage_menu() == False:
             running = False
