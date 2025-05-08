@@ -373,6 +373,7 @@ def boucle_menu():
         Bouton.menu_regle()
         pygame.display.flip()
         # boucle tant qu'on n'a pas appuyé sur le bouton quitter (running=False)
+        #si on a appuyé sur jouer et ok
         if affichage_menu() and Bouton.menu_regle():
             # réactivation du menu musique après les règles
             mon_bouton_jouer.action = True
