@@ -1,0 +1,16 @@
+2025-05-08 18:14:29
+- Personnage choisi : Einstein
+- Arme choisie : Fiole rouge
+- Monnaie à la fin de la partie : 111
+- Le bot a touché le joueur 0 fois sur 0 coup(s)
+- Le joueur a touché le bot 1 fois sur 1 coup(s)
+-> Victoire du joueur ! Félicitations !
+
+2025-05-08 18:15:12
+- Personnage choisi : Einstein
+- Arme choisie : Fiole rouge
+- Monnaie à la fin de la partie : 86
+- Le bot a touché le joueur 3 fois sur 5 coup(s)
+- Le joueur a touché le bot 1 fois sur 6 coup(s)
+-> Victoire du joueur ! Félicitations !
+

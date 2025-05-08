@@ -74,6 +74,7 @@ class Jeu:
             date_h = f"{date_heure}\n"
             choix_perso_h = f"- Personnage choisi : {details_perso['personnage']}\n"
             choix_arme_h = f"- Arme choisie : {details_arme['nom']}\n"
+            pieces_h = f"- Monnaie : {self.piece.monnaie_joueur} pièces à la fin de la partie\n"
             joueur_h = f"- Le bot a touché le joueur {self.joueur.collisions_joueur} fois sur {self.lancements_bot} coup(s)\n"
             bot_h = f"- Le joueur a touché le bot {self.bot.collisions_bot} fois sur {self.lancements_joueur} coup(s)\n"
             if self.bot.victoire_joueur :
@@ -86,6 +87,7 @@ class Jeu:
                 fichier.write(date_h)
                 fichier.write(choix_perso_h)
                 fichier.write(choix_arme_h)
+                fichier.write(pieces_h)
                 fichier.write(joueur_h)
                 fichier.write(bot_h)
                 fichier.write(resultat_h)
