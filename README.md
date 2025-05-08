@@ -47,9 +47,9 @@ pygame, math, random, json, os, ctypes, time
 
 #### - Noémie Marques :
 
-[![monnaie.py](https://img.shields.io/badge/monnaie-purple)](monnaie.py) :
+[![monnaie.py](https://img.shields.io/badge/monnaie-purple)](monnaie.py) : gestion du système de monnaie du jeu, octroyant au joueur une amélioration de ses dégâts (cela comprends l'affichage et la gestion du nombre de pièce et l'affichage et la gestion du bouton du coffre)  
 
-[![main.py](https://img.shields.io/badge/main-red)](main.py) :
+[![main.py](https://img.shields.io/badge/main-red)](main.py) : création de la liaison entre les fonctions du menu_joueur.py et l'affichage du bon personnage 
 
 #### - Thomas Aubert :
 
