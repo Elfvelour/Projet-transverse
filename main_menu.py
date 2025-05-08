@@ -148,6 +148,40 @@ class Bouton:
         position_texte = (taille_param[0] + 125, taille_param[1] + y_credit+200)
         ecran.blit(texte_3, position_texte)
 
+    @staticmethod
+    # créer le menu des règles
+    def menu_regle():
+
+        if mon_bouton_jouer.bouton_clique():
+            mon_bouton_ok.action=False
+        couleur_param = (0, 0, 0, 192)  # noir transparent
+        taille_param = (50, 50, 1800, 800)  # paramètre du rectangle paramètre
+        surface_param = pygame.Surface(pygame.Rect(taille_param).size,pygame.SRCALPHA)  # création de la surface translucide
+        pygame.draw.rect(surface_param, couleur_param, surface_param.get_rect())  # création du rectangle
+
+        # Création de la zone de texte pour les crédits
+        police = pygame.font.Font("assets/images/affichage/04B_30__.TTF", 45)
+        texte_1 = police.render("REGLE", True, "white")  # affichage du texte
+        position_texte = (taille_param[0] + 800, taille_param[1]+ 150 )  # Position du texte dans le rectangle
+
+        texte_2 = police.render("Genre il faut rester appuyer et viser en touchant ", True, "white")
+        position_texte_2 = (taille_param[0]+10 , taille_param[1] + 300)
+
+        texte_3=police.render("le bot",True,"white")
+        position_texte_3=(taille_param[0]+800,taille_param[1]+450)
+
+        # Quand on clique sur le bouton jouer, le menu règle est affiché.
+        if  mon_bouton_jouer.action == False:
+            mon_bouton_ok.creation_bouton(ecran)
+            ecran.blit(surface_param, taille_param)  # mise à jour de l'écran
+            ecran.blit(texte_1, position_texte)
+            ecran.blit(texte_2, position_texte_2)
+            ecran.blit(texte_3, position_texte_3)
+        #si on clique sur le bouton ok, cela lance la sélection des personnages
+        if mon_bouton_ok.bouton_clique():
+            return True
+
+        return None
 
     #verifie si le clic gauche de la souris clique sur le bouton
     def bouton_clique(self):
@@ -318,6 +352,8 @@ def affichage_menu():
     if Bouton.evenement(mon_bouton_quitter) == False and action_para == True:
         return False
 
+    return None
+
 
 
 #bouton jouer
@@ -328,7 +364,8 @@ mon_bouton_quitter=Bouton("quitter",x,y+120,couleur,longueur_b,hauteur_b,police_
 mon_bouton_parametre=Bouton("",x_p,y_p,'white',60,60,police_b,True)
 #bouton retour en arrière pour quitter le menu paramètre
 mon_bouton_ar=Bouton("",0,0,'white',50,50,police_b,True)
-
+#bouton ok
+mon_bouton_ok=Bouton("OK",x,y+200,couleur,longueur_b,hauteur_b,police_b,True)
 
 def boucle_menu():
     # Boucle principale
@@ -336,9 +373,10 @@ def boucle_menu():
     while running:
         affichage_menu()
         affichage_parametre()
+        Bouton.menu_regle()
         pygame.display.flip()
         # boucle tant qu'on n'a pas appuyé sur le bouton quitter (running=False)
-        if affichage_menu()==True:
+        if affichage_menu() and Bouton.menu_regle():
             return True
         if affichage_menu() == False:
             running = False
