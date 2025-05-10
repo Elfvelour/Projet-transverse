@@ -243,7 +243,7 @@ j'ai mis la variable "continuer" de la boucle principale dans **jeu.py** en glob
 
 #### 04/05/2025 :
 
-- **Thomas** : J'ai ajouté la masse de chaque arme au fichier **gestion_stats.json** et la physique mais il y a encore beaucoup de bugs.
+- **Thomas** : J'ai ajouté la masse de chaque arme au fichier **gestion_stats.json** et la physique, mais il y a encore beaucoup de bugs.
 
 #### 05/05/2025 :
 
@@ -251,12 +251,16 @@ j'ai mis la variable "continuer" de la boucle principale dans **jeu.py** en glob
 
 #### 08/05/2025 :
 
-- **Thomas** : Finalisation du système de masse et corrections de tous les petits bugs qui ne gênaient pas le jeu mais qui visuellement étaient dérangeants.
+- **Thomas** : Finalisation du système de masse et corrections de tous les petits bugs qui ne gênaient pas le jeu, mais qui visuellement étaient dérangeants.
 
 
-- **Flavie** : Création et finalisation de l'historique
+- **Flavie** : Création et finalisation de l'historique.
 
+- **Timothée** : Création d'un menu pour afficher les règles entre le menu principal et le menu de sélection des personnages dans **main_menu.py**.
 
+#### 03/05/2025 :
+
+- **Timothée** : Finalisation de l'écriture des règles et création d'un résumé des statistiques du jouer à la fin de la partie dans **jeu.py**.
 
 
 
