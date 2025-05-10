@@ -156,16 +156,26 @@ class Bouton:
         surface_param = pygame.Surface(pygame.Rect(taille_param).size,pygame.SRCALPHA)  # création de la surface translucide
         pygame.draw.rect(surface_param, couleur_param, surface_param.get_rect())  # création du rectangle
 
-        # Création de la zone de texte pour les crédits
-        police = pygame.font.Font("assets/images/affichage/04B_30__.TTF", 45)
-        texte_1 = police.render("REGLE", True, "white")  # affichage du texte
-        position_texte = (taille_param[0] + 800, taille_param[1]+ 150 )  # Position du texte dans le rectangle
+        # Création de la zone de texte pour les règles
+        police = pygame.font.Font("assets/images/affichage/04B_30__.TTF", 50)
+        texte_1 = police.render("REGLES", True, "white")  # affichage du texte
+        position_texte = (taille_param[0] + 775, taille_param[1]+ 50 )  # Position du texte dans le rectangle
 
-        texte_2 = police.render("Genre il faut rester appuyer et viser en touchant ", True, "white")
-        position_texte_2 = (taille_param[0]+10 , taille_param[1] + 300)
+        police = pygame.font.Font("assets/images/affichage/04B_30__.TTF", 35)
+        texte_2 = police.render("Le but est simple! Eliminer l'adversaire et vous gagnez! Pour le", True, "white")
+        position_texte_2 = (taille_param[0]+10 , taille_param[1] + 200)
 
-        texte_3=police.render("le bot",True,"white")
-        position_texte_3=(taille_param[0]+800,taille_param[1]+450)
+        texte_3=police.render("toucher, il suffit de maintenir le clic gauche appuye",True,"white")
+        position_texte_3=(taille_param[0]+150,taille_param[1]+300)
+
+        texte_4=police.render("pour augmenter la puissance de votre tir. Avant de relacher",True,"white")
+        position_texte_4=(taille_param[0]+50,taille_param[1]+400)
+
+        texte_5=police.render("votre clic, viser pour obtenir une belle trajectoire. Et",True,"white")
+        position_texte_5=(taille_param[0]+100,taille_param[1]+500)
+
+        texte_6=police.render("normalement, la victoire sera a vous! :)",True,"white")
+        position_texte_6=(taille_param[0]+300,taille_param[1]+600)
 
         # Quand on clique sur le bouton jouer, le menu règle est affiché.
         if  mon_bouton_jouer.action == False:
@@ -174,6 +184,10 @@ class Bouton:
             ecran.blit(texte_1, position_texte)
             ecran.blit(texte_2, position_texte_2)
             ecran.blit(texte_3, position_texte_3)
+            ecran.blit(texte_4, position_texte_4)
+            ecran.blit(texte_5, position_texte_5)
+            ecran.blit(texte_6, position_texte_6)
+
         #si on clique sur le bouton ok, cela lance la sélection des personnages
         if mon_bouton_ok.bouton_clique():
             return True

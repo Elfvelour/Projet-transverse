@@ -33,9 +33,9 @@ class Bot(pygame.sprite.Sprite):
 
         # animation de réussite après la mort du bot
         self.font = pygame.font.Font(None, 40)
-        self.font = pygame.font.Font("assets/images/affichage/04B_30__.TTF", 40)
-        self.x_gg = 900
-        self.y_gg = 505
+        self.font = pygame.font.Font("assets/images/affichage/04B_30__.TTF", 50)
+        self.x_gg = 750
+        self.y_gg = 400
         self.taille_gg = (200, 200)
         self.image_gg = pygame.image.load('assets/images/affichage/trophe.png')
         self.image_gg = pygame.transform.scale(self.image_gg, self.taille_gg)

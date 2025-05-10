@@ -92,6 +92,11 @@ class Jeu:
                 fichier.write(bot_h)
                 fichier.write(resultat_h)
 
+    def affichage_score(self):
+        police = pygame.font.Font("assets/images/affichage/04B_30__.TTF", 40)
+        texte=police.render(f"Coup(s): {self.bot.collisions_bot}, ratio: {self.bot.collisions_bot}/{self.lancements_joueur}, Monnaie restantes: {self.piece.monnaie_joueur}", True, "white")
+        ecran.blit(texte, (250, 650))
+
     def get_masse_projectile(self):
         for item in self.donnees_json:
             if item["code P"] == self.perso and item["code A"] == self.arme:
@@ -174,6 +179,7 @@ class Jeu:
 
         if self.bot.pv <= 0:
             self.bot.afficher_gg(self.ecran)
+            Jeu.affichage_score(self)
             if self.bot.afficher_gg(self.ecran):
                 continuer = False
         affichage_parametre()
