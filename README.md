@@ -12,7 +12,10 @@
 ### Caractéristiques techniques :
 
 - 8 fichiers _.py_, 1 fichier _.json_, 2 fichiers _.txt_, 35 fichiers _.png_, 10 fichiers _.mp3_, 1 fichier _.wav_
-noémie pk utilisation du json
+- Le fichier json stocke toutes les caractéristiques liées au personnages et armes disponibles.
+Il est chargé dans les fichiers **jeu.py** et **joueur.py** et gère donne les chemins d'accès de l'imagedu personnage
+et de l'arme choisi, ainsi que celles du BOT. 
+
 thomas pk enlever le plein écran
 flavie comment déterminer les trajectoires
 - utilisation de langage orienté objet avec l'utilisation des classes.
@@ -103,7 +106,7 @@ après de nombreux tests sur ce dernier
 
 #### 24/02/2025 :
 
-- **Noémie** : Le joueur gagne une pièce à chaque fois qu'il tire
+- **Noémie** : Continuation du fichier **monnaie.py**. Un compteur de pièce est affiché et le joueur gagne une pièce à chaque fois qu'il tire
 
 
 - **Timothée** : Création de la fenêtre du jeu de taille 1920 par 1024 ainsi que des boutons "jouer" et "quitter" dans le fichier **main_menu.py**. 
@@ -134,7 +137,7 @@ Puis j'ai initialisé la musique avec une boucle infinie avec la bibliothèque p
 
 #### 14/03/2025 :
 
-- **Noémie** : Ajout du bouton pour utiliser l'ultime coup du personnage
+- **Noémie** : Ajout du bouton pour utiliser un boost. Les dégâts de l'arme choisi sont augmentés de 10 points. 
 
 #### 15/03/2025 :
 
@@ -188,6 +191,8 @@ translucide et changer de musique.
 - **Flavie** : Améliorations dans **trajectoires.py** pour plus de clarté
   Séparation du fichier en plusieurs : **trajectoires.py** (sol et trajectoire du joueur), **joueur.py**, **bot.py**, **jeu.py**
   Rectifications qui en découlent dans le main
+
+- **Noémie** : Modification du main pour que les valeurs renvoyées par le **menu_joueur.py** soit utilisées dans dans les fichiers **joueur.py** et **jeu.py** 
 
 ##### 10/04/2025 :
 
@@ -243,20 +248,26 @@ j'ai mis la variable "continuer" de la boucle principale dans **jeu.py** en glob
 
 #### 04/05/2025 :
 
-- **Thomas** : J'ai ajouté la masse de chaque arme au fichier **gestion_stats.json** et la physique mais il y a encore beaucoup de bugs.
+- **Thomas** : J'ai ajouté la masse de chaque arme au fichier **gestion_stats.json** et la physique, mais il y a encore beaucoup de bugs.
 
 #### 05/05/2025 :
 
 - **Thomas** : Ajout d'un système de vitesse initiale ce qui a réglé tous mes problèmes de masses.
 
+- **Noémie** : Modification graphique du sol sur lequel est le joueur
+
 #### 08/05/2025 :
 
-- **Thomas** : Finalisation du système de masse et corrections de tous les petits bugs qui ne gênaient pas le jeu mais qui visuellement étaient dérangeants.
+- **Thomas** : Finalisation du système de masse et corrections de tous les petits bugs qui ne gênaient pas le jeu, mais qui visuellement étaient dérangeants.
 
 
-- **Flavie** : Création et finalisation de l'historique
+- **Flavie** : Création et finalisation de l'historique.
 
+- **Timothée** : Création d'un menu pour afficher les règles entre le menu principal et le menu de sélection des personnages dans **main_menu.py**.
 
+#### 10/05/2025 :
+
+- **Timothée** : Finalisation de l'écriture des règles et création d'un résumé des statistiques du jouer à la fin de la partie dans **jeu.py**.
 
 
 
