@@ -14,7 +14,7 @@ class Sol(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         # Chargement de l'image du sol (toit d'immeuble)
-        self.rect = pygame.image.load("assets/images/affichage/toit_immeuble.png").convert()
+        self.rect = pygame.image.load("assets/images/affichage/toit_immeubleV2.png").convert()
         self.rect_position = (0, 800)  # Position de l'image sur l'écran
 
     def affichage(self, surface):
