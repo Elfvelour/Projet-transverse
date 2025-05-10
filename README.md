@@ -67,7 +67,7 @@ pygame, math, random, json, os, ctypes, time
 
 #### - Rafaël De Jesus Coelho :
 
-[![menu_joueur.py](https://img.shields.io/badge/menu_joueur-blue)](menu_joueur.py) :
+[![menu_joueur.py](https://img.shields.io/badge/menu_joueur-blue)](menu_joueur.py) : permet de sélectionner le personnage et son arme avec ntégration des différents personnages et armes disponibles à partir du fichier gestion_stats.json.
 
 
 Commun : ***assets***
@@ -150,6 +150,8 @@ comme **menup** pour **main_menu.py**. Recherche et redimensionnement de nouvell
 - **Thomas** : J'ai réussi à faire jouer le bot et le joueur chacun leur tour et j'ai fait en sorte 
 qu'une collision entre le joueur et le bot affiche une explosion à l'impact.
 
+- **Rafael** : Création du fichier menu_joueur.py avec l’interface de base, intégration des personnages et armes depuis le JSON, et première version fonctionnelle des boutons de sélection.
+
 #### 24/03/2025 :
 
 - **Flavie** : Améliorations des trajectoires et du bot (gravité et projectiles)
@@ -158,6 +160,8 @@ qu'une collision entre le joueur et le bot affiche une explosion à l'impact.
 
 - **Thomas** : Quelques petites modifications du bot et l'affichage de l'explosion fonctionne mieux. 
 Quelques ajustements avec le code de Timothée pour que nos deux programmes fonctionnent ensemble.
+
+- **Rafael** : Amélioration de l’affichage avec l’ajout des images des personnages et des descriptions dynamiques, ainsi qu’une fonction pour découper le texte selon la taille de l’écran. Dans l’après-midi et la soirée, finalisation du menu avec un affichage stylisé, un bouton de sélection d’arme et la gestion du retour à la sélection personnage/arme. Optimisation générale du code pour plus de clarté.
 
 #### 25/03/2025 :
 
@@ -185,6 +189,7 @@ Il s'agit d'un bouton en deux parties la partie caché le bouton physique caché
 (son et musique). Refonte des fonctions pour la musique et création de deux fonctions pour changer et arrêter la musique. Création du bouton paramètre pour un menu 
 translucide et changer de musique.
 
+- **Rafael** : Finalisation de l’intégration quasi complète du menu_joueur dans le projet. Correction de quelques bugs liés à l’affichage et à la transition vers le jeu.
 
 #### 07/04/2025 :
 
