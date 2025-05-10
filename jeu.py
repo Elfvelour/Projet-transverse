@@ -106,7 +106,7 @@ class Jeu:
 
     def gerer_evenements_jeu(self, event):
         temps_ecoule_depuis_debut = pygame.time.get_ticks() - self.debut_partie
-        if temps_ecoule_depuis_debut < 100:
+        if temps_ecoule_depuis_debut < 500:
             return
 
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.tour_joueur:
