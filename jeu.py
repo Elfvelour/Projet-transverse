@@ -1,7 +1,7 @@
-#####################################################
-# Fichier de gestion du jeu                         #
-# Auteurs : tous                                    #
-#####################################################
+#######################################################
+# Fichier de gestion du jeu                           #
+# Auteurs : F.Brémand, T.Aubert, N.Marques, T.Girault #                                 #
+#######################################################
 
 from joueur import *
 from trajectoires import Projectile, Sol, Trajectoire

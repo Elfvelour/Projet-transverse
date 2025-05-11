@@ -1,6 +1,7 @@
 ##############################################
 ###### Programme Python choix du joueur ######
 ###### Auteur: Raphael                  ######
+###### Aide sur le fichier: T.Girault   ######
 ###### Version: 1.8                     ######
 ##############################################
 

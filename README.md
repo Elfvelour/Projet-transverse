@@ -12,6 +12,7 @@
 ### Caractéristiques techniques :
 
 - 8 fichiers _.py_, 1 fichier _.json_, 2 fichiers _.txt_, 35 fichiers _.png_, 10 fichiers _.mp3_, 1 fichier _.wav_
+
 - Le fichier json stocke toutes les caractéristiques liées au personnages et armes disponibles.
 Il est chargé dans les fichiers **jeu.py** et **joueur.py** et gère donne les chemins d'accès de l'imagedu personnage
 et de l'arme choisi, ainsi que celles du BOT. 

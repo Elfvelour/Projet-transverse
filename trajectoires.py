@@ -1,6 +1,7 @@
 #############################################################
 # Fichier de gestion des trajectoires (sol et projectiles)  #
 # Auteurs : Flavie BREMAND et Thomas AUBERT                 #
+# Aides sur le fichier: Noémie Marques et Timothée Girault  #
 #############################################################
 
 import pygame
