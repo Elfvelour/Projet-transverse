@@ -17,7 +17,6 @@
 Il est chargé dans les fichiers **jeu.py** et **joueur.py** et gère donne les chemins d'accès de l'imagedu personnage
 et de l'arme choisi, ainsi que celles du BOT. 
 
-thomas pk enlever le plein écran
 flavie comment déterminer les trajectoires
 - utilisation de langage orienté objet avec l'utilisation des classes.
 
