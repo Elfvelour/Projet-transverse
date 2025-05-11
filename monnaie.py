@@ -1,7 +1,6 @@
 ##################################################
 # Fichier gérant la gestion de la monnaie du jeu #
-# Auteure : Marques Noémie                       #
-# Aide sur le fichier: Flavie BREMAND            #
+# Auteure : Marques Noémie                       #           #
 ##################################################
 
 from joueur import *

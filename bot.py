@@ -1,10 +1,8 @@
 #############################################################
 # Fichier de gestion du bot                                 #
 # Auteurs : Flavie BREMAND et Thomas AUBERT                 #
-# Aides sur le fichier: Noémie Marques et Timothée Girault  #
 #############################################################
 
-import pygame
 import random
 from main_menu import *
 from jeu import *
