@@ -1,6 +1,6 @@
 #######################################################
 # Fichier de gestion du jeu                           #
-# Auteurs : F.Brémand, T.Aubert, N.Marques, T.Girault #                                 #
+# Auteurs : F.Brémand, T.Aubert, N.Marques, T.Girault #
 #######################################################
 
 from joueur import *
