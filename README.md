@@ -47,6 +47,8 @@ pygame, math, random, json, os, ctypes, time
 
 [![main.py](https://img.shields.io/badge/main-red)](main.py) : création de l'ancienne version
 
+[![historique.txt](https://img.shields.io/badge/historique-green)](main.py) : création de l'historique
+
 #### - Noémie Marques :
 
 [![monnaie.py](https://img.shields.io/badge/monnaie-purple)](monnaie.py) : gestion du système de monnaie du jeu, octroyant au joueur une amélioration de ses dégâts (cela comprend l'affichage et la gestion du nombre de pièces et l'affichage et la gestion du bouton du coffre)  
