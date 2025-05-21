@@ -25,19 +25,19 @@ pygame, math, random, json, os, ctypes, time
 
 ## Contributeurs :
 
-- Girault Timothée 
-- Aubert Thomas 
-- Brémand Flavie 
-- Marques Noémie
-- De Jesus Coelho Rafaël 
+-  Timothée 
+-  Thomas 
+-  Flavie 
+-  Noémie
+-  Rafaël 
 
-#### - Timothée Girault :
+#### - Timothée :
 
 [![main_menu.py](https://img.shields.io/badge/main_menu-blue)](main_menu.py) : création du menu principal du jeu ainsi que les paramètres pour changer de musique et l'allumer ou l'éteindre
 
 [![main.py](https://img.shields.io/badge/main-red)](main.py) : résolution des bugs
 
-#### - Flavie Brémand :
+#### - Flavie :
 
 [![jeu.py](https://img.shields.io/badge/jeu-green)](jeu.py) : gestion de l'alternance entre le joueur et le bot, affichage de l'explosion, boucle principale et gestion de l'historique
 
@@ -49,13 +49,13 @@ pygame, math, random, json, os, ctypes, time
 
 [![historique.txt](https://img.shields.io/badge/historique-green)](main.py) : création de l'historique
 
-#### - Noémie Marques :
+#### - Noémie :
 
 [![monnaie.py](https://img.shields.io/badge/monnaie-purple)](monnaie.py) : gestion du système de monnaie du jeu, octroyant au joueur une amélioration de ses dégâts (cela comprend l'affichage et la gestion du nombre de pièces et l'affichage et la gestion du bouton du coffre)  
 
 [![main.py](https://img.shields.io/badge/main-red)](main.py) : création de la liaison entre les fonctions du menu_joueur.py et l'affichage du bon personnage 
 
-#### - Thomas Aubert :
+#### - Thomas :
 
 [![trajectoires.py](https://img.shields.io/badge/trajectoire.py-green)](trajectoires.py) : Création et amélioration de la trajectoire. Ajout de physique et d'un système de masse pour les projectiles. 
 
@@ -66,7 +66,7 @@ pygame, math, random, json, os, ctypes, time
 [![bot.py](https://img.shields.io/badge/gestion_stats-blue)](gestion_stats.json) : Création des statistiques de vie, dégâts et masse pour les personnages
 
 
-#### - Rafaël De Jesus Coelho :
+#### - Rafaël:
 
 [![menu_joueur.py](https://img.shields.io/badge/menu_joueur-blue)](menu_joueur.py) : permet de sélectionner le personnage et son arme avec ntégration des différents personnages et armes disponibles à partir du fichier gestion_stats.json.
 
