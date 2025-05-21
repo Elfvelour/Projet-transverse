@@ -25,11 +25,11 @@ pygame, math, random, json, os, ctypes, time
 
 ## Contributeurs :
 
-- Girault Timothée : [timothee.girault@efrei.net](mailto:timothee.girault@efrei.net)
-- Aubert Thomas : [thomas.aubert@efrei.net](mailto:thomas.aubert@efrei.net)
-- Brémand Flavie : [flavie.bremand@efrei.net](mailto:flavie.bremand@efrei.net)
-- Marques Noémie : [noemie.marques@efrei.net](mailto:noemie.marques@efrei.net)
-- De Jesus Coelho Rafaël : [rafael.de-jesus-coelho@efrei.net](mailto:rafael.de-jesus-coelho@efrei.net)
+- Girault Timothée 
+- Aubert Thomas 
+- Brémand Flavie 
+- Marques Noémie
+- De Jesus Coelho Rafaël 
 
 #### - Timothée Girault :
 
